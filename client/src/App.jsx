@@ -8,6 +8,7 @@ import Profile from "./pages/Profile"
 import "./Scss/reset.scss"
 import Footer from "./layout/Footer"
 import ContactPage from "./pages/Contact"
+import { AddMovies } from "./pages/AddMovies"
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/contact" element={<ContactPage/>} />
+        <Route path="/addmovie" element={<AddMovies/>} />
       </Routes>
       <Footer/>
     </>

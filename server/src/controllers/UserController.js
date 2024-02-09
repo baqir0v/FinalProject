@@ -5,7 +5,7 @@ import cloudinary from "../utils/cloudinary.js";
 import path from "path"
 import upload from "../middleware/multer.js";
 
-const userController = ({
+const userController = {
     getAllUsers: async (req, res) => {
         try {
             const allUsers = await UserModel.find({})
@@ -22,59 +22,59 @@ const userController = ({
             res.status(500).json({ message: error })
         }
     },
-    registerUser: async (req, res) => {
-        try {
-            const { nickname, email, password, isAdmin } = req.body
-            console.log(req.body);
-            // let imagePath = image
+    // registerUser: async (req, res) => {
+    //     try {
+    //         const { nickname, email, password, isAdmin } = req.body
+    //         console.log(req.body);
+    //         // let imagePath = image
 
-            const nicknameExist = await UserModel.findOne({ nickname })
-            const emailExist = await UserModel.findOne({ email })
+    //         const nicknameExist = await UserModel.findOne({ nickname })
+    //         const emailExist = await UserModel.findOne({ email })
 
-            if (nicknameExist) {
-                res.status(400).send("Nickname already exist")
-            }
-            if (emailExist) {
-                res.status(400).send("Email already exist")
-            }
-            // if (!image.startsWith("http")) {
-            //     console.log(image);
-            //     // const _dirname = path.resolve()
-            //     imagePath = image.replace(/\\/g, '/');
-            //     console.log(imagePath);
-            // }
+    //         if (nicknameExist) {
+    //             res.status(400).send("Nickname already exist")
+    //         }
+    //         if (emailExist) {
+    //             res.status(400).send("Email already exist")
+    //         }
+    //         // if (!image.startsWith("http")) {
+    //         //     console.log(image);
+    //         //     // const _dirname = path.resolve()
+    //         //     imagePath = image.replace(/\\/g, '/');
+    //         //     console.log(imagePath);
+    //         // }
 
-            const result = await cloudinary.uploader.upload(
+    //         const result = await cloudinary.uploader.upload(
            
-            req.files['image'][0].path,{
-                folder:"users"
-            }
+    //         req.files['image'][0].path,{
+    //             folder:"users"
+    //         }
 
-            )
-            console.log(result,"Axhmed");
-            const hashedPassword = await bcrypt.hash(password, 10)
+    //         )
+    //         console.log(result,"Axhmed");
+    //         const hashedPassword = await bcrypt.hash(password, 10)
 
-            console.log(nickname);
+    //         console.log(nickname);
 
-            const newUser = new UserModel({
-                nickname,
-                email,
-                password: hashedPassword,
-                image: result.secure_url,
+    //         const newUser = new UserModel({
+    //             nickname,
+    //             email,
+    //             password: hashedPassword,
+    //             image: result.secure_url,
 
-                // {
-                //     public_id: result.public_id,
-                //     url: result.secure_url
-                // },
-                isAdmin
-            })
+    //             // {
+    //             //     public_id: result.public_id,
+    //             //     url: result.secure_url
+    //             // },
+    //             isAdmin
+    //         })
 
-            await newUser.save()
-            res.send(newUser)
-        } catch (error) {
-            res.status(500).json({ message: error.message })
-        }
-    },
+    //         await newUser.save()
+    //         res.send(newUser)
+    //     } catch (error) {
+    //         res.status(500).json({ message: error.message })
+    //     }
+    // },
 
     registerUser: async (req, res) => {
         try {
@@ -82,7 +82,7 @@ const userController = ({
             upload.fields([{ name: 'image' }])(req, res, async (err) => {
                 if (err) {
                     console.error(err);
-                    return res.status(400).json({ message: 'Error uploading file' });
+                    return res.status(400).json({ message: err.message });
                 }
     
                 const { nickname, email, password, isAdmin } = req.body;
@@ -183,6 +183,6 @@ const userController = ({
         }
     }
 
-})
+}
 
 export default userController
