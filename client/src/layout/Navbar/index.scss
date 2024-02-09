@@ -47,35 +47,45 @@
             display: flex;
             align-items: center;
             gap: 20px;
+            .themechanger{
+                cursor: pointer;
+                font-size: 20px;
+            }
             span{
                 display: none;
             }
             img {
                 width: 50px;
+                height: 50px;
                 border-radius: 100%;
             }
         }
     }
 }
 
+.activenavlink {
+    color: white;
+    background-color: white;
+}
 
 .darknav {
     background-color: var(--navbar-bg-dark);
     -webkit-box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .12), inset 0 -1px 0 0 #212121;
     box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .12), inset 0 -1px 0 0 #212121;
     .nav{
+        ul{
+            li{
+                a{
+                    color: #888888;
+                }
+            }
+        }
         .sidebar{
             border-top:1px solid #888888 ;
             background-color: var(--navbar-bg-dark);
             -webkit-box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .12), inset 0 -1px 0 0 #212121;
             box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .12), inset 0 -1px 0 0 #212121;
-            ul{
-                li{
-                    a{
-                        color: white;
-                    }
-                }
-            }
+
         }
     }
     .navbox {
@@ -84,17 +94,10 @@
                 fill: white;
             }
         }
-
-        .navmid {
-            ul {
-                li {
-                    a {
-                        color: white;
-                    }
-                }
-            }
-        }
         .navright{
+            .themechanger{
+                color: white;
+            }
             span{
                 color: white;
             }
@@ -107,18 +110,19 @@
     -webkit-box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .12), inset 0 -1px 0 0 #e6e6e6;
     box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .12), inset 0 -1px 0 0 #e6e6e6;
     .nav{
+        ul{
+            li{
+                a{
+                    color: #666666;
+                }
+            }
+        }
         .sidebar{
             border-top:1px solid #666666 ;
             background-color: var(--navbar-bg-light);
             -webkit-box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .12), inset 0 -1px 0 0 #e6e6e6;
             box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .12), inset 0 -1px 0 0 #e6e6e6;
-            ul{
-                li{
-                    a{
-                        color: black;
-                    }
-                }
-            }
+
         }
     }
     .navbox {
@@ -127,17 +131,10 @@
                 fill: black;
             }
         }
-
-        .navmid {
-            ul {
-                li {
-                    a {
-                        color: black;
-                    }
-                }
-            }
-        }
         .navright{
+            .themechanger{
+                color:black;
+            }
             span{
                 color: black;
             }

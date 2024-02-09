@@ -1,0 +1,48 @@
+#signup{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 0px;
+    form{
+        padding:50px 40px;
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        input{
+            height: 50px;
+            background-color: transparent;
+            border: none;
+            outline: none;
+            border-bottom: 1px solid #0693e3;
+        }
+        input[type="file"]{
+            height: auto;
+            border: none;
+        }
+        button{
+            width: 120px;
+            height: 40px;
+        }
+    }
+}
+
+.darksign{
+    background-color: var(--contact-bg-dark);
+    form{
+        background-color: var(--background-color-dark);
+        color: #888888;
+        input{
+            color: #888888;
+        }
+    }
+}
+
+.lightsign{
+    background-color: var(--contact-bg-light);
+    form{
+        color: #666666;
+        box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+        background-color: var(--background-color-light);
+    }
+}

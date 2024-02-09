@@ -1,12 +1,15 @@
 import React, { useContext } from 'react';
+import "./index.scss"
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from "axios"
 import { UserContext } from '../../Context/userContext';
 import { jwtDecode } from "jwt-decode"
+import { DarkmodeContext } from '../../Context/darkmodeContext';
 
 export const LogIn = () => {
     const { user , setUser,token } = useContext(UserContext)
+    const { darkmode } = useContext(DarkmodeContext)
 
     // token? const user = jwtDecode(token) : ""
     // const user = token ? jwtDecode(token) : null
@@ -33,7 +36,7 @@ export const LogIn = () => {
     }
 
     return (
-        <>
+        <div id='login' className={darkmode ? "darklogin" : "lightlogin"}>
             <Formik
                 initialValues={{ nickname: '', password: '', email: '' }}
                 validationSchema={Yup.object({
@@ -67,7 +70,7 @@ export const LogIn = () => {
                     <button type="submit">Submit</button>
                 </Form>
             </Formik>
-            {user ? <button onClick={()=>handleLogOut()}>Log Out</button> : ""}
-        </>
+            {/* {user ? <button onClick={()=>handleLogOut()}>Log Out</button> : ""} */}
+        </div>
     );
 };

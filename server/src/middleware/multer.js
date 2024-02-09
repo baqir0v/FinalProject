@@ -4,7 +4,7 @@ import path from 'path';
 // Set storage engine
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/'); // Specify the destination folder where uploaded files will be stored
+    cb(null, 'src/uploads'); // Specify the destination folder where uploaded files will be stored
   },
   filename: function (req, file, cb) {
     cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
@@ -25,10 +25,10 @@ function checkFileType(file, cb) {
 
 // Init upload
 const upload = multer({
-  storage: storage,
-  fileFilter: function (req, file, cb) {
-    checkFileType(file, cb);
-  },
-}).single('image'); // 'image' should match the name attribute in your form field
+  storage: storage
+  // fileFilter: function (req, file, cb) {
+  //   checkFileType(file, cb);
+  // },
+}) // 'image' should match the name attribute in your form field
 
 export default upload;

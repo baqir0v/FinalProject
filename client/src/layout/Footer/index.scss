@@ -1,0 +1,161 @@
+#footer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    .footerbox {
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+
+        .footertop {
+            width: 100%;
+            border-bottom: 1px solid #424242;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 0px;
+            .social {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 20px;
+
+                a {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 5px;
+                }
+            }
+        }
+
+        .footermid {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            padding: 50px 0px;
+
+            .right {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                border-left: 1px solid #424242;
+                padding-left: 20px;
+
+            }
+
+            ul {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+    }
+
+    .footerbottom {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .bottombox {
+            padding: 30px 0px;
+            width: 90%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+    }
+}
+
+.darkfooter {
+    background-color: #262626;
+
+    .footerbox {
+        ul {
+            li {
+                color: white;
+
+                a {
+                    color: white;
+                }
+            }
+        }
+
+        .footertop {
+            h3 {
+                color: white;
+            }
+
+            .social {
+                a {
+                    color: white;
+                }
+            }
+        }
+
+        .footermid {
+            color: white;
+        }
+
+       
+    }
+    .footerbottom {
+        background-color: #212121;
+        color: white;
+    }
+
+}
+
+.lightfooter {
+    background-color: #eeeeee;
+
+    .footerbox {
+        ul {
+            li {
+                color: black;
+
+                a {
+                    color: black;
+                }
+            }
+        }
+
+        .footertop {
+            h3 {
+                color: black;
+            }
+
+            .social {
+                a {
+                    color: black;
+                }
+            }
+        }
+
+        .footermid {
+            h4 {
+                color: black;
+            }
+        }
+    }
+    .footerbottom {
+        background-color: #e0e0e0;
+        color: black;
+    }
+}
+
+@media screen and (max-width :500px) {
+    #footer{
+            .footerbottom{
+                img{
+                    width: 100px !important;
+                }
+        }
+    }
+}

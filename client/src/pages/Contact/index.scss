@@ -1,0 +1,187 @@
+#contact {
+    // background-color: #2d2d2d;
+    padding: 50px 0px;
+    width: 100%;
+    min-height: 120vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .contactbox {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        flex-wrap: wrap;
+        width: 85%;
+        height: 80%;
+
+        .contactleft {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 50px;
+            box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+
+            h3 {
+                font-size: 25px;
+            }
+
+            input {
+                width: 600px;
+                height: 50px;
+                color: #888888;
+                background-color: transparent;
+                border: none;
+                outline: none;
+                border-bottom: 1px solid #0693e3;
+            }
+
+            textarea {
+                background-color: transparent;
+                color: #888888;
+                border: none;
+                outline: none;
+                border-bottom: 1px solid #0693e3;
+                resize: none;
+            }
+
+            button {
+                width: 100px;
+                height: 40px;
+                color: #fff;
+                background-color: #2196F3;
+                border-color: #2196F3;
+                cursor: pointer;
+                -webkit-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+                box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+            }
+        }
+
+        .contactright {
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+
+            .top {
+                border: 1px solid #424242;
+                padding: 40px;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+
+                h3 {
+                    font-size: 25px;
+                }
+
+                p {
+                    color: #888888;
+                }
+            }
+
+            .bottom {
+                border: 1px solid #424242;
+                padding: 40px;
+                display: flex;
+                justify-content: space-evenly;
+
+                a {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 100%;
+                    color: white;
+                    cursor: pointer;
+                }
+
+                .blue {
+                    background-color: #3a5795;
+                }
+
+                .cyan {
+                    background-color: #78bdf1;
+                }
+
+                .orange {
+                    background-color: #dd4b39;
+                }
+
+                .grey {
+                    background-color: #3d739c;
+                }
+
+                .vimeo {
+                    background-color: #5bc8ff;
+                }
+
+                .red {
+                    background-color: #d55043;
+                }
+            }
+        }
+    }
+}
+
+.contactdark {
+    background-color: var(--contact-bg-dark);
+
+    h3 {
+        color: white;
+    }
+
+    .contactleft {
+        background-color: var(--background-color-dark);
+
+    }
+}
+
+.contactlight {
+    background-color: var(--contact-bg-light);
+    color: black;
+
+    .contactleft {
+        background-color: var(--background-color-light);
+
+    }
+}
+
+@media screen and (max-width: 800px) {
+    #contact {
+        .contactbox {
+            .contactleft {
+                padding: 20px !important;
+            }
+
+            .contactright {
+                .top {
+                    padding: 20px !important;
+
+                    h3 {
+                        font-size: 20px;
+                    }
+
+                    p {
+                        font-size: 10px;
+                    }
+                }
+
+                .bottom {
+                    padding: 20px !important;
+                    a{
+                        width: 20px;
+                        height: 20px;
+                        font-size: 10px;
+                    }
+                }
+            }
+
+            input {
+                width: 180px !important;
+                height: 20px !important;
+                font-size: 10px !important;
+            }
+        }
+    }
+}

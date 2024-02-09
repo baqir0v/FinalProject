@@ -2,10 +2,12 @@ import React, { useContext, useEffect, useState } from 'react'
 import { UserContext } from '../../Context/userContext'
 import axios from 'axios'
 import "./index.scss"
+import { DarkmodeContext } from '../../Context/darkmodeContext'
 
 const AdminPage = () => {
   const [data, setData] = useState([])
   const { user, userData } = useContext(UserContext)
+  const { darkmode } = useContext(DarkmodeContext)
 
   const fetchData = async () => {
     const res = await fetch("http://localhost:5500/api/users/")
@@ -29,7 +31,7 @@ const AdminPage = () => {
     fetchData()
   }, [])
   return (
-    <div>
+    <div id='adminpage' className={darkmode ? "darkadmin" : "lightadmin"}>
       {data.length > 0 ?
         <table>
           <thead>
@@ -45,7 +47,7 @@ const AdminPage = () => {
           <tbody>
             {data && data.map((item) => (
               <tr key={item._id}>
-                <td><img src={item.image.url} alt="" /></td>
+                <td><img src={item.image} alt="" /></td>
                 <td>{item.nickname}</td>
                 <td>{item.email}</td>
                 {item.isAdmin === true ? <td>True</td> : <td>False</td>}

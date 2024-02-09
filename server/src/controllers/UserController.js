@@ -24,7 +24,8 @@ const userController = ({
     },
     registerUser: async (req, res) => {
         try {
-            const { nickname, email, password, image, isAdmin } = req.body
+            const { nickname, email, password, isAdmin } = req.body
+            console.log(req.body);
             // let imagePath = image
 
             const nicknameExist = await UserModel.findOne({ nickname })
@@ -43,69 +44,85 @@ const userController = ({
             //     console.log(imagePath);
             // }
 
-            const result = await cloudinary.uploader.upload(image, {
-                folder: "users",
-            })
+            const result = await cloudinary.uploader.upload(
+           
+            req.files['image'][0].path,{
+                folder:"users"
+            }
+
+            )
+            console.log(result,"Axhmed");
             const hashedPassword = await bcrypt.hash(password, 10)
+
+            console.log(nickname);
 
             const newUser = new UserModel({
                 nickname,
                 email,
                 password: hashedPassword,
-                image: {
-                    public_id: result.public_id,
-                    url: result.secure_url
-                },
+                image: result.secure_url,
+
+                // {
+                //     public_id: result.public_id,
+                //     url: result.secure_url
+                // },
                 isAdmin
             })
 
             await newUser.save()
             res.send(newUser)
         } catch (error) {
-            res.status(500).json({ message: error })
+            res.status(500).json({ message: error.message })
         }
     },
-    // registerUser: async (req, res) => {
-    //     try {
-    //         upload(req, res, async (err) => {
-    //             if (err) {
-    //                 console.error(err);
-    //                 return res.status(400).json({ message: 'Error uploading file' });
-    //             }
+
+    registerUser: async (req, res) => {
+        try {
+            // Use upload.fields middleware directly in the controller
+            upload.fields([{ name: 'image' }])(req, res, async (err) => {
+                if (err) {
+                    console.error(err);
+                    return res.status(400).json({ message: 'Error uploading file' });
+                }
     
-    //             const { nickname, email, password, isAdmin } = req.body;
-    //             const image = req.file;
+                const { nickname, email, password, isAdmin } = req.body;
     
+                const nicknameExist = await UserModel.findOne({ nickname });
+                const emailExist = await UserModel.findOne({ email });
     
-    //             // Cloudinary upload
-    //             const result = await cloudinary.uploader.upload(image.path, {
-    //                 folder: 'users',
-    //             });
+                if (nicknameExist) {
+                    return res.status(400).send("Nickname already exists");
+                }
+                if (emailExist) {
+                    return res.status(400).send("Email already exists");
+                }
     
-    //             // Hash password
-    //             const hashedPassword = await bcrypt.hash(password, 10);
+                const imageResult = req.files['image'][0];
     
-    //             // Save user to the database
-    //             const newUser = new UserModel({
-    //                 nickname,
-    //                 email,
-    //                 password: hashedPassword,
-    //                 image: {
-    //                     public_id: result.public_id,
-    //                     url: result.secure_url,
-    //                 },
-    //                 isAdmin,
-    //             });
+                // Upload the image to Cloudinary
+                const cloudinaryResult = await cloudinary.uploader.upload(imageResult.path, {
+                    folder: "users",
+                });
     
-    //             await newUser.save();
-    //             res.send(newUser);
-    //         });
-    //     } catch (error) {
-    //         console.error(error);
-    //         res.status(500).json({ message: error.message });
-    //     }
-    // },
+                const hashedPassword = await bcrypt.hash(password, 10);
     
+                const newUser = new UserModel({
+                    nickname,
+                    email,
+                    password: hashedPassword,
+                    image: cloudinaryResult.secure_url,
+                    isAdmin,
+                });
+    
+                await newUser.save();
+                return res.send(newUser);
+            });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ message: error.message });
+        }
+    },
+
     loginUser: async (req, res) => {
         try {
             const { nickname, email, password } = req.body

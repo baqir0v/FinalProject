@@ -6,6 +6,8 @@ import { SignUp } from "./pages/SignUp"
 import { LogIn } from "./pages/LogIn"
 import Profile from "./pages/Profile"
 import "./Scss/reset.scss"
+import Footer from "./layout/Footer"
+import ContactPage from "./pages/Contact"
 
 function App() {
 
@@ -18,7 +20,9 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/admin" element={<AdminPage />} />
+        <Route path="/contact" element={<ContactPage/>} />
       </Routes>
+      <Footer/>
     </>
   )
 }
