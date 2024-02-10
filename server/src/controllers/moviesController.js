@@ -23,19 +23,31 @@ const moviesController = {
     },
     addMovie: async (req, res) => {
         try {
-            upload.fields([{ name: "image" }])(req, res, async (err) => {
+            upload.fields([{ name: "image" },{ name: "video"}])(req, res, async (err) => {
                 if (err) {
                     console.error(err);
                     return res.status(400).json({ message: err.message });
                 }
     
                 const { name, desc, lang, year, category, cast } = req.body;
+                console.log(category);
+                console.log(typeof category);
     
                 const imageResult = req.files["image"][0];
-    
-                const cloudinaryResult = await cloudinary.uploader.upload(imageResult.path, {
+                const imageUpload = cloudinary.uploader.upload(imageResult.path,{
+                    folder: "movies"
+                })
+
+                const videoResult = req.files["video"][0]
+                const videoUpload = cloudinary.uploader.upload(videoResult.path,{
                     folder: "movies",
-                });
+                    resource_type: "video"
+                })
+
+                const [imageResponse,videoResponse] = await Promise.all([imageUpload,videoUpload])
+                // const cloudinaryResult = await cloudinary.uploader.upload(imageResult.path, {
+                //     folder: "movies",
+                // });
     
                 // Find ObjectIds for the given category names
                 const categoryObjects = await categoriesModel.find({ categoryname: { $in: category } });
@@ -50,7 +62,8 @@ const moviesController = {
                     year,
                     category: categoryIds,
                     cast,
-                    image: cloudinaryResult.secure_url,
+                    image: imageResponse.secure_url,
+                    video: videoResponse.secure_url,
                 });
     
                 await newMovie.save();

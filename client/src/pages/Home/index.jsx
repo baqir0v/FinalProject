@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import Movies from '../../components/Movies'
 
 const Home = () => {
     const [data, setData] = useState([])
@@ -16,7 +17,7 @@ const Home = () => {
 
     return (
         <div>
-           
+           <Movies/>
         </div>
     )
 }

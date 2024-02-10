@@ -19,7 +19,7 @@ const moviesModel = new mongoose.Schema({
     },
     cast: [
         {
-            name: { type: String, required: true },
+            castName: { type: String, required: true },
             // image: { type: String, required: true },
         }
     ]

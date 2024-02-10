@@ -44,7 +44,7 @@ export const SignUp = () => {
         }}
       >
         <Form>
-
+{/* 
         <Field name="category" as="select" multiple>
             <option value="action">
               Action
@@ -52,7 +52,7 @@ export const SignUp = () => {
             <option value="drama">
               Action
             </option>
-        </Field>
+        </Field> */}
 
           <label htmlFor="nickname">NickName</label>
           <Field name="nickname" type="text" />
