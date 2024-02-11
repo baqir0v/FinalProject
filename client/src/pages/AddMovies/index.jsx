@@ -46,6 +46,40 @@ export const AddMovies = () => {
         }
     };
 
+    // const handleAddMovie = async (values) => {
+    //     try {
+    //         console.log("salam");
+    //         const formData = new FormData();
+    
+    //          Object.keys(values).forEach((key) => {
+    //             //  if (key === "cast") {
+    //             //     //   Handle the 'cast' field as an array of objects
+    //             //      values.cast.forEach((castObj, index) => {
+    //             //          Object.keys(castObj).forEach((castKey) => {
+    //             //              formData.append(`cast[${index}].${castKey}`, castObj[castKey]);
+    //             //          });
+    //             //      });
+    //             //  } else if (key === "category") {
+    //                 //   Handle the 'category' field as an array of category IDs
+    //                 //  values.category.forEach((categoryId) => {
+    //                 //      formData.append("category[]", categoryId);
+    //                 //  });
+    //             //  } else {
+    //                 formData.append(key, values[key]);
+    //             //  }
+    //          });
+    
+    //         const resp = await axios.post("http://localhost:5500/api/movies/", formData);
+    //         console.log("123");
+    //         console.log(resp.data);
+    //         console.log(values.category);
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // };
+    
+    
+
 
     return (
         <div id='addmovie' className={darkmode ? "darkaddmovie" : "lightaddmovie"}>
@@ -142,11 +176,16 @@ export const AddMovies = () => {
                         </Field>
                         <ErrorMessage name="video" />
 
-
                         {/* <label htmlFor="category">Category</label>
                         <Field name="category" as="select" multiple>
                             <option value="Action">
                                 Action
+                            </option>
+                            <option value="Drama">
+                                Drama
+                            </option>
+                            <option value="Drama">
+                                Drama
                             </option>
                             <option value="Drama">
                                 Drama
@@ -156,7 +195,7 @@ export const AddMovies = () => {
                         <label>Categories</label>
                         <div role="group" aria-labelledby="checkbox-group" >
                              {data && data.map((cat) => (
-                                <label className="container">
+                                <label className="container" key={cat._id}>
                                     <Field type="checkbox" name="category" value={cat._id} />
                                     {cat.categoryname}
                                     <span className="checkmark"></span>

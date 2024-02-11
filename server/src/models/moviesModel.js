@@ -1,13 +1,18 @@
 import mongoose from "mongoose";
 
+const castModel = new mongoose.Schema({
+    castName: { type: String },
+    image: { type: String }
+})
+
 const moviesModel = new mongoose.Schema({
     name: { type: String, required: true },
     desc: { type: String, required: true },
     lang: { type: String, required: true },
     year: { type: Number, required: true },
     category: [{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Category"
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Category"
     }],
     image: {
         type: String,
@@ -18,11 +23,8 @@ const moviesModel = new mongoose.Schema({
         // required: true
     },
     cast: [
-        {
-            castName: { type: String, required: true },
-            // image: { type: String, required: true },
-        }
+        castModel
     ]
-},{timestamps:true})
+}, { timestamps: true })
 
-export default mongoose.model("Movies",moviesModel)
+export default mongoose.model("Movies", moviesModel)
