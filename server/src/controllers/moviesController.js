@@ -29,6 +29,7 @@ const moviesController = {
                     return res.status(400).json({ message: err.message });
                 }
     
+                // const { name, desc, lang, year, category, cast } = req.body;
                 const { name, desc, lang, year, category, cast } = req.body;
                 console.log(category);
                 console.log(typeof category);
@@ -73,7 +74,7 @@ const moviesController = {
                     { _id: { $in: categoryIds } },
                     { $push: { movies: newMovie._id } }
                 );
-    
+       
                 res.send(newMovie);
             });
         } catch (error) {
@@ -88,6 +89,29 @@ const moviesController = {
             res.send(`${deleteByID.name} deleted`)
         } catch (error) {
             res.status(500).json({ message: error })
+        }
+    },
+    updateMovieByID: async (req, res) => {
+        try {
+            const movieId = req.params.id; // Assuming movie ID is in the request parameters
+            const { category } = req.body; // Assuming only category is being updated
+    
+            // Find ObjectIds for the given category names
+            const categoryObjects = await categoriesModel.find({ categoryname: { $in: category } });
+    
+            // Extract ObjectIds from the found categories
+            const categoryIds = categoryObjects.map((categoryObj) => categoryObj._id);
+    
+            // Update the movie's category field with the new category IDs
+            const updatedMovie = await moviesModel.findByIdAndUpdate(
+                movieId,
+                { $set: { category: categoryIds } },
+                { new: true }
+            );
+    
+            res.status(200).json(updatedMovie);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
         }
     }
 }

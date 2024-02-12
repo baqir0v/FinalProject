@@ -6,5 +6,6 @@ moviesRouter.get("/",moviesController.getAllMovies)
 moviesRouter.get("/:id",moviesController.getMoviesByID)
 moviesRouter.post("/",moviesController.addMovie)
 moviesRouter.delete("/:id",moviesController.deleteMovieByID)
+moviesRouter.put("/:id",moviesController.updateMovieByID)
 
 export default moviesRouter
