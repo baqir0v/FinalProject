@@ -28,7 +28,7 @@ const Navbar = () => {
             <ul>
               <li><NavLink activeclassname='active' to={"/home"}>Home</NavLink></li>
               <li><NavLink to={"/contact"}>Contact</NavLink></li>
-              <li><NavLink to={"/addmovie"}>addmovie</NavLink></li>
+              <li><NavLink to={"/addmovie"}>Addmovie</NavLink></li>
               <li>
                 {user && userData.isAdmin === true ?
                   <NavLink to={"/admin"}>Admin</NavLink>
@@ -51,6 +51,7 @@ const Navbar = () => {
           <ul>
             <li><NavLink to={"/home"}>Home</NavLink></li>
             <li><NavLink to={"/contact"}>Contact</NavLink></li>
+            <li><NavLink to={"/addmovie"}>Addmovie</NavLink></li>
             <li>
               {user && userData.isAdmin === true ?
                 <NavLink to={"/admin"}>Admin</NavLink>

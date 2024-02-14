@@ -11,7 +11,7 @@ export const SignUp = () => {
   return (
     <div id="signup" className={darkmode ? "darksign" : "lightsign"}>
       <Formik
-        initialValues={{ nickname: '', password: '', email: '', image: '',category: [] }}
+        initialValues={{ nickname: '', password: '', email: '', image: '', category: [] }}
         validationSchema={Yup.object({
           nickname: Yup.string()
             .max(15, 'Must be 15 characters or less')
@@ -28,12 +28,12 @@ export const SignUp = () => {
           const handleRegister = async () => {
             try {
               const formData = new FormData();
-          
+
               Object.keys(values).forEach((key) => {
                 formData.append(key, values[key]);
               });
-          
-          
+
+
               const resp = await axios.post("http://localhost:5500/api/users/register", formData);
               console.log(resp.data);
             } catch (error) {
@@ -73,7 +73,7 @@ export const SignUp = () => {
           <Field name="password" type="text" />
           <ErrorMessage name="password" />
 
-          <Link to={"/home"}><button type="submit">Submit</button></Link>
+          <button type="submit">Submit</button>
 
           <h3>Already have an account?: <Link to={"/login"}>Log In</Link></h3>
         </Form>

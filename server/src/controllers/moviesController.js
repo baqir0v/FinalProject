@@ -106,6 +106,33 @@ const moviesController = {
             res.status(500).json({ message: "Internal Server Error" });
         }
     },
+    updateRating: async (req, res) => {
+        const { movieId, userId, newRating } = req.body;
+        
+        try {
+            const movie = await moviesModel.findById(movieId);
+    
+            if (!movie) {
+                return res.status(404).json({ message: "Movie not found" });
+            }
+            
+            const existingRatingIndex = movie.ratings.findIndex(rating => rating.user.toString() === userId.toString());
+            
+            if (existingRatingIndex !== -1) {
+                movie.ratings.splice(existingRatingIndex, 1);
+                movie.ratings.push({ user: userId, rating: newRating }); 
+            }
+            
+            else{
+                movie.ratings.push({ user: userId, rating: newRating }); 
+            }
+            
+            await movie.save();
+            res.send(movie);
+        } catch (error) {
+            res.status(500).json({ message: "Internal Server Error" });
+        }
+    }
 }
 
 export default moviesController

@@ -26,6 +26,7 @@ export const LogIn = () => {
                 localStorage.setItem('token', resp.data)
                 localStorage.setItem("nickname", decoded.nickname)
                 navigate("/home")
+                window.location.reload(); 
             }
         } catch (error) {
             console.log(error);
@@ -75,7 +76,6 @@ export const LogIn = () => {
                     <h3>Not a member yet? <Link to={"/"}>Sign Up</Link></h3>
                 </Form>
             </Formik>
-            {/* {user ? <button onClick={()=>handleLogOut()}>Log Out</button> : ""} */}
         </div>
     );
 };

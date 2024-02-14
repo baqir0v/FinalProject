@@ -5,7 +5,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
 import { DarkmodeContext } from '../../Context/darkmodeContext';
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom"
 
 
 const Movies = () => {
@@ -21,7 +21,7 @@ const Movies = () => {
   useEffect(() => {
     fetchData()
   }, [])
-  
+
 
   return (
     <section id='movies' className={darkmode ? "darkmovies" : "lightmovies"}>
@@ -37,19 +37,20 @@ const Movies = () => {
       >
         {data && data.map((item) => (
           <SwiperSlide>
-            <Link to={`/detail/${item._id}`}> <ul key={item._id}>
-              <li className='imgli'><img src={item.image} alt="" /></li>
-              <li>{item.name}</li>
-              <li>Language:{item.lang}</li>
-              <li className='catli'>
-                Category: {item.category.map((cat, index) => (
-                  <span key={cat._id}>
-                    {cat.categoryname}
-                    {index < item.category.length - 1 && ',' /* Add comma if not the last item */}
-                  </span>
-                ))}
-              </li>
-            </ul>
+            <Link to={`/detail/${item._id}`}>
+              <ul key={item._id}>
+                <li className='imgli'><img src={item.image} alt="" /></li>
+                <li>{item.name}</li>
+                <li>Language:{item.lang}</li>
+                <li className='catli'>
+                  Category: {item.category.map((cat, index) => (
+                    <span key={cat._id}>
+                      {cat.categoryname}
+                      {index < item.category.length - 1 && ','}
+                    </span>
+                  ))}
+                </li>
+              </ul>
             </Link>
           </SwiperSlide>
         ))}

@@ -5,6 +5,7 @@ import "./index.scss"
 import { DarkmodeContext } from '../../Context/darkmodeContext'
 import Navbar from '../../layout/Navbar'
 import Footer from '../../layout/Footer'
+import { Link } from 'react-router-dom'
 
 const AdminPage = () => {
   const [data, setData] = useState([])
@@ -17,15 +18,15 @@ const AdminPage = () => {
     setData(jsonData)
   }
 
-  const handleChangeAdmin = async(item) => {
+  const handleChangeAdmin = async (item) => {
     const resp = await axios.put(`http://localhost:5500/api/users/${item._id}`,
-    item.isAdmin ? {isAdmin:false} : {isAdmin:true}
+      item.isAdmin ? { isAdmin: false } : { isAdmin: true }
     )
     fetchData()
   }
 
-  const handleDelete = async(_id)=>{
-    const resp = await axios.delete(`http://localhost:5500/api/users/${_id}`) 
+  const handleDelete = async (_id) => {
+    const resp = await axios.delete(`http://localhost:5500/api/users/${_id}`)
     fetchData()
   }
 
@@ -34,37 +35,50 @@ const AdminPage = () => {
   }, [])
   return (
     <>
-    <Navbar/>
+      <Navbar />
       <div id='adminpage' className={darkmode ? "darkadmin" : "lightadmin"}>
-      {data.length > 0 ?
-        <table>
-          <thead>
-            <tr>
-              <th>Image</th>
-              <th>Nickname</th>
-              <th>Email</th>
-              <th>Admin</th>
-              <th>Change Admin</th>
-              <th>Delete User</th>
-            </tr>
-          </thead>
-          <tbody>
+        <div className="adminleft">
+          <Link to={"/admin"}>Users</Link>
+          <Link to={"/movies"}>Movie</Link>
+        </div>
+        {data.length > 0 ?
+          <div className='adminright'>
+            <div className='filter'>
+              <div className="search">
+                <div class="form__group field">
+                  <input type="input" class="form__field" placeholder="Name" name="name" id='name' required />
+                  <label for="name" class="form__label">Name</label>
+                </div>
+              </div>
+              <div className="sort">
+                <button>a</button>
+                <button>z</button>
+                filter
+              </div>
+            </div>
+            <div className="datas">
+              <h3>Image</h3>
+              <h3>Nickname</h3>
+              <h3>Email</h3>
+              <h3>Admin</h3>
+              <h3>Chande Role</h3>
+              <h3>Delete</h3>
+            </div>
             {data && data.map((item) => (
-              <tr key={item._id}>
-                <td><img src={item.image} alt="" /></td>
-                <td>{item.nickname}</td>
-                <td>{item.email}</td>
-                {item.isAdmin === true ? <td>True</td> : <td>False</td>}
-                <td><button onClick={()=>handleChangeAdmin(item)}>Change</button></td>
-                <td><button onClick={()=>handleDelete(item._id)}>Delete</button></td>
-              </tr>
+              <div className='datas' key={item._id}>
+                <p><img src={item.image} alt="" /></p>
+                <p>{item.nickname}</p>
+                <p>{item.email}</p>
+                <p>{item.isAdmin === true ? "True" : "False"}</p>
+                <p><button onClick={() => handleChangeAdmin(item)}>Change</button></p>
+                <p><button onClick={() => handleDelete(item._id)}>Delete</button></p>
+              </div>
             ))}
-          </tbody>
-        </table>
-        : <h1>There is No Users</h1>
-      }
-      <Footer/>
-    </div>
+          </div>
+          : <h1>There is No Users</h1>
+        }
+      </div>
+      <Footer />
     </>
   )
 }

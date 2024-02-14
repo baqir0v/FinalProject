@@ -9,7 +9,7 @@ import Footer from '../../layout/Footer';
 
 export const AddMovies = () => {
     const { darkmode } = useContext(DarkmodeContext);
-
+    
     const handleAddMovie = async (values) => {
         try {
             const formData = new FormData();

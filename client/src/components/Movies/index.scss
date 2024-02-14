@@ -54,3 +54,42 @@
         }
     }
 }
+
+@media screen and (max-width: 1100px) {
+    #movies{
+            a{
+                font-size: 10px;
+                ul{
+                    img{
+                        height: 300px !important;
+                    }
+                }
+            }
+    }
+}
+
+@media screen and (max-width: 800px) {
+    #movies{
+            a{
+                font-size: 7px;
+                ul{
+                    img{
+                        height: 200px !important;
+                    }
+                }
+            }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #movies{
+            a{
+                font-size: 4px;
+                ul{
+                    img{
+                        height: 100px !important;
+                    }
+                }
+            }
+    }
+}

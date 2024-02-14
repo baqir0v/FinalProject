@@ -8,6 +8,7 @@ import "./Scss/reset.scss"
 import ContactPage from "./pages/Contact"
 import { AddMovies } from "./pages/AddMovies"
 import Details from "./pages/Details"
+import MoviesPage from "./pages/Movies"
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/contact" element={<ContactPage/>} />
         <Route path="/addmovie" element={<AddMovies/>} />
+        <Route path="/movies" element={<MoviesPage/>} />
         <Route path="/detail/:id" element={<Details/>} />
       </Routes>
     </>

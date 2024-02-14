@@ -10,7 +10,7 @@ const ratingSchema = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"Users"
     },
-    rating:{type:Number,default:0}
+    rating:{type:Number,default:0,min:1}
 })
 
 const moviesModel = new mongoose.Schema({

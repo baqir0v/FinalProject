@@ -9,35 +9,43 @@ import { MdOutlineDone } from "react-icons/md";
 import { MdThumbUp } from "react-icons/md";
 import axios from "axios"
 import { UserContext } from '../../Context/userContext';
+import StarRating from '../../components/StarRating';
+import { MdMovieFilter } from "react-icons/md";
+import { IoMdClose } from "react-icons/io";
+import { FaStar } from 'react-icons/fa';
 
 const Details = () => {
     const [details, setDetails] = useState([])
     const { id } = useParams()
     const { darkmode } = useContext(DarkmodeContext)
     const { userData } = useContext(UserContext)
-    const movieId = details._id
+    const [isInWishlist, setIsInWishlist] = useState(false);
+    const [isRateOpen, setIsRateOpen] = useState(false)
+    const [selectedRating, setSelectedRating] = useState(""); // State to store the selected rating
 
+    const openRate = () => {
+        setIsRateOpen(!isRateOpen)
+    }
 
-    const handleWishlist = async () => {
+    const handleRate = async () => {
         try {
-            console.log(userData);
-            // console.log(details._id);
-            if (userData && userData.userId && details._id) {
-                const res = await axios.put(`http://localhost:5500/api/users/addWishlist/${userData.userId}`, { movieId });
-                const userWishlist = res.data.inWishList
-                if (userWishlist.includes(movieId)) {
-                    console.log("Movie deleted from wishlist");
-                } else {
-                    console.log("Movie added to wishlist successfully");
-                }
-                console.log(res.data.inWishList);
+            if (selectedRating && userData && userData.userId && details._id) {
+                const res = await axios.put(`http://localhost:5500/api/movies/rate/${details._id}`, {
+                    movieId: details._id,
+                    userId: userData.userId,
+                    newRating: selectedRating
+                });
+                const updatedDetails = res.data;
+                setDetails(updatedDetails);
+                console.log(res.data);
             } else {
-                console.log("User data or movie details are missing");
+                console.log("Invalid selection or user data");
             }
         } catch (error) {
             console.log(error);
         }
     }
+
 
     const fetchData = async () => {
         try {
@@ -52,8 +60,24 @@ const Details = () => {
     useEffect(() => {
         fetchData()
     }, [])
+
+    const averageRating = details.ratings ? details.ratings.reduce((total, rating) => total + rating.rating, 0) / details.ratings.length : 0;
+    console.log(averageRating);
     return (
         <div id='detailpage' className={darkmode ? "darkdetail" : "lightdetail"}>
+            <div className={isRateOpen ? "ratewithstars" : "dnone"}>
+                <div className="stars">
+                    <span className='closer' onClick={openRate}><IoMdClose /></span>
+                    <select class="minimal" value={selectedRating} onChange={(e) => setSelectedRating(e.target.value)}>
+                        <option value='1'>★</option>
+                        <option value='2'>★★</option>
+                        <option value='3'>★★★</option>
+                        <option value='4'>★★★★</option>
+                        <option value='5'>★★★★★</option>
+                    </select>
+                    <button class="button-9" role="button" onClick={handleRate}>Rate</button>
+                </div>
+            </div>
             <Navbar />
             {details ?
                 <>
@@ -63,7 +87,6 @@ const Details = () => {
                             <div className='player'>
                                 <Link to={details.video}>
                                     <FaPlay />
-
                                 </Link>
                             </div>
                         </div>
@@ -75,6 +98,13 @@ const Details = () => {
                                         <li>{details.year}</li>|
                                         <li>{details.ageLimit}+</li>|
                                         <li>{details.lang}</li>|
+                                        <li>
+                                            {details.ratings && details.ratings.length > 0 ? (
+                                                <StarRating rating={averageRating} />
+                                            ) : (
+                                                <StarRating rating={averageRating} />
+                                            )}
+                                        </li>|
                                         <li>
                                             {details.category && details.category.length > 0
                                                 ? details.category.map((cat, index) => (
@@ -93,11 +123,15 @@ const Details = () => {
                                 </div>
                             </div>
                             <div className="rating">
-                                <div className="addtolist" onClick={() => handleWishlist(movieId)}>
+                                <div className="trailer">
+                                    <MdMovieFilter />
+                                    <p>Trailer</p>
+                                </div>
+                                <div className={`addtolist ${isInWishlist ? 'inWishlist' : ''}`} onClick={() => handleWishlist(movieId)}>
                                     <MdOutlineDone />
                                     <p>Add To My List</p>
                                 </div>
-                                <div className="rate">
+                                <div className="rate" onClick={openRate}>
                                     <MdThumbUp />
                                     <p>Rate</p>
                                 </div>
@@ -115,7 +149,6 @@ const Details = () => {
                                     </span>
                                 ))
                                 : ''}
-
                         </>
                     </div>
                 </>
