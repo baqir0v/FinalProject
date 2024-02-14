@@ -26,9 +26,7 @@ const Navbar = () => {
           </div>
           <div className="navmid">
             <ul>
-              <li><NavLink activeclassname='active' to={"/"}>Home</NavLink></li>
-              <li><NavLink to={"/signup"}>Sign Up</NavLink></li>
-              <li><NavLink to={"/login"}>Login</NavLink></li>
+              <li><NavLink activeclassname='active' to={"/home"}>Home</NavLink></li>
               <li><NavLink to={"/contact"}>Contact</NavLink></li>
               <li><NavLink to={"/addmovie"}>addmovie</NavLink></li>
               <li>
@@ -51,9 +49,7 @@ const Navbar = () => {
         </div>
         <div className={isNavOpen ? "sidebar" : "dnone"}>
           <ul>
-            <li><NavLink to={"/"}>Home</NavLink></li>
-            <li><NavLink to={"/signup"}>Sign Up</NavLink></li>
-            <li><NavLink to={"/login"}>Login</NavLink></li>
+            <li><NavLink to={"/home"}>Home</NavLink></li>
             <li><NavLink to={"/contact"}>Contact</NavLink></li>
             <li>
               {user && userData.isAdmin === true ?

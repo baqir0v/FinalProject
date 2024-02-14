@@ -23,37 +23,34 @@ const moviesController = {
     },
     addMovie: async (req, res) => {
         try {
-            upload.fields([{ name: "image" },{ name: "video"}])(req, res, async (err) => {
+            upload.fields([
+                { name: "image" },
+                { name: "detailImage" },
+                { name: "video" }
+            ])(req, res, async (err) => {
                 if (err) {
                     console.error(err);
                     return res.status(400).json({ message: err.message });
                 }
     
-                // const { name, desc, lang, year, category, cast } = req.body;
                 const { name, desc, lang, year, category, cast } = req.body;
-                console.log(category);
-                console.log(typeof category);
+    
+                if (!category || !category.length) {
+                    return res.status(400).json({ message: "Categories are required." });
+                }
     
                 const imageResult = req.files["image"][0];
-                const imageUpload = cloudinary.uploader.upload(imageResult.path,{
-                    folder: "movies"
-                })
-
-                const videoResult = req.files["video"][0]
-                const videoUpload = cloudinary.uploader.upload(videoResult.path,{
-                    folder: "movies",
-                    resource_type: "video"
-                })
-
-                const [imageResponse,videoResponse] = await Promise.all([imageUpload,videoUpload])
-                // const cloudinaryResult = await cloudinary.uploader.upload(imageResult.path, {
-                //     folder: "movies",
-                // });
+                const detailImageResult = req.files["detailImage"][0];
+                const videoResult = req.files["video"][0];
     
-                // Find ObjectIds for the given category names
+                const [imageResponse, detailImageResponse, videoResponse] = await Promise.all([
+                    cloudinary.uploader.upload(imageResult.path, { folder: "movies" }),
+                    cloudinary.uploader.upload(detailImageResult.path, { folder: "movies" }),
+                    cloudinary.uploader.upload(videoResult.path, { folder: "movies", resource_type: "video" })
+                ]);
+    
                 const categoryObjects = await categoriesModel.find({ categoryname: { $in: category } });
     
-                // Extract ObjectIds from the found categories
                 const categoryIds = categoryObjects.map((categoryObj) => categoryObj._id);
     
                 const newMovie = new moviesModel({
@@ -64,17 +61,17 @@ const moviesController = {
                     category: categoryIds,
                     cast,
                     image: imageResponse.secure_url,
+                    detailImage: detailImageResponse.secure_url,
                     video: videoResponse.secure_url,
                 });
     
                 await newMovie.save();
     
-                // Update the associated categories with the new movie
                 await categoriesModel.updateMany(
                     { _id: { $in: categoryIds } },
                     { $push: { movies: newMovie._id } }
                 );
-       
+    
                 res.send(newMovie);
             });
         } catch (error) {
@@ -82,6 +79,7 @@ const moviesController = {
             res.status(500).json({ message: error.message });
         }
     },
+    
     
     deleteMovieByID: async (req, res) => {
         try {
@@ -91,29 +89,23 @@ const moviesController = {
             res.status(500).json({ message: error })
         }
     },
-    updateMovieByID: async (req, res) => {
+    updateMovieByID : async (req, res) => {
+        const { id } = req.params;
+        const { ageLimit, cast } = req.body;
+    
         try {
-            const movieId = req.params.id; // Assuming movie ID is in the request parameters
-            const { category } = req.body; // Assuming only category is being updated
-    
-            // Find ObjectIds for the given category names
-            const categoryObjects = await categoriesModel.find({ categoryname: { $in: category } });
-    
-            // Extract ObjectIds from the found categories
-            const categoryIds = categoryObjects.map((categoryObj) => categoryObj._id);
-    
-            // Update the movie's category field with the new category IDs
             const updatedMovie = await moviesModel.findByIdAndUpdate(
-                movieId,
-                { $set: { category: categoryIds } },
+                id,
+                { $set: { ageLimit, cast } },
                 { new: true }
             );
     
-            res.status(200).json(updatedMovie);
+            res.json(updatedMovie);
         } catch (error) {
-            res.status(500).json({ message: error.message });
+            console.error(error);
+            res.status(500).json({ message: "Internal Server Error" });
         }
-    }
+    },
 }
 
 export default moviesController

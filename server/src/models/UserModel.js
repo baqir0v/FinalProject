@@ -5,17 +5,15 @@ const UserModel = new mongoose.Schema({
     email:{type:String,unique:true,required:true},
     password:{type:String,required:true,minlength:6},
     image:{
-        // public_id:{
-        //     type:String,
-        //     required:true
-        // },
-        // url:{
-        //     type:String,
-        //     required:true
-        // }
         type:String
     },
     isAdmin:{type:Boolean,default:false},
+    inWishList:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"Movies"
+        }
+    ]
 },{timestamps:true})
 
 export default mongoose.model("Users",UserModel)

@@ -6,10 +6,12 @@ import axios from "axios"
 import { UserContext } from '../../Context/userContext';
 import { jwtDecode } from "jwt-decode"
 import { DarkmodeContext } from '../../Context/darkmodeContext';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const LogIn = () => {
-    const { user , setUser,token } = useContext(UserContext)
+    const { user, setUser, token } = useContext(UserContext)
     const { darkmode } = useContext(DarkmodeContext)
+    const navigate = useNavigate()
 
     // token? const user = jwtDecode(token) : ""
     // const user = token ? jwtDecode(token) : null
@@ -23,13 +25,14 @@ export const LogIn = () => {
             if (resp.data) {
                 localStorage.setItem('token', resp.data)
                 localStorage.setItem("nickname", decoded.nickname)
+                navigate("/home")
             }
         } catch (error) {
-            console.log( error);
+            console.log(error);
         }
     }
 
-    const handleLogOut = ()=>{
+    const handleLogOut = () => {
         localStorage.removeItem("token")
         localStorage.removeItem("nickname")
         setUser(null)
@@ -68,6 +71,8 @@ export const LogIn = () => {
                     <ErrorMessage name="password" />
 
                     <button type="submit">Submit</button>
+                    
+                    <h3>Not a member yet? <Link to={"/"}>Sign Up</Link></h3>
                 </Form>
             </Formik>
             {/* {user ? <button onClick={()=>handleLogOut()}>Log Out</button> : ""} */}

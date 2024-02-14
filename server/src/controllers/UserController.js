@@ -8,7 +8,7 @@ import upload from "../middleware/multer.js";
 const userController = {
     getAllUsers: async (req, res) => {
         try {
-            const allUsers = await UserModel.find({})
+            const allUsers = await UserModel.find({}).populate("inWishList")
             res.send(allUsers)
         } catch (error) {
             res.status(500).json({ message: error })
@@ -16,66 +16,12 @@ const userController = {
     },
     getUserByID: async (req, res) => {
         try {
-            const getByID = await UserModel.findById(req.params.id)
+            const getByID = await UserModel.findById(req.params.id).populate("inWishList")
             res.send(getByID)
         } catch (error) {
             res.status(500).json({ message: error })
         }
     },
-    // registerUser: async (req, res) => {
-    //     try {
-    //         const { nickname, email, password, isAdmin } = req.body
-    //         console.log(req.body);
-    //         // let imagePath = image
-
-    //         const nicknameExist = await UserModel.findOne({ nickname })
-    //         const emailExist = await UserModel.findOne({ email })
-
-    //         if (nicknameExist) {
-    //             res.status(400).send("Nickname already exist")
-    //         }
-    //         if (emailExist) {
-    //             res.status(400).send("Email already exist")
-    //         }
-    //         // if (!image.startsWith("http")) {
-    //         //     console.log(image);
-    //         //     // const _dirname = path.resolve()
-    //         //     imagePath = image.replace(/\\/g, '/');
-    //         //     console.log(imagePath);
-    //         // }
-
-    //         const result = await cloudinary.uploader.upload(
-           
-    //         req.files['image'][0].path,{
-    //             folder:"users"
-    //         }
-
-    //         )
-    //         console.log(result,"Axhmed");
-    //         const hashedPassword = await bcrypt.hash(password, 10)
-
-    //         console.log(nickname);
-
-    //         const newUser = new UserModel({
-    //             nickname,
-    //             email,
-    //             password: hashedPassword,
-    //             image: result.secure_url,
-
-    //             // {
-    //             //     public_id: result.public_id,
-    //             //     url: result.secure_url
-    //             // },
-    //             isAdmin
-    //         })
-
-    //         await newUser.save()
-    //         res.send(newUser)
-    //     } catch (error) {
-    //         res.status(500).json({ message: error.message })
-    //     }
-    // },
-
     registerUser: async (req, res) => {
         try {
             // Use upload.fields middleware directly in the controller
@@ -178,6 +124,25 @@ const userController = {
                 isAdmin: req.body.isAdmin
             })
             res.send(newAdmin)
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
+    updateWishlist:async (req,res)=>{
+        try {
+            const {id} = req.params
+            const { movieId } = req.body
+            const findUser = await UserModel.findById(id)
+            const isMovieAlreadyInWishlist = findUser.inWishList.includes(movieId);
+    
+            if (isMovieAlreadyInWishlist) {
+                findUser.inWishList.splice(findUser.inWishList.indexOf(movieId), 1);
+            }
+            else {
+                findUser.inWishList.push(movieId);
+            }
+            await findUser.save()
+            res.send(findUser)
         } catch (error) {
             res.status(500).json({ message: error.message });
         }

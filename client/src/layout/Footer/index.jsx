@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import "./index.scss"
 import { FaFacebookF } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
@@ -10,6 +10,17 @@ import { DarkmodeContext } from '../../Context/darkmodeContext';
 
 const Footer = () => {
   const { darkmode } = useContext(DarkmodeContext)
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch("http://localhost:5500/api/categories/")
+      const jsonData = await res.json()
+      setData(jsonData)
+    }
+    fetchData()
+  }, [])
+
   return (
     <footer id='footer' className={darkmode ? "darkfooter" : "lightfooter"}>
       <div className="footerbox">
@@ -36,11 +47,13 @@ const Footer = () => {
           <div className="mid">
             <ul>
               <h4>Movie Categories</h4>
-              <li>Action</li>
-              <li>Drama</li>
-              <li>Comedy</li>
-              <li>Crime</li>
-              <li>Sci-Fi</li>
+              <ul className='midul'>
+                {data && data
+                  .sort((a, b) => a.categoryname.localeCompare(b.categoryname))
+                  .map((item) => (
+                    <li key={item._id}><Link>{item.categoryname}</Link></li>
+                  ))}
+              </ul>
             </ul>
           </div>
           <div className="right">

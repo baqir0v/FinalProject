@@ -13,5 +13,6 @@ userRouter.post("/login",userController.loginUser)
 userRouter.delete("/:id",userController.deleteUser)
 userRouter.put("/:id",userController.updateUser)
 userRouter.put("/:id",userController.updateAdmin)
+userRouter.put("/addWishlist/:id",userController.updateWishlist)
 
 export default userRouter

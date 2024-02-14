@@ -3,6 +3,8 @@ import { UserContext } from '../../Context/userContext'
 import axios from 'axios'
 import "./index.scss"
 import { DarkmodeContext } from '../../Context/darkmodeContext'
+import Navbar from '../../layout/Navbar'
+import Footer from '../../layout/Footer'
 
 const AdminPage = () => {
   const [data, setData] = useState([])
@@ -31,7 +33,9 @@ const AdminPage = () => {
     fetchData()
   }, [])
   return (
-    <div id='adminpage' className={darkmode ? "darkadmin" : "lightadmin"}>
+    <>
+    <Navbar/>
+      <div id='adminpage' className={darkmode ? "darkadmin" : "lightadmin"}>
       {data.length > 0 ?
         <table>
           <thead>
@@ -59,7 +63,9 @@ const AdminPage = () => {
         </table>
         : <h1>There is No Users</h1>
       }
+      <Footer/>
     </div>
+    </>
   )
 }
 
