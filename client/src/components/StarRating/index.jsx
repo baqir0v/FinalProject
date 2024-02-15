@@ -13,7 +13,7 @@ const StarRating = ({ rating, color = '#ffd700', onRatingChange }) => {
 
     for (let i = 0; i < maxStars; i++) {
         let star;
-        if (i < rating) {
+        if (i < Math.floor(rating)) {
             star = <FaStar key={i} style={{ color }} onClick={() => handleRatingClick(i + 1)} />;
         } else if (i === Math.floor(rating) && rating % 1 !== 0) {
             star = <FaStarHalfAlt key={i} style={{ color }} onClick={() => handleRatingClick(i + 0.5)} />;

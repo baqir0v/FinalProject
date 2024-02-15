@@ -33,7 +33,7 @@ const moviesController = {
                     return res.status(400).json({ message: err.message });
                 }
     
-                const { name, desc, lang, year, category, cast } = req.body;
+                const { name, desc, lang, year, category,ageLimit,imdb,trailer ,cast } = req.body;
     
                 if (!category || !category.length) {
                     return res.status(400).json({ message: "Categories are required." });
@@ -60,6 +60,9 @@ const moviesController = {
                     year,
                     category: categoryIds,
                     cast,
+                    trailer,
+                    ageLimit,
+                    imdb,
                     image: imageResponse.secure_url,
                     detailImage: detailImageResponse.secure_url,
                     video: videoResponse.secure_url,

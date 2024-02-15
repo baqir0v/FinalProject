@@ -1,19 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { UserContext } from '../../Context/userContext'
 import axios from 'axios'
 import "./index.scss"
-import { DarkmodeContext } from '../../Context/darkmodeContext'
 import Navbar from '../../layout/Navbar'
-import Footer from '../../layout/Footer'
 import { Link, NavLink } from 'react-router-dom'
-import { Toaster, useToaster } from 'react-hot-toast';
 import { toast, ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
+import { DarkmodeContext } from '../../Context/darkmodeContext'
 
 
 const AdminPage = () => {
   const [data, setData] = useState([])
-  const { user, userData } = useContext(UserContext)
   const { darkmode } = useContext(DarkmodeContext)
 
   const fetchData = async () => {
@@ -56,7 +52,7 @@ const AdminPage = () => {
       <div id='adminpage' className={darkmode ? "darkadmin" : "lightadmin"}>
         <div className="adminleft">
           <NavLink activeclassname="active" to={"/admin"}>Users</NavLink>
-          <NavLink to={"/movies"}>Movie</NavLink>
+          <NavLink to={"/add"}>Movie</NavLink>
         </div>
         {data.length > 0 ?
           <div className='adminright'>
@@ -107,7 +103,6 @@ const AdminPage = () => {
           : <h1>There is No Users</h1>
         }
       </div>
-      <Footer />
     </>
   )
 }

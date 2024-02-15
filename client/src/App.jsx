@@ -9,6 +9,7 @@ import ContactPage from "./pages/Contact"
 import { AddMovies } from "./pages/AddMovies"
 import Details from "./pages/Details"
 import MoviesPage from "./pages/Movies"
+import Video from "./pages/Video"
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
         <Route path="/addmovie" element={<AddMovies/>} />
         <Route path="/movies" element={<MoviesPage/>} />
         <Route path="/detail/:id" element={<Details/>} />
+        <Route path="/video/:id" element={<Video/>} />
       </Routes>
     </>
   )

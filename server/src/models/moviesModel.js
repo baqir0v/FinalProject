@@ -35,6 +35,8 @@ const moviesModel = new mongoose.Schema({
     cast: [
         castModel
     ],
+    trailer:{type:String},
+    imdb:{type:Number},
     ratings:[ratingSchema]
 }, { timestamps: true })
 

@@ -47,7 +47,7 @@ const Home = () => {
 
         setTimeout(() => {
             showScrollbar();
-        }, 1320);
+        }, 1340);
 
         return () => {
             showScrollbar();

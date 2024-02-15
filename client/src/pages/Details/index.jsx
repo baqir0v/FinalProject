@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import "./index.scss"
 import { DarkmodeContext } from '../../Context/darkmodeContext'
@@ -14,6 +14,7 @@ import { MdMovieFilter } from "react-icons/md";
 import { IoMdClose } from "react-icons/io";
 import { FaStar } from 'react-icons/fa';
 
+
 const Details = () => {
     const [details, setDetails] = useState([])
     const { id } = useParams()
@@ -21,14 +22,54 @@ const Details = () => {
     const { userData } = useContext(UserContext)
     const [isInWishlist, setIsInWishlist] = useState(false);
     const [isRateOpen, setIsRateOpen] = useState(false)
-    const [selectedRating, setSelectedRating] = useState(""); // State to store the selected rating
+    const [selectedRating, setSelectedRating] = useState(1); 
+    const movieId = details._id
+    const [isTrailerOpen, setIsTrailerOpen] = useState(false)
 
     const openRate = () => {
         setIsRateOpen(!isRateOpen)
     }
 
+    const openTrailer = ()=>{
+        setIsTrailerOpen(!isTrailerOpen)
+
+    }
+
+    const fetchData = async () => {
+        try {
+            const resp = await fetch(`http://localhost:5500/api/movies/${id}`)
+            const jsonData = await resp.json()
+            setDetails(jsonData)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const handleWishlist = async () => {
+        try {
+            console.log(userData);
+            if (userData && userData.userId && details._id) {
+                const res = await axios.put(`http://localhost:5500/api/users/addWishlist/${userData.userId}`, { movieId });
+                const userWishlist = res.data.inWishList
+                if (userWishlist.includes(details._id)) {
+                    console.log("Movie deleted from wishlist");
+                    setIsInWishlist(false); 
+                } else {
+                    console.log("Movie added to wishlist successfully");
+                    setIsInWishlist(true);
+                }
+                console.log(res.data.inWishList);
+            } else {
+                console.log("User data or movie details are missing");
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     const handleRate = async () => {
         try {
+            console.log(selectedRating);
             if (selectedRating && userData && userData.userId && details._id) {
                 const res = await axios.put(`http://localhost:5500/api/movies/rate/${details._id}`, {
                     movieId: details._id,
@@ -38,20 +79,8 @@ const Details = () => {
                 const updatedDetails = res.data;
                 setDetails(updatedDetails);
                 console.log(res.data);
-            } else {
-                console.log("Invalid selection or user data");
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-
-    const fetchData = async () => {
-        try {
-            const resp = await fetch(`http://localhost:5500/api/movies/${id}`)
-            const jsonData = await resp.json()
-            setDetails(jsonData)
+                fetchData()
+            } 
         } catch (error) {
             console.log(error);
         }
@@ -65,6 +94,12 @@ const Details = () => {
     console.log(averageRating);
     return (
         <div id='detailpage' className={darkmode ? "darkdetail" : "lightdetail"}>
+            <div className={isTrailerOpen ? "watchtrailer" : "dnone"}>
+                <div className="trailervideo">
+                <span className='closer' onClick={openTrailer}><IoMdClose /></span>
+                <iframe src={details.trailer}></iframe>
+                </div>
+            </div>
             <div className={isRateOpen ? "ratewithstars" : "dnone"}>
                 <div className="stars">
                     <span className='closer' onClick={openRate}><IoMdClose /></span>
@@ -85,7 +120,7 @@ const Details = () => {
                         <div style={{ backgroundImage: `url(${details.detailImage})` }} className='bgimg'>
                             <h1>{details.name}</h1>
                             <div className='player'>
-                                <Link to={details.video}>
+                                <Link to={`/video/${details._id}`}>
                                     <FaPlay />
                                 </Link>
                             </div>
@@ -105,6 +140,7 @@ const Details = () => {
                                                 <StarRating rating={averageRating} />
                                             )}
                                         </li>|
+                                        <li>IMDB:{details.imdb}</li>|
                                         <li>
                                             {details.category && details.category.length > 0
                                                 ? details.category.map((cat, index) => (
@@ -123,7 +159,7 @@ const Details = () => {
                                 </div>
                             </div>
                             <div className="rating">
-                                <div className="trailer">
+                                <div className="trailer" onClick={openTrailer}>
                                     <MdMovieFilter />
                                     <p>Trailer</p>
                                 </div>
