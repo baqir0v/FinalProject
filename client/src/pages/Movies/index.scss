@@ -1,8 +1,163 @@
-#moviespage{
-    table{
-        img{
-            width: 100px;
-        }
-        color: black;
+#moviespage {
+    .allmovies{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 96%;
     }
+    .search {
+        $primary: #11998e;
+        $secondary: #38ef7d;
+        $white: #fff;
+        $gray: #9b9b9b;
+        width: 80%;
+        display: flex;
+        .form__group {
+            position: relative;
+            padding: 15px 0 0;
+            margin-top: 10px;
+            // width: 100%;
+        }
+
+        .form__field {
+            font-family: inherit;
+            width: 100%;
+            border: 0;
+            border-bottom: 2px solid $gray;
+            outline: 0;
+            font-size: 1.3rem;
+            color: $white;
+            padding: 7px 0;
+            background: transparent;
+            transition: border-color 0.2s;
+
+            &::placeholder {
+                color: transparent;
+            }
+
+            &:placeholder-shown~.form__label {
+                font-size: 1.3rem;
+                cursor: text;
+                top: 20px;
+            }
+        }
+
+        .form__label {
+            position: absolute;
+            top: 0;
+            display: block;
+            transition: 0.2s;
+            font-size: 1rem;
+            color: $gray;
+        }
+
+        .form__field:focus {
+            ~.form__label {
+                position: absolute;
+                top: 0;
+                display: block;
+                transition: 0.2s;
+                font-size: 1rem;
+                color: $primary;
+                font-weight: 700;
+            }
+
+            padding-bottom: 6px;
+            font-weight: 700;
+            border-width: 3px;
+            border-image: linear-gradient(to right, $primary, $secondary);
+            border-image-slice: 1;
+        }
+
+        /* reset input */
+        .form__field {
+
+            &:required,
+            &:invalid {
+                box-shadow: none;
+            }
+        }
+    }
+    .movies {
+        padding: 50px 0px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        width: 80%;
+        align-self: center;
+        justify-self: center;
+        justify-items: center;
+        margin-left: auto;
+        margin-right: auto;
+        gap: 20px;
+
+        ul {
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+            padding: 10px;
+
+            li {
+                display: flex;
+            }
+
+            .imgli {
+                // width: 100%;
+
+                img {
+                    border-radius: 10px;
+                    // width: 100%;
+                    height: 500px;
+                }
+            }
+        }
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 50px;
+
+        ul {
+            display: flex;
+            gap: 10px;
+            cursor: pointer;
+        }
+    }
+}
+
+.darkmoviespage {
+    background-color: #2d2d2d;
+    .pagination {
+        color: #888888;
+    }
+
+}
+
+.lightmoviepage {
+    .pagination {
+        color: #666666;
+    }
+}
+
+.darkmovie {
+    ul {
+        background-color: var(--background-color-dark);
+        border: 1px solid black;
+        color: #888888;
+    }
+
+}
+
+.lightmovie {
+    background-color: #fcfcfc;
+
+    ul {
+        background-color: var(--background-color-light);
+        color: #666666;
+    }
+
 }

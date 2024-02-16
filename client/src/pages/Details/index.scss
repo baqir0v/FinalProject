@@ -33,7 +33,8 @@
             }
             iframe{
                 width: 500px;
-                height: 300px;
+                height: 280px;
+                border: none;
             }
         }
     }
@@ -175,7 +176,7 @@
         align-items: center;
 
         .bgimg {
-            height: 500px;
+            height: 550px;
             width: 100%;
             background-size: cover;
             background-repeat: no-repeat;

@@ -134,7 +134,9 @@
 
 .darkadmin {
     background-color: #2d2d2d;
-
+    .active {
+        color: white;
+    }
     .adminleft {
         a{
             color: #888888;
@@ -164,7 +166,4 @@
             color: #666666;
         }
     }
-}
-.active{
-    color: white;
 }

@@ -29,6 +29,7 @@ const Navbar = () => {
               <li><NavLink activeclassname='active' to={"/home"}>Home</NavLink></li>
               <li><NavLink to={"/contact"}>Contact</NavLink></li>
               <li><NavLink to={"/addmovie"}>Addmovie</NavLink></li>
+              <li><NavLink to={"/movies"}>Movies</NavLink></li>
               <li>
                 {user && userData.isAdmin === true ?
                   <NavLink to={"/admin"}>Admin</NavLink>

@@ -4,6 +4,8 @@ import MoviesPage from "./pages/Movies"
 import AdminPage from "./pages/Admin"
 import "./reset.scss"
 import "./color.scss"
+import Profile from "./pages/Profile"
+import { AddMovies } from "./pages/AddMovies"
 
 function App() {
 
@@ -12,7 +14,9 @@ function App() {
       <Routes>
         <Route path="/" element={<LogIn/>}/>
         <Route path="/admin" element={<AdminPage/>}/>
-        <Route path="/add" element={<MoviesPage/>}/>
+        <Route path="/movies" element={<MoviesPage/>}/>
+        <Route path="/add" element={<AddMovies/>}/>
+        <Route path="/profile" element={<Profile/>}/>
       </Routes>
     </>
   )

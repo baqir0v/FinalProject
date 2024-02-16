@@ -25,6 +25,7 @@ const Details = () => {
     const [selectedRating, setSelectedRating] = useState(1); 
     const movieId = details._id
     const [isTrailerOpen, setIsTrailerOpen] = useState(false)
+    
 
     const openRate = () => {
         setIsRateOpen(!isRateOpen)

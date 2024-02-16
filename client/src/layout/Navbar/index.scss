@@ -56,6 +56,10 @@
             .themechanger {
                 cursor: pointer;
                 font-size: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
             }
 
             span {

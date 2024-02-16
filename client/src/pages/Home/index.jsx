@@ -1,9 +1,21 @@
 import React, { useContext, useEffect, useState } from 'react';
-import Movies from '../../components/Movies';
 import Navbar from '../../layout/Navbar';
 import Footer from '../../layout/Footer/index';
 import "./index.scss"
 import { DarkmodeContext } from '../../Context/darkmodeContext';
+import Action from '../../components/Action';
+import Crime from '../../components/Crime';
+import Drama from '../../components/Drama';
+import Comedy from '../../components/Comedy';
+import SciFi from '../../components/Sci-Fi';
+import Thriller from '../../components/Thriller';
+import Sports from '../../components/Sports';
+import Western from '../../components/Western';
+import Documentary from '../../components/Documentary';
+import Horror from '../../components/Horror';
+import Romance from '../../components/Romance';
+import Animation from '../../components/Animation';
+import Favorites from '../../components/Favorite';
 
 const Home = () => {
     const [data, setData] = useState([]);
@@ -66,7 +78,19 @@ const Home = () => {
                 </>
             )}
             <Navbar />
-            <Movies />
+            <Animation />
+            {/* <Action/> */}
+            <Favorites/>
+            {/* <Crime/> */}
+            {/* <Drama/> */}
+            {/* <Comedy/> */}
+            {/* <SciFi/> */}
+            <Thriller/>
+            {/* <Sports/>
+            <Western/>
+            <Documentary/>
+            <Horror/>
+            <Romance/> */}
             <Footer />
         </div>
     );

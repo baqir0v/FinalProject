@@ -1,0 +1,31 @@
+#profilepage{
+    min-height: 100vh;
+    .profile{
+        padding: 50px 50px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 50px;
+        img{
+            width: 200px;
+            height: 200px;
+            border-radius: 100%;
+        }
+        .userdata{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+    }
+}
+
+.darkprofile{
+    background-color: var(--contact-bg-dark);
+    color: #888888;
+
+}
+
+.lightprofile{
+    background-color: var(--contact-bg-light);
+    color: #666666;
+}

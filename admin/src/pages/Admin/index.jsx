@@ -51,8 +51,9 @@ const AdminPage = () => {
       <Navbar />
       <div id='adminpage' className={darkmode ? "darkadmin" : "lightadmin"}>
         <div className="adminleft">
-          <NavLink activeclassname="active" to={"/admin"}>Users</NavLink>
-          <NavLink to={"/add"}>Movie</NavLink>
+        <NavLink activeclassname="active" to={"/admin"}>Users</NavLink>
+          <NavLink to={"/movies"}>Movie</NavLink>
+          <NavLink to={"/add"}>Add</NavLink>
         </div>
         {data.length > 0 ?
           <div className='adminright'>
