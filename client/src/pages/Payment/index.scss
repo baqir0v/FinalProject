@@ -1,0 +1,37 @@
+#paymentpage{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .payment{
+        padding:50px 40px;
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        border-radius: 20px;
+        form{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 1;
+        }
+    }
+}
+
+.darkpayment{
+    background-color: var(--contact-bg-dark);
+    .payment{
+        background-color: var(--navbar-bg-dark);
+        color: #888888;
+    }
+}
+
+.lightpayment{
+    background-color: var(--contact-bg-light);
+    .payment{
+        background-color: var(--navbar-bg-light);
+        color: #666666;
+    }
+}

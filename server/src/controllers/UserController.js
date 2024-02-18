@@ -30,28 +30,28 @@ const userController = {
                     console.error(err);
                     return res.status(400).json({ message: err.message });
                 }
-    
+
                 const { nickname, email, password, isAdmin } = req.body;
-    
+
                 const nicknameExist = await UserModel.findOne({ nickname });
                 const emailExist = await UserModel.findOne({ email });
-    
+
                 if (nicknameExist) {
                     return res.status(400).send("Nickname already exists");
                 }
                 if (emailExist) {
                     return res.status(400).send("Email already exists");
                 }
-    
+
                 const imageResult = req.files['image'][0];
-    
+
                 // Upload the image to Cloudinary
                 const cloudinaryResult = await cloudinary.uploader.upload(imageResult.path, {
                     folder: "users",
                 });
-    
+
                 const hashedPassword = await bcrypt.hash(password, 10);
-    
+
                 const newUser = new UserModel({
                     nickname,
                     email,
@@ -59,7 +59,7 @@ const userController = {
                     image: cloudinaryResult.secure_url,
                     isAdmin,
                 });
-    
+
                 await newUser.save();
                 return res.send(newUser);
             });
@@ -73,8 +73,12 @@ const userController = {
         try {
             const { nickname, email, password } = req.body
             const findUser = await UserModel.findOne({ nickname })
+            const findEmail = await UserModel.findOne({ email })
             if (!findUser) {
                 res.status(404).json({ error: "User not found" });
+            }
+            if (!findEmail) {
+                res.status(404).json({ error: "Email not found" });
             }
             if (!(bcrypt.compare(password, findUser.password))) {
                 res.status(404).json({ error: "Password is not Correct" });
@@ -128,13 +132,13 @@ const userController = {
             res.status(500).json({ message: error.message });
         }
     },
-    updateWishlist:async (req,res)=>{
+    updateWishlist: async (req, res) => {
         try {
-            const {id} = req.params
+            const { id } = req.params
             const { movieId } = req.body
             const findUser = await UserModel.findById(id)
             const isMovieAlreadyInWishlist = findUser.inWishList.includes(movieId);
-    
+
             if (isMovieAlreadyInWishlist) {
                 findUser.inWishList.splice(findUser.inWishList.indexOf(movieId), 1);
             }
@@ -144,6 +148,41 @@ const userController = {
             await findUser.save()
             res.send(findUser)
         } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
+    updateImage: async (req, res) => {
+        try {
+            upload.fields([{ name: "image" }])(req, res, async function (err) {
+                if (err) {
+                    console.error(err);
+                    return res.status(400).json({ message: err.message });
+                }
+    
+                const { id } = req.params;
+                const imageFile = req.files['image'][0]; // Get the uploaded image file
+                const image = imageFile.path; // Path of the uploaded image file
+    
+                // Upload the new image to Cloudinary
+                const cloudinaryResult = await cloudinary.uploader.upload(image, {
+                    folder: 'users',
+                });
+    
+                // Update the user document with the new Cloudinary URL
+                const updatedUser = await UserModel.findByIdAndUpdate(
+                    id,
+                    { image: cloudinaryResult.secure_url },
+                    { new: true } // Returns the updated user
+                );
+    
+                if (updatedUser) {
+                    res.send(updatedUser);
+                } else {
+                    res.status(404).send('User not found');
+                }
+            });
+        } catch (error) {
+            console.error(error);
             res.status(500).json({ message: error.message });
         }
     }

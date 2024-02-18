@@ -10,6 +10,10 @@ import { AddMovies } from "./pages/AddMovies"
 import Details from "./pages/Details"
 import MoviesPage from "./pages/Movies"
 import Video from "./pages/Video"
+import PaymentPage from "./pages/Payment"
+import Kids from "./pages/Kids"
+import Playlist from "./pages/Playlist"
+import CategoriesPage from "./pages/Categories"
 
 function App() {
 
@@ -20,12 +24,16 @@ function App() {
         <Route path="/login" element={<LogIn />} />
         <Route path="/" element={<SignUp />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/admin" element={<AdminPage />} />
         <Route path="/contact" element={<ContactPage/>} />
-        <Route path="/addmovie" element={<AddMovies/>} />
         <Route path="/movies" element={<MoviesPage/>} />
         <Route path="/detail/:id" element={<Details/>} />
         <Route path="/video/:id" element={<Video/>} />
+        <Route path="/payment" element={<PaymentPage/>} />
+        <Route path="/kids" element={<Kids/>} />
+        <Route path="/playlist" element={<Playlist/>} />
+        <Route path="/categories/:id" element={<CategoriesPage/>} />
+        {/* <Route path="/admin" element={<AdminPage />} />
+        <Route path="/addmovie" element={<AddMovies/>} /> */}
       </Routes>
     </>
   )

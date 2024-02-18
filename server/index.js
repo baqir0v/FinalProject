@@ -5,11 +5,14 @@ import dotenv from "dotenv"
 import userRouter from "./src/routes/UserRouter.js"
 import categoryRouter from "./src/routes/categoriesRouter.js"
 import moviesRouter from "./src/routes/moviesRouter.js"
+import paymentRoutes from "./src/routes/paymentRoutes.js"
 
 const app = express()
 
 app.use(express.json())
 app.use(cors())
+app.options('*', cors());
+
 
 dotenv.config()
 const port = process.env.PORT
@@ -25,6 +28,7 @@ app.use(
 )
 app.use("/api/categories", categoryRouter)
 app.use("/api/movies",moviesRouter)
+app.use("/api/payments", paymentRoutes);
 
 mongoose.connect(url).then(res => console.log("DB connected")).catch(err => console.log(err))
 

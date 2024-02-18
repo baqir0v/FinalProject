@@ -25,7 +25,7 @@ export const LogIn = () => {
             if (resp.data) {
                 localStorage.setItem('token', resp.data)
                 localStorage.setItem("nickname", decoded.nickname)
-                navigate("/home")
+                navigate("/payment")
                 window.location.reload(); 
             }
         } catch (error) {

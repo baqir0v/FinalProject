@@ -3,13 +3,18 @@ import { jwtDecode } from "jwt-decode"
 
 export const UserContext = createContext()
 
-export const UserProvider = ({children})=>{
-    const [user,setUser] = useState(localStorage.getItem("nickname"))
-    const [token, setToken] = useState(localStorage.getItem("token"))
+export const UserProvider = ({ children }) => {
+    const [user, setUser] = useState(localStorage.getItem("nickname"));
+    const [token, setToken] = useState(localStorage.getItem("token"));
 
-    const userData = token ? jwtDecode(token) : null
+    const userData = token ? jwtDecode(token) : null;
 
-    const data = {user,setUser,token, setToken,userData}
+    const updateUserImage = (newImage) => {
+        const updatedUserData = { ...userData, image: newImage };
+        setUser(updatedUserData);
+    }
 
-    return <UserContext.Provider value={data}>{children}</UserContext.Provider>
-}
+    const data = { user, setUser, token, setToken, userData, updateUserImage };
+
+    return <UserContext.Provider value={data}>{children}</UserContext.Provider>;
+};

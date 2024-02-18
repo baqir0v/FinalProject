@@ -1,5 +1,8 @@
 #profilepage{
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     .profile{
         padding: 50px 50px;
         display: flex;

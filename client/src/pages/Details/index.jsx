@@ -13,7 +13,8 @@ import StarRating from '../../components/StarRating';
 import { MdMovieFilter } from "react-icons/md";
 import { IoMdClose } from "react-icons/io";
 import { FaStar } from 'react-icons/fa';
-
+import { toast, ToastContainer } from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css';
 
 const Details = () => {
     const [details, setDetails] = useState([])
@@ -26,7 +27,6 @@ const Details = () => {
     const movieId = details._id
     const [isTrailerOpen, setIsTrailerOpen] = useState(false)
     
-
     const openRate = () => {
         setIsRateOpen(!isRateOpen)
     }
@@ -52,12 +52,14 @@ const Details = () => {
             if (userData && userData.userId && details._id) {
                 const res = await axios.put(`http://localhost:5500/api/users/addWishlist/${userData.userId}`, { movieId });
                 const userWishlist = res.data.inWishList
+
+                setIsInWishlist((prev) => !prev);  
                 if (userWishlist.includes(details._id)) {
-                    console.log("Movie deleted from wishlist");
-                    setIsInWishlist(false); 
+                    // console.log("Movie deleted from wishlist");
+                    toast.success('Added To List');
                 } else {
-                    console.log("Movie added to wishlist successfully");
-                    setIsInWishlist(true);
+                    // console.log("Movie added to wishlist successfully");
+                    toast.error('Deleted From List');
                 }
                 console.log(res.data.inWishList);
             } else {
@@ -95,6 +97,18 @@ const Details = () => {
     console.log(averageRating);
     return (
         <div id='detailpage' className={darkmode ? "darkdetail" : "lightdetail"}>
+             <ToastContainer
+              position="top-right"
+              autoClose={2000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+            />
             <div className={isTrailerOpen ? "watchtrailer" : "dnone"}>
                 <div className="trailervideo">
                 <span className='closer' onClick={openTrailer}><IoMdClose /></span>

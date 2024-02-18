@@ -1,16 +1,28 @@
-import React, { useContext, useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import React, { useContext, useEffect, useState } from 'react'
+import { Link, NavLink } from 'react-router-dom'
 import { UserContext } from '../../Context/userContext'
 import "./index.scss"
 import { DarkmodeContext } from '../../Context/darkmodeContext'
 import { FaBars } from "react-icons/fa";
 import { TfiShine } from "react-icons/tfi";
 import { MdDarkMode } from "react-icons/md";
+import { BiSolidMoviePlay } from "react-icons/bi";
 
 const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false)
   const { user, userData } = useContext(UserContext)
   const { darkmode, handleDarkmode } = useContext(DarkmodeContext)
+  const [data, setData] = useState([])
+
+  const fetchData = async () => {
+    const resp = await fetch("http://localhost:5500/api/users/")
+    const jsonData = await resp.json()
+    setData(jsonData)
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
 
   const toggleSideBar = () => {
     setIsNavOpen(!isNavOpen)
@@ -27,22 +39,29 @@ const Navbar = () => {
           <div className="navmid">
             <ul>
               <li><NavLink activeclassname='active' to={"/home"}>Home</NavLink></li>
-              <li><NavLink to={"/contact"}>Contact</NavLink></li>
-              <li><NavLink to={"/addmovie"}>Addmovie</NavLink></li>
               <li><NavLink to={"/movies"}>Movies</NavLink></li>
+              <li><NavLink to={"/kids"}>Kids</NavLink></li>
+              <li><NavLink to={"/contact"}>Contact</NavLink></li>
+              {/* <li><NavLink to={"/addmovie"}>Addmovie</NavLink></li>
               <li>
                 {user && userData.isAdmin === true ?
                   <NavLink to={"/admin"}>Admin</NavLink>
                   :
                   ""}
-              </li>
+              </li> */}
             </ul>
           </div>
           <div className="navright">
-          <div className='themechanger' onClick={handleDarkmode}>
-            {darkmode ? <MdDarkMode /> : <TfiShine />}
-          </div>
-            {user ? <NavLink to={"/profile"}> <img src={userData.image} alt="" /> </NavLink> : ""}
+            <div className='themechanger' onClick={handleDarkmode}>
+              {darkmode ? <MdDarkMode /> : <TfiShine />}
+            </div>
+            <Link to={"/playlist"}><BiSolidMoviePlay /></Link>
+            {/* {user ? <NavLink to={"/profile"}> <img src={userData.image} alt="" /> </NavLink> : ""} */}
+            {data.map((item) => (
+              item.nickname === userData.nickname && (
+                <NavLink to={"/profile"}><img key={item._id} src={item.image} alt='' /></NavLink>
+              )
+            ))}
             <span onClick={toggleSideBar}>
               <FaBars />
             </span>
@@ -51,14 +70,16 @@ const Navbar = () => {
         <div className={isNavOpen ? "sidebar" : "dnone"}>
           <ul>
             <li><NavLink to={"/home"}>Home</NavLink></li>
+            <li><NavLink to={"/movies"}>Movies</NavLink></li>
+            <li><NavLink to={"/kids"}>Kids</NavLink></li>
             <li><NavLink to={"/contact"}>Contact</NavLink></li>
-            <li><NavLink to={"/addmovie"}>Addmovie</NavLink></li>
+            {/* <li><NavLink to={"/addmovie"}>Addmovie</NavLink></li>
             <li>
               {user && userData.isAdmin === true ?
                 <NavLink to={"/admin"}>Admin</NavLink>
                 :
                 ""}
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>

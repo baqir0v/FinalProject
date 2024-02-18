@@ -1,4 +1,4 @@
-#moviespage {
+#kids {
     .allmovies {
         display: flex;
         flex-direction: column;
@@ -49,10 +49,10 @@
         display: flex;
         justify-content: space-between;
         padding: 20px 0px;
-
         button {
             background-color: #2196f3;
-            // border-radius: 5px;
+            padding: 1px 5px;
+            border-radius: 5px;
             border: none;
             color: white;
             display: flex;
@@ -81,15 +81,9 @@
             button {
                 display: flex;
                 align-items: center;
-                padding: 5px 10px;
+            }
+        }
 
-            }
-        }
-        .filter{
-            button{
-                padding: 5px 10px;
-            }
-        }
         .form__group {
             position: relative;
             padding: 15px 0 0;

@@ -51,7 +51,7 @@ const Footer = () => {
                 {data && data
                   .sort((a, b) => a.categoryname.localeCompare(b.categoryname))
                   .map((item) => (
-                    <li key={item._id}><Link>{item.categoryname}</Link></li>
+                    <li key={item._id}><Link to={`/categories/${item._id}`}>{item.categoryname}</Link></li>
                   ))}
               </ul>
             </ul>
