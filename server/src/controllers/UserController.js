@@ -8,7 +8,7 @@ import upload from "../middleware/multer.js";
 const userController = {
     getAllUsers: async (req, res) => {
         try {
-            const allUsers = await UserModel.find({}).populate("inWishList")
+            const allUsers = await UserModel.find({}).populate("inWishList").populate("isWatched")
             res.send(allUsers)
         } catch (error) {
             res.status(500).json({ message: error })
@@ -16,7 +16,7 @@ const userController = {
     },
     getUserByID: async (req, res) => {
         try {
-            const getByID = await UserModel.findById(req.params.id).populate("inWishList")
+            const getByID = await UserModel.findById(req.params.id).populate("inWishList").populate("isWatched")
             res.send(getByID)
         } catch (error) {
             res.status(500).json({ message: error })
@@ -24,7 +24,6 @@ const userController = {
     },
     registerUser: async (req, res) => {
         try {
-            // Use upload.fields middleware directly in the controller
             upload.fields([{ name: 'image' }])(req, res, async (err) => {
                 if (err) {
                     console.error(err);
@@ -45,7 +44,6 @@ const userController = {
 
                 const imageResult = req.files['image'][0];
 
-                // Upload the image to Cloudinary
                 const cloudinaryResult = await cloudinary.uploader.upload(imageResult.path, {
                     folder: "users",
                 });
@@ -151,6 +149,47 @@ const userController = {
             res.status(500).json({ message: error.message });
         }
     },
+    updateWatched: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const { movieId } = req.body;
+            const findUser = await UserModel.findById(id);
+    
+            if (!findUser) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+    
+            const isAlreadyWatched = findUser.isWatched.includes(movieId);
+    
+            if (isAlreadyWatched) {
+                return res.status(400).json({ message: 'Movie is already marked as watched.' });
+            }
+    
+            findUser.isWatched.push(movieId);
+            await findUser.save();
+            res.send(findUser);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+            console.log(error);
+        }
+    },
+
+    deleteWatched: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const { movieId } = req.body;
+            const findUser = await UserModel.findById(id);
+            console.log(typeof movieId);
+            console.log(findUser.isWatched);
+            findUser.isWatched = findUser.isWatched.filter(watchedMovieId => watchedMovieId.toString() !== movieId);
+            await findUser.save();
+            res.send(findUser);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+            console.log(error);
+        }
+    },
+
     updateImage: async (req, res) => {
         try {
             upload.fields([{ name: "image" }])(req, res, async function (err) {
@@ -158,23 +197,21 @@ const userController = {
                     console.error(err);
                     return res.status(400).json({ message: err.message });
                 }
-    
+
                 const { id } = req.params;
-                const imageFile = req.files['image'][0]; // Get the uploaded image file
-                const image = imageFile.path; // Path of the uploaded image file
-    
-                // Upload the new image to Cloudinary
+                const imageFile = req.files['image'][0];
+                const image = imageFile.path;
+
                 const cloudinaryResult = await cloudinary.uploader.upload(image, {
                     folder: 'users',
                 });
-    
-                // Update the user document with the new Cloudinary URL
+
                 const updatedUser = await UserModel.findByIdAndUpdate(
                     id,
                     { image: cloudinaryResult.secure_url },
-                    { new: true } // Returns the updated user
+                    { new: true }
                 );
-    
+
                 if (updatedUser) {
                     res.send(updatedUser);
                 } else {

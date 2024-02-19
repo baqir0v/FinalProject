@@ -6,6 +6,7 @@ import "./reset.scss"
 import "./color.scss"
 import Profile from "./pages/Profile"
 import { AddMovies } from "./pages/AddMovies"
+import Errorpage from "./pages/Error"
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
         <Route path="/movies" element={<MoviesPage/>}/>
         <Route path="/add" element={<AddMovies/>}/>
         <Route path="/profile" element={<Profile/>}/>
+        <Route path="/error" element={<Errorpage/>}/>
       </Routes>
     </>
   )

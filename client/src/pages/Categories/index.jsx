@@ -34,6 +34,7 @@ const CategoriesPage = () => {
                         {data.movies.map((movie) => (
                             <Link to={`/detail/${movie._id}`}>
                                 <ul key={movie._id}>
+                                    <li><span>{movie.name}</span></li>
                                     <li><img src={movie.image} alt="" /></li>
                                 </ul>
                             </Link>

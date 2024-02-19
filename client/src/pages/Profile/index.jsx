@@ -54,15 +54,13 @@ const Profile = () => {
         },
       });
 
-      // Update UserContext with the new user data, including the updated image
       setUser(response.data);
       updateUserImage(response.data.image);
 
-      // Reset the image state
       setImage(null);
       console.log("Image updated successfully");
       fetchData()
-      window.location.reload(); 
+      window.location.reload();
     } catch (error) {
       console.error('Error updating image:', error);
     }
@@ -72,25 +70,34 @@ const Profile = () => {
     <div id='profilepage' className={darkmode ? 'darkprofile' : 'lightprofile'}>
       <Navbar />
       {data.map((item) => (
-      item.nickname === userData.nickname && (
-        <div key={item.id} className='profile'>
-          <img src={item.image } alt='' />
-          <div className='userdata'>
-            <h1>{item.nickname}</h1>
-            <h3>{item.email}</h3>
+        item.nickname === userData.nickname && (
+          <div key={item.id} className='profile'>
+            <div className="userdatas">
+              <img src={item.image} alt='' />
+              <div className='userdata'>
+                <h1>{item.nickname}</h1>
+                <h3>{item.email}</h3>
 
-            {/* Image upload form */}
-            <input type='file' accept='image/*' onChange={handleImageChange} />
-            <button onClick={handleImageUpload}>Update Image</button>
+                <input type='file' accept='image/*' onChange={handleImageChange} />
+                <button onClick={handleImageUpload}>Update Image</button>
 
-            {/* Logout button */}
-            <Link to='/login'>
-              <button onClick={handleLogOut}>Log Out</button>
-            </Link>
+                <Link to='/login'>
+                  <button onClick={handleLogOut}>Log Out</button>
+                </Link>
+              </div>
+            </div>
+            {/* <div className="iswatched">
+              {item.isWatched.map((watched) => (
+                <Link to={`/detail/${watched._id}`}>
+                  <div className="movies" key={watched._id}>
+                    <img src={watched.image} alt="" />
+                  </div>
+                </Link>
+              ))}
+            </div> */}
           </div>
-        </div>
-      )
-    ))}
+        )
+      ))}
       <Footer />
     </div>
   );

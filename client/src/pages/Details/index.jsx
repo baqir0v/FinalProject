@@ -23,15 +23,15 @@ const Details = () => {
     const { userData } = useContext(UserContext)
     const [isInWishlist, setIsInWishlist] = useState(false);
     const [isRateOpen, setIsRateOpen] = useState(false)
-    const [selectedRating, setSelectedRating] = useState(1); 
+    const [selectedRating, setSelectedRating] = useState(1);
     const movieId = details._id
     const [isTrailerOpen, setIsTrailerOpen] = useState(false)
-    
+
     const openRate = () => {
         setIsRateOpen(!isRateOpen)
     }
 
-    const openTrailer = ()=>{
+    const openTrailer = () => {
         setIsTrailerOpen(!isTrailerOpen)
 
     }
@@ -46,6 +46,17 @@ const Details = () => {
         }
     }
 
+    const handleWatch = async (movieId) => {
+        try {
+            const userId = userData.userId;
+            const data = await axios.put(`http://localhost:5500/api/users/updateWatched/${userId}`, { movieId });
+            console.log(data);
+            // Additional actions after updating watched movies
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     const handleWishlist = async () => {
         try {
             console.log(userData);
@@ -53,7 +64,7 @@ const Details = () => {
                 const res = await axios.put(`http://localhost:5500/api/users/addWishlist/${userData.userId}`, { movieId });
                 const userWishlist = res.data.inWishList
 
-                setIsInWishlist((prev) => !prev);  
+                setIsInWishlist((prev) => !prev);
                 if (userWishlist.includes(details._id)) {
                     // console.log("Movie deleted from wishlist");
                     toast.success('Added To List');
@@ -83,7 +94,7 @@ const Details = () => {
                 setDetails(updatedDetails);
                 console.log(res.data);
                 fetchData()
-            } 
+            }
         } catch (error) {
             console.log(error);
         }
@@ -97,22 +108,22 @@ const Details = () => {
     console.log(averageRating);
     return (
         <div id='detailpage' className={darkmode ? "darkdetail" : "lightdetail"}>
-             <ToastContainer
-              position="top-right"
-              autoClose={2000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              theme="light"
+            <ToastContainer
+                position="top-right"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
             />
             <div className={isTrailerOpen ? "watchtrailer" : "dnone"}>
                 <div className="trailervideo">
-                <span className='closer' onClick={openTrailer}><IoMdClose /></span>
-                <iframe src={details.trailer}></iframe>
+                    <span className='closer' onClick={openTrailer}><IoMdClose /></span>
+                    <iframe src={details.trailer}></iframe>
                 </div>
             </div>
             <div className={isRateOpen ? "ratewithstars" : "dnone"}>
@@ -136,7 +147,9 @@ const Details = () => {
                             <h1>{details.name}</h1>
                             <div className='player'>
                                 <Link to={`/video/${details._id}`}>
-                                    <FaPlay />
+                                    <span onClick={() => handleWatch(details._id)}>
+                                        <FaPlay />
+                                    </span>
                                 </Link>
                             </div>
                         </div>

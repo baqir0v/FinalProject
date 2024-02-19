@@ -6,18 +6,31 @@
     .profile{
         padding: 50px 50px;
         display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 50px;
-        img{
-            width: 200px;
-            height: 200px;
-            border-radius: 100%;
+        justify-content: space-between;
+        .userdatas{
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 50px;
+            img{
+                width: 200px;
+                height: 200px;
+                border-radius: 100%;
+            }
+            .userdata{
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                
+            }
         }
-        .userdata{
+
+        .iswatched{
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            img{
+                max-width: 100px;
+            }
         }
     }
 }

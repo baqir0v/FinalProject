@@ -24,6 +24,7 @@
     "react-loading-skeleton": "^3.4.0",
     "react-player": "^2.14.1",
     "react-router-dom": "^6.21.3",
+    "react-scripts": "^5.0.1",
     "react-toastify": "^10.0.4",
     "sass": "^1.70.0",
     "swiper": "^11.0.6",

@@ -16,6 +16,7 @@ import Horror from '../../components/Horror';
 import Romance from '../../components/Romance';
 import Animation from '../../components/Animation';
 import Favorites from '../../components/Favorite';
+import LastWatched from '../../components/LastWatched';
 
 const Home = () => {
     const [data, setData] = useState([]);
@@ -78,6 +79,7 @@ const Home = () => {
                 </>
             )}
             <Navbar />
+            <LastWatched/>
             <Animation />
             {/* <Action/> */}
             <Favorites/>
@@ -85,7 +87,7 @@ const Home = () => {
             {/* <Drama/> */}
             {/* <Comedy/> */}
             {/* <SciFi/> */}
-            <Thriller/>
+            {/* <Thriller/> */}
             {/* <Sports/>
             <Western/>
             <Documentary/>
