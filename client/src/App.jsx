@@ -14,6 +14,7 @@ import PaymentPage from "./pages/Payment"
 import Kids from "./pages/Kids"
 import Playlist from "./pages/Playlist"
 import CategoriesPage from "./pages/Categories"
+import StripePage from "./pages/Stripe"
 
 function App() {
 
@@ -28,7 +29,7 @@ function App() {
         <Route path="/movies" element={<MoviesPage/>} />
         <Route path="/detail/:id" element={<Details/>} />
         <Route path="/video/:id" element={<Video/>} />
-        <Route path="/payment" element={<PaymentPage/>} />
+        <Route path="/payment" element={<StripePage/>} />
         <Route path="/kids" element={<Kids/>} />
         <Route path="/playlist" element={<Playlist/>} />
         <Route path="/categories/:id" element={<CategoriesPage/>} />

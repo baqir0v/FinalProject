@@ -6,13 +6,17 @@ import userRouter from "./src/routes/UserRouter.js"
 import categoryRouter from "./src/routes/categoriesRouter.js"
 import moviesRouter from "./src/routes/moviesRouter.js"
 import paymentRoutes from "./src/routes/paymentRoutes.js"
+import Stripe from 'stripe';
+import bodyParser from 'body-parser';
 
 const app = express()
 
-app.use(express.json())
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors())
 app.options('*', cors());
 
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 dotenv.config()
 const port = process.env.PORT
@@ -27,8 +31,25 @@ app.use(
   )
 )
 app.use("/api/categories", categoryRouter)
-app.use("/api/movies",moviesRouter)
+app.use("/api/movies", moviesRouter)
 app.use("/api/payments", paymentRoutes);
+
+app.post('/payment', async (req, res) => {
+  let status, error;
+  const { token, amount } = req.body;
+  try {
+    await Stripe.charges.create({
+      source: token.id,
+      amount,
+      currency: 'usd',
+    });
+    status = 'success';
+  } catch (error) {
+    console.log(error);
+    status = 'Failure';
+  }
+  res.json({ error, status });
+});
 
 mongoose.connect(url).then(res => console.log("DB connected")).catch(err => console.log(err))
 
