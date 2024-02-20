@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "body-parser": "^1.20.2",
-    "react-stripe-checkout": "^2.6.3",
-    "stripe": "^14.17.0"
-  }
-}

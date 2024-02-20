@@ -8,15 +8,24 @@ import { DarkmodeContext } from '../../Context/darkmodeContext';
 import { Link } from "react-router-dom";
 import StarRating from '../StarRating';
 
-const Favorites = () => {
+const TopRated = () => {
     const [data, setData] = useState([]);
     const { darkmode } = useContext(DarkmodeContext);
 
     const fetchData = async () => {
-        const res = await fetch("http://localhost:5500/api/movies/");
-        const jsonData = await res.json();
-        const filteredData = jsonData.filter(item => item.imdb >= 8);
-        setData(filteredData);
+        try {
+            const res = await fetch("http://localhost:5500/api/movies/");
+            const jsonData = await res.json();
+
+            const filteredData = jsonData.filter(item => {
+                const averageRating = item.ratings ? item.ratings.reduce((total, rating) => total + rating.rating, 0) / item.ratings.length : 0;
+                return averageRating >= 4.5;
+            });
+
+            setData(filteredData);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
     };
 
     useEffect(() => {
@@ -44,7 +53,7 @@ const Favorites = () => {
 
     return (
         <section id='movies' className={darkmode ? "darkmovies" : "lightmovies"}>
-            <h1>Favorite</h1>
+            <h1>Top Rated</h1>
             <Swiper
                 // slidesPerView={4}
                 spaceBetween={30}
@@ -52,8 +61,8 @@ const Favorites = () => {
                     clickable: true,
                 }}
                 modules={[Pagination]}
-                breakpoints={breakpoints}
                 className="mySwiper"
+                breakpoints={breakpoints}
             >
                 {data.map((item) => {
                     const averageRating = item.ratings ? item.ratings.reduce((total, rating) => total + rating.rating, 0) / item.ratings.length : 0;
@@ -90,4 +99,4 @@ const Favorites = () => {
     );
 };
 
-export default Favorites;
+export default TopRated;

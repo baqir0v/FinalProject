@@ -101,7 +101,6 @@ const MoviesPage = () => {
         .slice(indexOfFirstItem, indexOfLastItem);
 
 
-
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     return (
@@ -157,6 +156,7 @@ const MoviesPage = () => {
                             ))}
                         </div>
                         <div className="byimdb">
+                            <h3>IMDb</h3>
                             <Slider
                                 range
                                 max={10}
@@ -168,17 +168,20 @@ const MoviesPage = () => {
                     </div>
                     <div className="bycategory">
                         {catData.map((category) => (
-                            <span key={category._id}>
-                                <label htmlFor={`category-${category.categoryname}`}>
+                            <span className="checkbox-wrapper-29" key={category._id}>
                                     {category.categoryname}
+                                <label className="checkbox" htmlFor={`category-${category.categoryname}`}>
+                                    <input
+                                        className="checkbox__input"
+                                        type='checkbox'
+                                        name={`category-${category.categoryname}`}
+                                        id={`category-${category.categoryname}`}
+                                        checked={selectedCategories.includes(category.categoryname)}
+                                        onChange={() => handleCategoryFilter(category.categoryname)}
+                                    />
+                                    <span className="checkbox__label"></span>
+
                                 </label>
-                                <input
-                                    type='checkbox'
-                                    name={`category-${category.categoryname}`}
-                                    id={`category-${category.categoryname}`}
-                                    checked={selectedCategories.includes(category.categoryname)}
-                                    onChange={() => handleCategoryFilter(category.categoryname)}
-                                />
                             </span>
                         ))}
                     </div>

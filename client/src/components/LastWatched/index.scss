@@ -1,4 +1,6 @@
 #lastwatched {
+    padding: 0px 50px;
+
     .swiper {
         padding: 50px 0px;
     }
@@ -8,7 +10,6 @@
         border-radius: 20px;
         display: flex;
         flex-direction: column;
-        gap: 10px;
         align-items: center;
 
         // padding: 10px;
@@ -16,6 +17,15 @@
             position: absolute;
             right: 20px;
             top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #BA0021;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
         }
 
         span {
@@ -105,8 +115,14 @@
     }
 }
 
-@media screen and (max-width: 600px) {
-    #movies {
+@media screen and (max-width: 500px) {
+    #lastwatched {
+        button {
+            right: 10px !important;
+            top: 10px !important;
+            padding: 5px !important;
+        }
+
         a {
             font-size: 4px;
 

@@ -14,6 +14,7 @@ const AdminPage = () => {
   const [data, setData] = useState([])
   const { darkmode } = useContext(DarkmodeContext)
   const { userData } = useContext(UserContext)
+  const [search, setSearch] = useState('');
 
   const fetchData = async () => {
     const res = await fetch("http://localhost:5500/api/users/")
@@ -77,7 +78,7 @@ const AdminPage = () => {
                 <div className='filter'>
                   <div className="search">
                     <div className="form__group field">
-                      <input type="input" className="form__field" placeholder="Name" name="name" id='name' required />
+                      <input type="input" className="form__field" placeholder="Name" name="name" id='name' required onChange={(e)=>{setSearch(e.target.value)}}/>
                       <label htmlFor="name" className="form__label">Name</label>
                     </div>
                   </div>
@@ -95,22 +96,24 @@ const AdminPage = () => {
                   <h3>Change Role</h3>
                   <h3>Delete</h3>
                 </div>
-                {data && data.map((item) => (
-                  <div className='datas' key={item._id}>
-                    <p><img src={item.image} alt="" /></p>
-                    <p>{item.nickname}</p>
-                    <p>{item.email}</p>
-                    <p>{item.isAdmin === true ? "True" : "False"}</p>
-                    <p><button className="button-66" role="button" onClick={() => handleChangeAdmin(item)}>Change</button></p>
-                    <p><button className="button-67" role="button" onClick={() => handleDelete(item._id)}>Delete</button></p>
-                  </div>
-                ))}
+                {data && data
+                    .filter((item) => item.nickname.toLowerCase().trim().includes(search.toLowerCase()))
+                  .map((item) => (
+                    <div className='datas' key={item._id}>
+                      <p><img src={item.image} alt="" /></p>
+                      <p>{item.nickname}</p>
+                      <p>{item.email}</p>
+                      <p>{item.isAdmin === true ? "True" : "False"}</p>
+                      <p><button className="button-66" role="button" onClick={() => handleChangeAdmin(item)}>Change</button></p>
+                      <p><button className="button-67" role="button" onClick={() => handleDelete(item._id)}>Delete</button></p>
+                    </div>
+                  ))}
               </div>
               : <h1>There is No Users</h1>
             }
           </div>
         </>
-        : <Errorpage/>}
+        : <Errorpage />}
     </>
   )
 }

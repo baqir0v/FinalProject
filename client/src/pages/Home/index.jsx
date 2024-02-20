@@ -17,6 +17,7 @@ import Romance from '../../components/Romance';
 import Animation from '../../components/Animation';
 import Favorites from '../../components/Favorite';
 import LastWatched from '../../components/LastWatched';
+import TopRated from '../../components/TopRated';
 
 const Home = () => {
     const [data, setData] = useState([]);
@@ -80,7 +81,8 @@ const Home = () => {
             )}
             <Navbar />
             <LastWatched/>
-            <Animation />
+            <TopRated/>
+            {/* <Animation /> */}
             {/* <Action/> */}
             <Favorites/>
             {/* <Crime/> */}

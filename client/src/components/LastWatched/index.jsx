@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import StarRating from '../StarRating';
 import { UserContext } from '../../Context/userContext';
 import axios from 'axios';
+import { FaTrash } from "react-icons/fa";
 
 const LastWatched = () => {
   const [data, setData] = useState([]);
@@ -40,6 +41,7 @@ const LastWatched = () => {
     }
   }
 
+
   useEffect(() => {
     fetchData();
     fetchUserInfo();
@@ -58,14 +60,14 @@ const LastWatched = () => {
       >
         {userInfo.map((item) => (
           <div key={item._id}>
-            {item.isWatched && item.isWatched.map((watched) => (
+            {item.isWatched && item.isWatched.reverse().map((watched) => (
               <SwiperSlide>
                 <div className="movies" key={watched._id}>
                   <Link to={`/detail/${watched._id}`} >
                     <span>{watched.name}</span>
                   </Link>
                   <img src={watched.image} alt="" />
-                  <button onClick={() => handleDeleteWatched(watched._id)}>delete</button>
+                  <button onClick={() => handleDeleteWatched(watched._id)}><FaTrash /></button>
                 </div>
               </SwiperSlide>
             ))
