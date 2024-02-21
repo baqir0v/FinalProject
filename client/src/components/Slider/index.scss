@@ -1,0 +1,26 @@
+#slider{
+    width: 100%;
+    height: 80vh;
+    padding: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .slider{
+        width: 80%;
+        height: 100%;
+    }
+    .swiper{
+        width: 100%;
+        height: 100%;
+        border-radius: 20px;
+    }
+}
+
+.darkslider{
+    background-color: #2d2d2d;
+
+}
+
+.lightslider{
+    background-color: #fcfcfc;
+}

@@ -18,6 +18,7 @@ import Animation from '../../components/Animation';
 import Favorites from '../../components/Favorite';
 import LastWatched from '../../components/LastWatched';
 import TopRated from '../../components/TopRated';
+import Slider from '../../components/Slider';
 
 const Home = () => {
     const [data, setData] = useState([]);
@@ -80,6 +81,7 @@ const Home = () => {
                 </>
             )}
             <Navbar />
+            <Slider/>
             <LastWatched/>
             <TopRated/>
             {/* <Animation /> */}

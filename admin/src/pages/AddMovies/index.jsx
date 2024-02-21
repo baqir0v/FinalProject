@@ -75,6 +75,7 @@ export const AddMovies = () => {
                             <NavLink activeclassname="active" to={"/admin"}>Users</NavLink>
                             <NavLink to={"/movies"}>Movie</NavLink>
                             <NavLink to={"/add"}>Add</NavLink>
+                            <NavLink to={"/swiper"}>Swiper</NavLink>
                         </div>
                         <Formik
                             initialValues={{ name: '', desc: '', lang: '', year: '', image: null, detailImage: null, video: null, category: [], trailer: "", imdb: "", ageLimit: "" }}

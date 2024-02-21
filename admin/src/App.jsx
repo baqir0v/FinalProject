@@ -7,6 +7,8 @@ import "./color.scss"
 import Profile from "./pages/Profile"
 import { AddMovies } from "./pages/AddMovies"
 import Errorpage from "./pages/Error"
+import Swiper from "./pages/Swiper"
+import SwipePage from "./pages/SwipePage"
 
 function App() {
 
@@ -18,6 +20,8 @@ function App() {
         <Route path="/movies" element={<MoviesPage/>}/>
         <Route path="/add" element={<AddMovies/>}/>
         <Route path="/profile" element={<Profile/>}/>
+        <Route path="/swiper" element={<Swiper/>}/>
+        <Route path="/swipepage" element={<SwipePage/>}/>
         <Route path="/error" element={<Errorpage/>}/>
       </Routes>
     </>

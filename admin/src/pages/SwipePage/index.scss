@@ -1,0 +1,173 @@
+#swipepage {
+    width: 100%;
+    padding: 50px 20px;
+    display: flex;
+    justify-content: space-between;
+    min-height: 86.6vh;
+
+    .adminleft {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .adminright {
+
+        width: 30%;
+
+        .filter {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .search {
+                $primary: #11998e;
+                $secondary: #38ef7d;
+                $white: #fff;
+                $gray: #9b9b9b;
+                width: 30%;
+
+                .form__group {
+                    position: relative;
+                    padding: 15px 0 0;
+                    margin-top: 10px;
+                    width: 100%;
+                }
+
+                .form__field {
+                    font-family: inherit;
+                    width: 100%;
+                    border: 0;
+                    border-bottom: 2px solid $gray;
+                    outline: 0;
+                    font-size: 1.3rem;
+                    color: $white;
+                    padding: 7px 0;
+                    background: transparent;
+                    transition: border-color 0.2s;
+
+                    &::placeholder {
+                        color: transparent;
+                    }
+
+                    &:placeholder-shown~.form__label {
+                        font-size: 1.3rem;
+                        cursor: text;
+                        top: 20px;
+                    }
+                }
+
+                .form__label {
+                    position: absolute;
+                    top: 0;
+                    display: block;
+                    transition: 0.2s;
+                    font-size: 1rem;
+                    color: $gray;
+                }
+
+                .form__field:focus {
+                    ~.form__label {
+                        position: absolute;
+                        top: 0;
+                        display: block;
+                        transition: 0.2s;
+                        font-size: 1rem;
+                        color: $primary;
+                        font-weight: 700;
+                    }
+
+                    padding-bottom: 6px;
+                    font-weight: 700;
+                    border-width: 3px;
+                    border-image: linear-gradient(to right, $primary, $secondary);
+                    border-image-slice: 1;
+                }
+
+                /* reset input */
+                .form__field {
+
+                    &:required,
+                    &:invalid {
+                        box-shadow: none;
+                    }
+                }
+            }
+        }
+
+        .datas {
+            width: 100%;
+            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            display: flex;
+            align-items: center;
+            padding: 20px 10px;
+            gap: 10px;
+
+            .button-66 {
+                padding: 5px 10px;
+                background-color: #2196F3;
+                border-radius: 5px;
+                border: none;
+                color: white;
+            }
+
+            .button-67 {
+                padding: 5px 10px;
+                background-color: red;
+                border-radius: 5px;
+                border: none;
+                color: white;
+            }
+
+            h3 {
+                width: 180px;
+                // border: 1px solid white;
+            }
+
+            p {
+                width: 180px;
+                // border: 1px solid white;
+            }
+
+            img {
+                width: 100px;
+            }
+        }
+    }
+}
+
+.darkswipepage {
+    background-color: #2d2d2d;
+    .active {
+        color: white;
+    }
+    .adminleft {
+        a{
+            color: #888888;
+        }
+    }
+
+    .adminright {
+        .datas {
+            background-color: #212121;
+            color: #888888;
+        }
+    }
+}
+
+.lightswipepage {
+    background-color: #fcfcfc;
+
+    .adminleft {
+        a{
+            color: #666666;
+        }
+    }
+
+    .adminright {
+        .datas {
+            background-color: #ffffff;
+            color: #666666;
+        }
+    }
+}

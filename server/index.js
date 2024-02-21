@@ -8,6 +8,7 @@ import moviesRouter from "./src/routes/moviesRouter.js"
 import paymentRoutes from "./src/routes/paymentRoutes.js"
 import Stripe from 'stripe';
 import bodyParser from 'body-parser';
+import swiperRouter from "./src/routes/swiperRouter.js"
 
 const app = express()
 
@@ -33,6 +34,7 @@ app.use(
 app.use("/api/categories", categoryRouter)
 app.use("/api/movies", moviesRouter)
 app.use("/api/payments", paymentRoutes);
+app.use("/api/swiper", swiperRouter);
 
 app.post('/payment', async (req, res) => {
   let status, error;

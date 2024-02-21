@@ -78,7 +78,7 @@ const AdminPage = () => {
                 <div className='filter'>
                   <div className="search">
                     <div className="form__group field">
-                      <input type="input" className="form__field" placeholder="Name" name="name" id='name' required onChange={(e)=>{setSearch(e.target.value)}}/>
+                      <input type="input" className="form__field" placeholder="Name" name="name" id='name' required onChange={(e) => { setSearch(e.target.value) }} />
                       <label htmlFor="name" className="form__label">Name</label>
                     </div>
                   </div>
@@ -97,7 +97,7 @@ const AdminPage = () => {
                   <h3>Delete</h3>
                 </div>
                 {data && data
-                    .filter((item) => item.nickname.toLowerCase().trim().includes(search.toLowerCase()))
+                  .filter((item) => item.nickname.toLowerCase().trim().includes(search.toLowerCase()))
                   .map((item) => (
                     <div className='datas' key={item._id}>
                       <p><img src={item.image} alt="" /></p>

@@ -34,7 +34,6 @@ const LastWatched = () => {
       const userId = userData.userId;
       const data = await axios.put(`http://localhost:5500/api/users/deleteWatched/${userId}`, { movieId });
       console.log(data);
-      // Additional actions after updating watched movies
       fetchUserInfo()
     } catch (error) {
       console.error(error);
