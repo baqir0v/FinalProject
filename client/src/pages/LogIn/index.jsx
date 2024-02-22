@@ -11,7 +11,7 @@ import { Link, useNavigate } from 'react-router-dom';
 export const LogIn = () => {
     const { user, setUser, token } = useContext(UserContext)
     const { darkmode } = useContext(DarkmodeContext)
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
 
     // token? const user = jwtDecode(token) : ""
     // const user = token ? jwtDecode(token) : null
@@ -25,7 +25,7 @@ export const LogIn = () => {
             if (resp.data) {
                 localStorage.setItem('token', resp.data)
                 localStorage.setItem("nickname", decoded.nickname)
-                navigate("/payment")
+                // navigate("/payment")
                 window.location.reload(); 
             }
         } catch (error) {

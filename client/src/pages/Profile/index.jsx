@@ -7,7 +7,6 @@ import axios from 'axios';
 import './index.scss';
 import { DarkmodeContext } from '../../Context/darkmodeContext';
 
-
 const Profile = () => {
   const { user, userData, setUser, updateUserImage } = useContext(UserContext);
   const [data, setData] = useState([])
@@ -73,28 +72,25 @@ const Profile = () => {
         item.nickname === userData.nickname && (
           <div key={item.id} className='profile'>
             <div className="userdatas">
-              <img src={item.image} alt='' />
+              <div className="profiledata">
+                <img src={item.image} alt='' />
+                <Link to='/login'>
+                  <button className="button-29" onClick={handleLogOut}>Log Out</button>
+                </Link>
+              </div>
               <div className='userdata'>
                 <h1>{item.nickname}</h1>
                 <h3>{item.email}</h3>
+                <div className="inpfile">
+                  <label style={{ cursor: "pointer" }} for="fileInput" className="custom-file-upload">
+                    Upload Profile Picture
+                  </label>
+                  <input type="file" id="fileInput" name="fileInput" onChange={handleImageChange} />
+                </div>
 
-                <input type='file' accept='image/*' onChange={handleImageChange} />
                 <button onClick={handleImageUpload}>Update Image</button>
-
-                <Link to='/login'>
-                  <button onClick={handleLogOut}>Log Out</button>
-                </Link>
               </div>
             </div>
-            {/* <div className="iswatched">
-              {item.isWatched.map((watched) => (
-                <Link to={`/detail/${watched._id}`}>
-                  <div className="movies" key={watched._id}>
-                    <img src={watched.image} alt="" />
-                  </div>
-                </Link>
-              ))}
-            </div> */}
           </div>
         )
       ))}

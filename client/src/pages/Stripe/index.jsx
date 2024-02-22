@@ -1,12 +1,13 @@
 import StripeCheckout from 'react-stripe-checkout';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
-// import Swal from 'sweetalert2';
-// import withReactContent from 'sweetalert2-react-content';
-
-// const MySwal = withReactContent(Swal);
+import "./index.scss"
+import { DarkmodeContext } from '../../Context/darkmodeContext';
+import { useNavigate } from 'react-router-dom';
 
 function StripePage() {
+  const { darkmode } = useContext(DarkmodeContext);
+  const navigate = useNavigate()
   const publishableKey =
     'pk_test_51OkmhqJa2gK3aeyUR1iJQhnfdrIzGoI7F8EwaozDIgnO35V3hLDODQXv16aRsn32mJC4BDNR9QVf7oKWEl3AUoJh00RkOy5Vae';
   const [product, setProduct] = useState({
@@ -15,20 +16,7 @@ function StripePage() {
   });
   const priceForStripe = product.price * 100;
 
-//   const handleSuccess = () => {
-//     MySwal.fire({
-//       icon: 'success',
-//       title: 'Payment was successful',
-//       time: 4000,
-//     });
-//   };
-//   const handleFailure = () => {
-//     MySwal.fire({
-//       icon: 'error',
-//       title: 'Payment was not successful',
-//       time: 4000,
-//     });
-//   };
+
   const payNow = async token => {
     try {
       const response = await axios({
@@ -40,36 +28,40 @@ function StripePage() {
         },
       });
       if (response.status === 200) {
-        // handleSuccess();
-        alert("isledi")
+        alert("Purchase has been completed")
       }
+      navigate("/home")
     } catch (error) {
-    //   handleFailure();
       console.log(error);
-      alert("ErrorSalam")
+      alert("Failure while purchase")
     }
   };
 
   return (
-    <div className="container">
-      <h2>Complete React & Stripe payment integration</h2>
-      <p>
-        <span>Product: </span>
-        {product.name}
-      </p>
-      <p>
-        <span>Price: </span>${product.price}
-      </p>
-      <StripeCheckout
-        stripeKey={publishableKey}
-        label="Pay Now"
-        name="Pay With Credit Card"
-        billingAddress
-        shippingAddress
-        amount={priceForStripe}
-        description={`Your total is $${product.price}`}
-        token={payNow}
-      />
+    <div className={`payNow ${darkmode ? "darkpayNow" : "lightpayNow"}`}>
+      <div className="div">
+        <h2>Subscribe to see movies</h2>
+        <p>
+          <span>Price: </span>${product.price}
+        </p>
+        <div className="salamtagi">
+          {/* <p>
+          <span>Product: </span>
+          {product.name}
+        </p> */}
+
+          <StripeCheckout
+            stripeKey={publishableKey}
+            label="Pay Now"
+            name="Pay With Credit Card"
+            billingAddress
+            shippingAddress
+            amount={priceForStripe}
+            description={`Your total is $${product.price}`}
+            token={payNow}
+          />
+        </div>
+      </div>
     </div>
   );
 }

@@ -10,6 +10,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import Errorpage from '../Error';
 import { UserContext } from '../../Context/userContext'
+import Nav from '../../layout/Nav';
 
 export const AddMovies = () => {
     const { darkmode } = useContext(DarkmodeContext);
@@ -31,6 +32,7 @@ export const AddMovies = () => {
             formData.append('image', values.image);
             formData.append('detailImage', values.detailImage);
             formData.append('video', values.video);
+            // formData.append('cast', values.cast);
 
             values.category.forEach((categoryId, index) => {
                 formData.append(`category[${index}]`, categoryId);
@@ -72,13 +74,12 @@ export const AddMovies = () => {
                     <Navbar />
                     <div id='addmovie' className={darkmode ? "darkaddmovie" : "lightaddmovie"}>
                         <div className="adminleft">
-                            <NavLink activeclassname="active" to={"/admin"}>Users</NavLink>
-                            <NavLink to={"/movies"}>Movie</NavLink>
-                            <NavLink to={"/add"}>Add</NavLink>
-                            <NavLink to={"/swiper"}>Swiper</NavLink>
+                            <Nav />
                         </div>
                         <Formik
-                            initialValues={{ name: '', desc: '', lang: '', year: '', image: null, detailImage: null, video: null, category: [], trailer: "", imdb: "", ageLimit: "" }}
+                            initialValues={{ name: '', desc: '', lang: '', year: '', image: null,
+                            //  cast: [{ castName: '', image: '' }], 
+                             detailImage: null, video: null, category: [], trailer: "", imdb: "", ageLimit: "", }}
                             validationSchema={Yup.object({
                                 name: Yup.string().required('Required'),
                                 desc: Yup.string().required('Required'),
@@ -90,6 +91,12 @@ export const AddMovies = () => {
                                 ageLimit: Yup.number().required('Required').min(0, 'Must be at least 0'),
                                 imdb: Yup.number().required('Required').min(0, "Must be between 0 and 10").max(10, 'Must be between 0 and 10'),
                                 year: Yup.number().required('Required').min(1900, 'Must be at least 1900'),
+                                // cast: Yup.array().of(
+                                //     Yup.object().shape({
+                                //         castName: Yup.string().required('Required'),
+                                //         image: Yup.string().required('Required'),
+                                //     })
+                                // )
                             })}
                             onSubmit={(values, { resetForm }) => {
                                 console.log(values);
@@ -166,23 +173,6 @@ export const AddMovies = () => {
                                     </Field>
                                     <ErrorMessage name="video" />
 
-                                    {/* <label htmlFor="category">Category</label>
-                            <Field name="category" as="select" multiple>
-                                <option value="Action">Action</option>
-                                <option value="Drama">Drama</option>
-                                <option value="Comedy">Comedy</option>
-                                <option value="Horror">Horror</option>
-                                <option value="Romance">Romance</option>
-                                <option value="Sci-Fi">Sci-Fi</option>
-                                <option value="Crime">Crime</option>
-                                <option value="Documentary">Documentary</option>
-                                <option value="Sports">Sports</option>
-                                <option value="Western">Western</option>
-                                <option value="Thriller">Thriller</option>
-                                <option value="Animation">Animation</option>
-                            </Field>
-                            <ErrorMessage name="category" /> */}
-
                                     <label htmlFor="category">Category</label>
                                     <Field name="category" as="select" multiple>
                                         {categories.map((category) => (
@@ -200,6 +190,36 @@ export const AddMovies = () => {
                                     <label htmlFor="year">Year</label>
                                     <Field name="year" type="number" min="1900" />
                                     <ErrorMessage name="year" />
+{/* 
+                                    <label htmlFor="cast">Cast</label>
+                                    <FieldArray name="cast">
+                                        {({ push, remove }) => (
+                                            <>
+                                                {values.cast.map((cast, index) => (
+                                                    <div key={index}>
+                                                        <label htmlFor={`cast.${index}.castName`}>Name</label>
+                                                        <Field name={`cast.${index}.castName`} type="text" />
+                                                        <ErrorMessage name={`cast.${index}.castName`} />
+
+                                                        <label htmlFor={`cast.${index}.image`}>image</label>
+                                                        <Field name={`cast.${index}.image`} type="text" />
+                                                        <ErrorMessage name={`cast.${index}.image`} />
+
+                                                        <button type="button" onClick={() => remove(index)}>
+                                                            Remove
+                                                        </button>
+                                                    </div>
+                                                ))}
+                                                <button
+                                                    type="button"
+                                                    onClick={() => push({ castName: '', image: '' })}
+                                                >
+                                                    Add Cast Member
+                                                </button>
+                                            </>
+                                        )}
+                                    </FieldArray> */}
+
 
                                     <button type="submit">Submit</button>
                                 </Form>

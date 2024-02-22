@@ -22,11 +22,14 @@
             background-color: transparent;
             border: none;
             outline: none;
-            border-bottom: 1px solid #0693e3;
+            border-bottom: 1px solid #888;
         }
         input[type="file"]{
             height: auto;
             border: none;
+        }
+        input:focus{
+          border-bottom: 1px solid #0693e3;
         }
         button{
             width: 120px;

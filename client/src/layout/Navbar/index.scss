@@ -4,6 +4,7 @@
     position: sticky;
     top: 0;
     z-index: 2;
+
     .nav {
         display: flex;
         justify-content: center;
@@ -35,8 +36,18 @@
         align-items: center;
 
         .navleft {
-            svg {
-                border-radius: 100%;
+            h1 {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 5px;
+            }
+
+            span {
+                color: red;
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
         }
 
@@ -52,12 +63,26 @@
             display: flex;
             align-items: center;
             gap: 20px;
-            a{
+
+            a {
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 font-size: 20px;
+
             }
+
+            p {
+
+                width: 51px !important;
+                height: 51px !important;
+
+                a {
+                    width: 51px;
+                    height: 51px;
+                }
+            }
+
             .themechanger {
                 cursor: pointer;
                 font-size: 20px;
@@ -90,13 +115,16 @@
     .navbox .navmid ul li a.active {
         color: white;
     }
-    .sidebar ul li a.active{
+
+    .sidebar ul li a.active {
         color: white;
     }
+
     .navbox .navmid ul li a:hover {
         color: white;
     }
-    .sidebar ul li a:hover{
+
+    .sidebar ul li a:hover {
         color: white;
     }
 
@@ -119,16 +147,18 @@
     }
 
     .navbox {
+
         .navleft {
-            svg {
-                fill: white;
+            h1 {
+                color: white;
             }
         }
 
         .navright {
-            a{
+            a {
                 color: white;
             }
+
             .themechanger {
                 color: white;
             }
@@ -148,13 +178,16 @@
     .navbox .navmid ul li a.active {
         color: black;
     }
-    .sidebar ul li a.active{
+
+    .sidebar ul li a.active {
         color: black;
     }
+
     .navbox .navmid ul li a:hover {
         color: black;
     }
-    .sidebar ul li a:hover{
+
+    .sidebar ul li a:hover {
         color: black;
     }
 
@@ -178,15 +211,16 @@
 
     .navbox {
         .navleft {
-            svg {
-                fill: black;
+            h1 {
+                color: black;
             }
         }
 
         .navright {
-            a{
+            a {
                 color: black;
             }
+
             .themechanger {
                 color: black;
             }
@@ -223,3 +257,4 @@
         }
     }
 }
+

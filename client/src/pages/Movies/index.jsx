@@ -169,7 +169,7 @@ const MoviesPage = () => {
                     <div className="bycategory">
                         {catData.map((category) => (
                             <span className="checkbox-wrapper-29" key={category._id}>
-                                    {category.categoryname}
+                                {category.categoryname}
                                 <label className="checkbox" htmlFor={`category-${category.categoryname}`}>
                                     <input
                                         className="checkbox__input"

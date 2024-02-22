@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { DarkmodeContext } from '../../Context/darkmodeContext'
 import { UserContext } from '../../Context/userContext'
 import Errorpage from '../Error'
+import Nav from '../../layout/Nav'
 
 
 const AdminPage = () => {
@@ -15,6 +16,7 @@ const AdminPage = () => {
   const { darkmode } = useContext(DarkmodeContext)
   const { userData } = useContext(UserContext)
   const [search, setSearch] = useState('');
+  const [sort, setSort] = useState(null)
 
   const fetchData = async () => {
     const res = await fetch("http://localhost:5500/api/users/")
@@ -57,9 +59,7 @@ const AdminPage = () => {
           <Navbar />
           <div id='adminpage' className={darkmode ? "darkadmin" : "lightadmin"}>
             <div className="adminleft">
-              <NavLink activeclassname="active" to={"/admin"}>Users</NavLink>
-              <NavLink to={"/movies"}>Movie</NavLink>
-              <NavLink to={"/add"}>Add</NavLink>
+              <Nav />
             </div>
             {data.length > 0 ?
               <div className='adminright'>
@@ -83,9 +83,9 @@ const AdminPage = () => {
                     </div>
                   </div>
                   <div className="sort">
-                    <button>a</button>
-                    <button>z</button>
-                    filter
+                    <button  onClick={()=>setSort({property:"nickname",asc:true})}>A-z</button>
+                    <button  onClick={()=>setSort({property:"nickname",asc:false})}>Z-a</button>
+                    <button  onClick={()=>setSort(null)}>Default</button>
                   </div>
                 </div>
                 <div className="datas">
@@ -98,6 +98,16 @@ const AdminPage = () => {
                 </div>
                 {data && data
                   .filter((item) => item.nickname.toLowerCase().trim().includes(search.toLowerCase()))
+                  .sort((a, b) => {
+                    if (sort && sort.asc === true) {
+                      return a[sort.property] > b[sort.property] ? 1 : b[sort.property] > a[sort.property] ? -1 : 0
+                    } else if (sort && sort.asc === false) {
+                      return a[sort.property] < b[sort.property] ? 1 : b[sort.property] < a[sort.property] ? -1 : 0
+                    }
+                    else {
+                      return 0
+                    }
+                  })
                   .map((item) => (
                     <div className='datas' key={item._id}>
                       <p><img src={item.image} alt="" /></p>

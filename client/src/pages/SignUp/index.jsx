@@ -4,10 +4,11 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from "axios"
 import { DarkmodeContext } from '../../Context/darkmodeContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const SignUp = () => {
   const { darkmode } = useContext(DarkmodeContext)
+  const navigate = useNavigate()
   return (
     <div id="signup" className={darkmode ? "darksign" : "lightsign"}>
       <Formik
@@ -36,6 +37,7 @@ export const SignUp = () => {
 
               const resp = await axios.post("http://localhost:5500/api/users/register", formData);
               console.log(resp.data);
+              navigate("/payment")
             } catch (error) {
               console.log(error);
             }

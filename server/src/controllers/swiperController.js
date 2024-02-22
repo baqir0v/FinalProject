@@ -47,6 +47,14 @@ const swiperController = {
         } catch (error) {
             res.status(500).json({ message: error })
         }
+    },
+    deleteByID:async (req,res)=>{
+        try {
+            const deleteAllByID = await swiperModel.findByIdAndDelete(req.params.id)
+            res.send(`${deleteAllByID.swipername} deleted`)
+        } catch (error) {
+            res.status(500).json({ message: error })
+        }
     }
 }
 

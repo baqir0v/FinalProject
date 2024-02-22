@@ -12,13 +12,26 @@
 
     .adminright {
 
-        width: 30%;
+        width: 50%;
 
         .filter {
             width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
+
+            .sort {
+                display: flex;
+                gap: 10px;
+
+                button {
+                    padding: 5px 10px;
+                    background-color: #2196F3;
+                    color: white;
+                    border: none;
+                    cursor: pointer;
+                }
+            }
 
             .search {
                 $primary: #11998e;
@@ -125,8 +138,12 @@
             }
 
             p {
-                width: 180px;
+                width: 250px;
                 // border: 1px solid white;
+            }
+
+            .name {
+                width: 100%;
             }
 
             img {
@@ -138,11 +155,13 @@
 
 .darkswipepage {
     background-color: #2d2d2d;
+
     .active {
         color: white;
     }
+
     .adminleft {
-        a{
+        a {
             color: #888888;
         }
     }
@@ -159,7 +178,7 @@
     background-color: #fcfcfc;
 
     .adminleft {
-        a{
+        a {
             color: #666666;
         }
     }

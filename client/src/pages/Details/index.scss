@@ -192,9 +192,6 @@
             }
 
             .player {
-                display: flex;
-                justify-content: center;
-                align-items: center;
                 font-size: 30px;
                 color: white;
                 position: absolute;
@@ -204,7 +201,13 @@
                 border-radius: 10px;
                 right: 50px;
                 bottom: -40px;
-
+                span{
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
                 a {
                     width: 100%;
                     height: 100%;

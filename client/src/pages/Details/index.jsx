@@ -191,7 +191,7 @@ const Details = () => {
                                     <MdMovieFilter />
                                     <p>Trailer</p>
                                 </div>
-                                <div className={`addtolist ${isInWishlist ? 'inWishlist' : ''}`} onClick={() => handleWishlist(movieId)}>
+                                <div className={`addtolist`} onClick={() => handleWishlist(movieId)}>
                                     <MdOutlineDone />
                                     <p>Add To My List</p>
                                 </div>

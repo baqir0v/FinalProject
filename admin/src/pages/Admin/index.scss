@@ -18,6 +18,17 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            .sort{
+                display: flex;
+                gap: 10px;
+                button{
+                    padding: 5px 10px;
+                    background-color: #2196F3;
+                    color: white;
+                    border: none;
+                    cursor: pointer;
+                }
+            }
             .search {
                 $primary: #11998e;
                 $secondary: #38ef7d;

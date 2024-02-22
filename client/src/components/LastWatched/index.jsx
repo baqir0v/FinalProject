@@ -46,36 +46,59 @@ const LastWatched = () => {
     fetchUserInfo();
   }, []);
 
-  return (
-    <section id='lastwatched' className={darkmode ? "darkmovies" : "lightmovies"}>
-      <Swiper
-        slidesPerView={4}
-        spaceBetween={30}
-        pagination={{
-          clickable: true,
-        }}
-        modules={[Pagination]}
-        className="mySwiper"
-      >
-        {userInfo.map((item) => (
-          <div key={item._id}>
-            {item.isWatched && item.isWatched.reverse().map((watched) => (
-              <SwiperSlide>
-                <div className="movies" key={watched._id}>
-                  <Link to={`/detail/${watched._id}`} >
-                    <span>{watched.name}</span>
-                  </Link>
-                  <img src={watched.image} alt="" />
-                  <button onClick={() => handleDeleteWatched(watched._id)}><FaTrash /></button>
-                </div>
-              </SwiperSlide>
-            ))
-            }
-          </div>
-        ))}
+  const breakpoints = {
+    200: {
+      slidesPerView: 1,
+      spaceBetween: 10
+    },
+    300: {
+      slidesPerView: 2,
+      spaceBetween: 20
+    },
+    768: {
+      slidesPerView: 3,
+      spaceBetween: 30
+    },
+    1024: {
+      slidesPerView: 4,
+      spaceBetween: 40
+    }
+  };
 
-      </Swiper>
-    </section>
+  return (
+    <>
+      {userInfo.map((item) => (
+        item.isWatched.length > 0 ? (
+          <section id='lastwatched' className={darkmode ? "darkmovies" : "lightmovies"} key={item._id}>
+            <h1>Last Watched</h1>
+            <Swiper
+              breakpoints={breakpoints}
+              spaceBetween={30}
+              pagination={{
+                clickable: true,
+              }}
+              modules={[Pagination]}
+              className="mySwiper"
+            >
+              <div>
+                {item.isWatched && item.isWatched.reverse().map((watched) => (
+                  <SwiperSlide key={watched._id}>
+                    <div className="movies" key={watched._id}>
+                      <Link to={`/detail/${watched._id}`} >
+                        <span>{watched.name}</span>
+                      </Link>
+                      <img src={watched.image} alt="" />
+                      <button onClick={() => handleDeleteWatched(watched._id)}><FaTrash /></button>
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </div>
+            </Swiper>
+          </section>
+        ) : null
+      ))}
+    </>
+
   );
 };
 

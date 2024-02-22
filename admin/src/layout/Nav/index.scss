@@ -1,0 +1,12 @@
+#adminnav{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 20px;
+    a{
+        display: flex;
+        gap: 5px;
+        color:#888888 ;
+
+    }
+}

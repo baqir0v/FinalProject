@@ -28,6 +28,7 @@ const Slider = () => {
                     {data && data.map((item) => (
                         <SwiperSlide>
                             <img src={item.swiperimage} alt="" />
+                            <h2>{item.swipername}</h2>
                         </SwiperSlide>
                     ))}
                 </Swiper>
