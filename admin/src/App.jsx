@@ -9,6 +9,7 @@ import { AddMovies } from "./pages/AddMovies"
 import Errorpage from "./pages/Error"
 import Swiper from "./pages/Swiper"
 import SwipePage from "./pages/SwipePage"
+import ErrorPage from "./pages/Error"
 
 function App() {
 
@@ -22,7 +23,7 @@ function App() {
         <Route path="/profile" element={<Profile/>}/>
         <Route path="/swiper" element={<Swiper/>}/>
         <Route path="/swipepage" element={<SwipePage/>}/>
-        <Route path="/error" element={<Errorpage/>}/>
+        <Route path="*" element={<ErrorPage/>}/>
       </Routes>
     </>
   )

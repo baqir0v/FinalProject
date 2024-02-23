@@ -67,29 +67,29 @@ const userController = {
         }
     },
 
-    loginUser: async (req, res) => {
-        try {
-            const { nickname, email, password } = req.body
-            const findUser = await UserModel.findOne({ nickname })
-            const findEmail = await UserModel.findOne({ email })
-            if (!findUser) {
-                res.status(404).json({ error: "User not found" });
-            }
-            if (!findEmail) {
-                res.status(404).json({ error: "Email not found" });
-            }
-            if (!(bcrypt.compare(password, findUser.password))) {
-                res.status(404).json({ error: "Password is not Correct" });
-            }
-            const token = jwt.sign({ userId: findUser._id, email: findUser.email, nickname: findUser.nickname, isAdmin: findUser.isAdmin, image: findUser.image }, "secretKey", {
-                expiresIn: "1h",
-            });
-            res.status(200).json(token)
+ loginUser: async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const user = await UserModel.findOne({ email });
 
-        } catch (error) {
-            res.status(500).json({ message: error })
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
         }
-    },
+
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
+            return res.status(404).json({ error: "Invalid password" });
+        }
+
+        const token = jwt.sign({ userId: user._id, email: user.email, nickname: user.nickname, isAdmin: user.isAdmin, image: user.image }, "secretKey", {
+            expiresIn: "1h",
+        });
+
+        res.status(200).json(token);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+},
     deleteUser: async (req, res) => {
         try {
             const deleteUserByID = await UserModel.findByIdAndDelete(req.params.id)
@@ -108,6 +108,7 @@ const userController = {
                     password: req.body.password,
                     isAdmin: req.body.isAdmin,
                     image: req.body.image,
+                    isSuperAdmin: req.body.isSuperAdmin,
                 }
             );
 
@@ -123,7 +124,8 @@ const userController = {
     updateAdmin: async (req, res) => {
         try {
             const newAdmin = await UserModel.findByIdAndUpdate(req.params.id, {
-                isAdmin: req.body.isAdmin
+                isAdmin: req.body.isAdmin,
+                isSuperAdmin: req.body.isSuperAdmin
             })
             res.send(newAdmin)
         } catch (error) {
@@ -154,17 +156,17 @@ const userController = {
             const { id } = req.params;
             const { movieId } = req.body;
             const findUser = await UserModel.findById(id);
-    
+
             if (!findUser) {
                 return res.status(404).json({ message: 'User not found' });
             }
-    
+
             const isAlreadyWatched = findUser.isWatched.includes(movieId);
-    
+
             if (isAlreadyWatched) {
                 return res.status(400).json({ message: 'Movie is already marked as watched.' });
             }
-    
+
             findUser.isWatched.push(movieId);
             await findUser.save();
             res.send(findUser);
@@ -218,6 +220,33 @@ const userController = {
                     res.status(404).send('User not found');
                 }
             });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: error.message });
+        }
+    },
+    updatePassword: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const { currentPassword, newPassword } = req.body;
+
+            // Find the user by ID
+            const user = await UserModel.findById(id);
+
+            // Verify if the current password matches the user's stored password
+            const isPasswordCorrect = await bcrypt.compare(currentPassword, user.password);
+            if (!isPasswordCorrect) {
+                return res.status(400).json({ message: "Current password is incorrect" });
+            }
+
+            // Hash the new password
+            const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+
+            // Update the user's password with the new hashed password
+            user.password = hashedNewPassword;
+            await user.save();
+
+            res.status(200).json({ message: "Password updated successfully" });
         } catch (error) {
             console.error(error);
             res.status(500).json({ message: error.message });

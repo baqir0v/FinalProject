@@ -17,5 +17,6 @@ userRouter.put("/addWishlist/:id",userController.updateWishlist)
 userRouter.put("/updateImage/:id",userController.updateImage)
 userRouter.put("/updateWatched/:id",userController.updateWatched)
 userRouter.put("/deleteWatched/:id",userController.deleteWatched)
+userRouter.put("/updatePassword/:id",userController.updatePassword)
 
 export default userRouter

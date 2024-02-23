@@ -26,7 +26,7 @@ const Slider = () => {
             <div className="slider">
                 <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
                     {data && data.map((item) => (
-                        <SwiperSlide>
+                        <SwiperSlide key={item._id}>
                             <img src={item.swiperimage} alt="" />
                             <h2>{item.swipername}</h2>
                         </SwiperSlide>

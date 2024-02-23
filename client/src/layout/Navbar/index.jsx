@@ -33,21 +33,15 @@ const Navbar = () => {
       <div className="nav">
         <div className="navbox">
           <div className="navleft">
-            <h1><span><PiRecordFill /></span>RecTv</h1>
+            <Link to={"/home"}><h1><span><PiRecordFill /></span>RecTv</h1></Link>
           </div>
           <div className="navmid">
             <ul>
               <li><NavLink activeclassname='active' to={"/home"}>Home</NavLink></li>
+              <li><NavLink to={"/about"}>About</NavLink></li>
               <li><NavLink to={"/movies"}>Movies</NavLink></li>
               <li><NavLink to={"/kids"}>Kids</NavLink></li>
               <li><NavLink to={"/contact"}>Contact</NavLink></li>
-              {/* <li><NavLink to={"/addmovie"}>Addmovie</NavLink></li>
-              <li>
-                {user && userData.isAdmin === true ?
-                  <NavLink to={"/admin"}>Admin</NavLink>
-                  :
-                  ""}
-              </li> */}
             </ul>
           </div>
           <div className="navright">
@@ -55,10 +49,9 @@ const Navbar = () => {
               {darkmode ? <MdDarkMode /> : <TfiShine />}
             </div>
             <Link to={"/playlist"}><BiSolidMoviePlay /></Link>
-            {/* {user ? <NavLink to={"/profile"}> <img src={userData.image} alt="" /> </NavLink> : ""} */}
             {data.map((item) => (
               item.nickname === userData.nickname && (
-                <p>
+                <p key={item._id}>
                   <NavLink to={"/profile"}>
                     {item.image ?
                       <img key={item._id} src={item.image} alt='' />
@@ -82,16 +75,10 @@ const Navbar = () => {
         <div className={isNavOpen ? "sidebar" : "dnone"}>
           <ul>
             <li><NavLink to={"/home"}>Home</NavLink></li>
+            <li><NavLink to={"/about"}>About</NavLink></li>
             <li><NavLink to={"/movies"}>Movies</NavLink></li>
             <li><NavLink to={"/kids"}>Kids</NavLink></li>
             <li><NavLink to={"/contact"}>Contact</NavLink></li>
-            {/* <li><NavLink to={"/addmovie"}>Addmovie</NavLink></li>
-            <li>
-              {user && userData.isAdmin === true ?
-                <NavLink to={"/admin"}>Admin</NavLink>
-                :
-                ""}
-            </li> */}
           </ul>
         </div>
       </div>

@@ -65,27 +65,33 @@ const Swiper = () => {
                                 <ErrorMessage name="swipername" />
 
                                 <label htmlFor="swiperimage">Image</label>
-                                <Field name="swiperimage">
-                                    {({ field, form }) => (
-                                        <input
-                                            id="swiperimage"
-                                            name="swiperimage"
-                                            type="file"
-                                            onChange={(event) => {
-                                                form.setFieldValue('swiperimage', event.currentTarget.files[0]);
-                                            }}
-                                        />
-                                    )}
-                                </Field>
+                                <div className="inpfile">
+                                    <label style={{ cursor: "pointer" }} htmlFor="fileInput" className="custom-file-upload">
+                                        Upload Profile Picture
+                                    </label>
+                                    <Field name="swiperimage">
+                                        {({ field, form }) => (
+                                            <input
+                                                id="swiperimage"
+                                                name="swiperimage"
+                                                type="file"
+                                                onChange={(event) => {
+                                                    form.setFieldValue('swiperimage', event.currentTarget.files[0]);
+                                                }}
+                                            />
+                                        )}
+                                    </Field>
+                                </div>
+
                                 <ErrorMessage name="swiperimage" />
 
                                 <button type="submit">Submit</button>
                             </Form>
                         </Formik>
                     </div>
-                </>  
-                :<Errorpage/>
-        }
+                </>
+                : <Errorpage />
+            }
         </>
     )
 }

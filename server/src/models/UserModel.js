@@ -8,6 +8,7 @@ const UserModel = new mongoose.Schema({
         type: String
     },
     isAdmin: { type: Boolean, default: false },
+    isSuperAdmin: { type: Boolean, default: false },
     inWishList: [
         {
             type: mongoose.Schema.Types.ObjectId,

@@ -43,6 +43,7 @@ export const AddMovies = () => {
                     'Content-Type': 'multipart/form-data',
                 },
             });
+            console.log(response.data);
 
             if (response.status === 200) {
                 console.log('Movie added successfully');
@@ -77,9 +78,11 @@ export const AddMovies = () => {
                             <Nav />
                         </div>
                         <Formik
-                            initialValues={{ name: '', desc: '', lang: '', year: '', image: null,
-                            //  cast: [{ castName: '', image: '' }], 
-                             detailImage: null, video: null, category: [], trailer: "", imdb: "", ageLimit: "", }}
+                            initialValues={{
+                                name: '', desc: '', lang: '', year: '', image: null,
+                                //  cast: [{ castName: '', image: '' }], 
+                                detailImage: null, video: null, category: [], trailer: "", imdb: "", ageLimit: "",
+                            }}
                             validationSchema={Yup.object({
                                 name: Yup.string().required('Required'),
                                 desc: Yup.string().required('Required'),
@@ -128,49 +131,66 @@ export const AddMovies = () => {
                                     <ErrorMessage name="trailer" />
 
                                     <label htmlFor="image">Image</label>
-                                    <Field name="image">
-                                        {({ field, form }) => (
-                                            <input
-                                                id="image"
-                                                name="image"
-                                                type="file"
-                                                onChange={(event) => {
-                                                    form.setFieldValue('image', event.currentTarget.files[0]);
-                                                }}
-                                            />
-                                        )}
-                                    </Field>
+                                    <div className="inpfile">
+                                        <label style={{ cursor: "pointer" }} htmlFor="fileInput" className="custom-file-upload">
+                                            Upload Movie Image
+                                        </label>
+                                        <Field name="image">
+                                            {({ field, form }) => (
+                                                <input
+                                                    id="image"
+                                                    name="image"
+                                                    type="file"
+                                                    onChange={(event) => {
+                                                        form.setFieldValue('image', event.currentTarget.files[0]);
+                                                    }}
+                                                />
+                                            )}
+                                        </Field>
+                                    </div>
                                     <ErrorMessage name="image" />
 
                                     <label htmlFor="detailImage">Wide Image</label>
-                                    <Field name="detailImage">
-                                        {({ field, form }) => (
-                                            <input
-                                                id="detailImage"
-                                                name="detailImage"
-                                                type="file"
-                                                onChange={(event) => {
-                                                    form.setFieldValue('detailImage', event.currentTarget.files[0]);
-                                                }}
-                                            />
-                                        )}
-                                    </Field>
+                                    <div className="inpfile">
+                                        <label style={{ cursor: "pointer" }} htmlFor="fileInput" className="custom-file-upload">
+                                            Upload Detail Image
+                                        </label>
+                                        <Field name="detailImage">
+                                            {({ field, form }) => (
+                                                <input
+                                                    id="detailImage"
+                                                    name="detailImage"
+                                                    type="file"
+                                                    onChange={(event) => {
+                                                        form.setFieldValue('detailImage', event.currentTarget.files[0]);
+                                                    }}
+                                                />
+                                            )}
+                                        </Field>
+                                    </div>
+
                                     <ErrorMessage name="detailImage" />
 
                                     <label htmlFor="video">Video</label>
-                                    <Field name="video">
-                                        {({ field, form }) => (
-                                            <input
-                                                id="video"
-                                                name="video"
-                                                type="file"
-                                                accept="video/*"
-                                                onChange={(event) => {
-                                                    form.setFieldValue('video', event.currentTarget.files[0]);
-                                                }}
-                                            />
-                                        )}
-                                    </Field>
+                                    <div className="inpfile">
+                                        <label style={{ cursor: "pointer" }} htmlFor="fileInput" className="custom-file-upload">
+                                            Upload Movie 
+                                        </label>
+                                        <Field name="video">
+                                            {({ field, form }) => (
+                                                <input
+                                                    id="video"
+                                                    name="video"
+                                                    type="file"
+                                                    accept="video/*"
+                                                    onChange={(event) => {
+                                                        form.setFieldValue('video', event.currentTarget.files[0]);
+                                                    }}
+                                                />
+                                            )}
+                                        </Field>
+                                    </div>
+
                                     <ErrorMessage name="video" />
 
                                     <label htmlFor="category">Category</label>
@@ -190,7 +210,7 @@ export const AddMovies = () => {
                                     <label htmlFor="year">Year</label>
                                     <Field name="year" type="number" min="1900" />
                                     <ErrorMessage name="year" />
-{/* 
+                                    {/* 
                                     <label htmlFor="cast">Cast</label>
                                     <FieldArray name="cast">
                                         {({ push, remove }) => (

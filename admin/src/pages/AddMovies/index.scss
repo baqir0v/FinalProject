@@ -17,6 +17,11 @@
         display: flex;
         flex-direction: column;
         gap: 30px;
+        select{
+          border: none;
+          outline: none;
+          background-color: transparent;
+        }
         input{
             height: 50px;
             background-color: transparent;
@@ -34,12 +39,54 @@
         button{
             width: 120px;
             height: 40px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 5px;
         }
+        .inpfile {
+          position: relative;
+          display: inline-block;
+          width: 200px;
+          text-align: center;
+      }
+  
+      .inpfile input[type="file"] {
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          left: 0;
+          top: 0;
+          opacity: 0;
+          // cursor: pointer;
+          z-index: 4;
+      }
+  
+      .inpfile .custom-file-upload {
+          width: 100%;
+          display: inline-block;
+          border: 2px solid #2196f3;
+          padding: .2em .4em;
+          border-radius: .2em;
+          background-color: #2196f3;
+          color: #ffffff;
+          font-family: Arial, sans-serif;
+          font-size: 14px;
+          cursor: pointer;
+          transition: background-color 0.5s;
+      }
+  
+      .inpfile .custom-file-upload:hover {
+          background-color: #7f8c8d;
+      }
     }
 }
 
 .darkaddmovie{
     background-color: var(--contact-bg-dark);
+    select{
+      color: white;
+    }
     a{
       color: #888888;
     }

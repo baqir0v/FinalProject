@@ -22,15 +22,17 @@ const Profile = () => {
       <div id='profilepage' className={darkmode ? "darkprofile" : 'lightprofile'}>
         <Navbar />
         <div className='profile'>
-          <img src={userData.image} alt="" />
-          <div className="userdata">
-            <h1>{userData.nickname}</h1>
-            <h3>{userData.email}</h3>
-            <Link to="/">
-              <button onClick={handleLogOut}>Log Out</button>
-            </Link>
-          </div>
           <Nav />
+          <div className="usersprofile">
+            <img src={userData.image} alt="" />
+            <div className="userdata">
+              <h1>{userData.nickname}</h1>
+              <h3>{userData.email}</h3>
+              <Link to="/">
+                <button className="button-29" onClick={handleLogOut}>Log Out</button>
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     ) : (

@@ -57,18 +57,24 @@ export const SignUp = () => {
           <ErrorMessage name="email" />
 
           <label htmlFor="image">Image</label>
-          <Field name="image">
-            {({ field, form }) => (
-              <input
-                id="image"
-                name="image"
-                type="file"
-                onChange={(event) => {
-                  form.setFieldValue("image", event.currentTarget.files[0]);
-                }}
-              />
-            )}
-          </Field>
+
+          <div className="inpfile">
+            <label style={{ cursor: "pointer" }} htmlFor="fileInput" className="custom-file-upload">
+              Upload Profile Picture
+            </label>
+            <Field name="image">
+              {({ field, form }) => (
+                <input
+                  id="image"
+                  name="image"
+                  type="file"
+                  onChange={(event) => {
+                    form.setFieldValue("image", event.currentTarget.files[0]);
+                  }}
+                />
+              )}
+            </Field>
+          </div>
           <ErrorMessage name="image" />
 
           <label htmlFor="password">Password</label>

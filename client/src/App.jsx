@@ -15,6 +15,8 @@ import Kids from "./pages/Kids"
 import Playlist from "./pages/Playlist"
 import CategoriesPage from "./pages/Categories"
 import StripePage from "./pages/Stripe"
+import ErrorPage from "./pages/Error"
+import AboutPage from "./pages/About"
 
 function App() {
 
@@ -33,8 +35,8 @@ function App() {
         <Route path="/kids" element={<Kids/>} />
         <Route path="/playlist" element={<Playlist/>} />
         <Route path="/categories/:id" element={<CategoriesPage/>} />
-        {/* <Route path="/admin" element={<AdminPage />} />
-        <Route path="/addmovie" element={<AddMovies/>} /> */}
+        <Route path="*" element={<ErrorPage/>} />
+        <Route path="/about" element={<AboutPage/>} />
       </Routes>
     </>
   )

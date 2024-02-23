@@ -103,7 +103,7 @@ const MoviesPage = () => {
                     </div>
                   ))}
               </div>
-            ) : <h1>There is No Users</h1>}
+            ) : <h1>There is No Movies</h1>}
           </div>
         </>
       ) : <Errorpage />}

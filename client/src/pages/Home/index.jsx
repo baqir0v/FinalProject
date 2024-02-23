@@ -19,11 +19,14 @@ import Favorites from '../../components/Favorite';
 import LastWatched from '../../components/LastWatched';
 import TopRated from '../../components/TopRated';
 import Slider from '../../components/Slider';
+import { UserContext } from '../../Context/userContext';
+import ErrorPage from '../Error';
 
 const Home = () => {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const { darkmode } = useContext(DarkmodeContext);
+    const { user, userData } = useContext(UserContext);
 
     const fetchData = async () => {
         try {
@@ -70,35 +73,29 @@ const Home = () => {
     }, []);
 
     return (
-        <div id='home' className={darkmode ? "darkhome" : "lighthome"}>
-
-            {isLoading ? (
-                <div className='loading'>
-                    <span className="loader"></span>
-                </div>
-            ) : (
+        <>
+            {user ?
                 <>
+                    <div id='home' className={darkmode ? "darkhome" : "lighthome"}>
+
+                        {isLoading ? (
+                            <div className='loading'>
+                                <span className="loader"></span>
+                            </div>
+                        ) : (
+                            <>
+                            </>
+                        )}
+                        <Navbar />
+                        <Slider />
+                        <LastWatched />
+                        <TopRated />
+                        <Favorites />
+                        <Footer />
+                    </div>
                 </>
-            )}
-            <Navbar />
-            <Slider/>
-            <LastWatched/>
-            <TopRated/>
-            {/* <Animation /> */}
-            {/* <Action/> */}
-            <Favorites/>
-            {/* <Crime/> */}
-            {/* <Drama/> */}
-            {/* <Comedy/> */}
-            {/* <SciFi/> */}
-            {/* <Thriller/> */}
-            {/* <Sports/>
-            <Western/>
-            <Documentary/>
-            <Horror/>
-            <Romance/> */}
-            <Footer />
-        </div>
+                : <ErrorPage/>}
+        </>
     );
 };
 

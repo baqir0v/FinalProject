@@ -17,10 +17,12 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            gap: 20px;
         }
 
         .byrating {
             display: grid;
+            gap: 20px;
             grid-template-columns: 1fr 1fr 1fr;
         }
 
@@ -31,7 +33,6 @@
         .bycategory {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr 1fr;
-
             span {
                 display: flex;
                 flex-direction: column;
@@ -49,10 +50,10 @@
         display: flex;
         justify-content: space-between;
         padding: 20px 0px;
+
         button {
             background-color: #2196f3;
-            padding: 1px 5px;
-            border-radius: 5px;
+            // border-radius: 5px;
             border: none;
             color: white;
             display: flex;
@@ -85,8 +86,9 @@
 
             }
         }
-        .filter{
-            button{
+
+        .filter {
+            button {
                 padding: 5px 10px;
             }
         }
@@ -290,6 +292,82 @@
             display: grid;
             grid-template-columns: 1fr 1fr 1fr 1fr;
 
+            .checkbox-wrapper-29 {
+                --size: 1rem;
+                --background: #fff;
+                font-size: var(--size);
+            }
+
+            .checkbox-wrapper-29 *,
+            .checkbox-wrapper-29 *::after,
+            .checkbox-wrapper-29 *::before {
+                box-sizing: border-box;
+            }
+
+            .checkbox-wrapper-29 input[type="checkbox"] {
+                visibility: hidden;
+                display: none;
+            }
+
+            .checkbox-wrapper-29 .checkbox__label {
+                width: var(--size);
+            }
+
+            .checkbox-wrapper-29 .checkbox__label:before {
+                content: ' ';
+                display: block;
+                height: var(--size);
+                width: var(--size);
+                position: absolute;
+                top: calc(var(--size) * 0.125);
+                left: 0;
+                background: var(--background);
+            }
+
+            .checkbox-wrapper-29 .checkbox__label:after {
+                content: ' ';
+                display: block;
+                height: var(--size);
+                width: var(--size);
+                border: calc(var(--size) * .14) solid #000;
+                transition: 200ms;
+                position: absolute;
+                top: calc(var(--size) * 0.125);
+                left: 0;
+                // background: var(--background);  
+            }
+
+            .checkbox-wrapper-29 .checkbox__label:after {
+                transition: 100ms ease-in-out;
+            }
+
+            .checkbox-wrapper-29 .checkbox__input:checked~.checkbox__label:after {
+                border-top-style: none;
+                border-right-style: none;
+                -ms-transform: rotate(-45deg);
+                /* IE9 */
+                transform: rotate(-45deg);
+                height: calc(var(--size) * .5);
+                border-color: green;
+            }
+
+            .checkbox-wrapper-29 .checkbox {
+                position: relative;
+                display: flex;
+                cursor: pointer;
+                /* Mobile Safari: */
+                -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            }
+
+            .checkbox-wrapper-29 .checkbox__label:after:hover,
+            .checkbox-wrapper-29 .checkbox__label:after:active {
+                border-color: green;
+            }
+
+            .checkbox-wrapper-29 .checkbox__label {
+                margin-right: calc(var(--size) * 0.45);
+            }
+
             span {
                 display: flex;
                 flex-direction: column;
@@ -466,6 +544,10 @@
         color: white;
     }
 
+    .byimdb {
+        color: white;
+    }
+
     .pagination {
         color: #888888;
     }
@@ -543,3 +625,88 @@
     }
 
 }
+
+// <div class="checkbox-wrapper-29">
+//   <label class="checkbox">
+//     <input type="checkbox" class="checkbox__input" />  
+//     <span class="checkbox__label"></span>
+//     Checkbox
+//   </label>
+// </div>
+
+// <style>
+//   .checkbox-wrapper-29 {
+//     --size: 1rem;
+//     --background: #fff;
+//     font-size: var(--size);
+//   }
+
+//   .checkbox-wrapper-29 *,
+//   .checkbox-wrapper-29 *::after,
+//   .checkbox-wrapper-29 *::before {
+//     box-sizing: border-box;
+//   }
+
+//   .checkbox-wrapper-29 input[type="checkbox"] {
+//     visibility: hidden;
+//     display: none;
+//   }
+
+//   .checkbox-wrapper-29 .checkbox__label {
+//     width: var(--size);
+//   }
+
+//   .checkbox-wrapper-29 .checkbox__label:before {
+//     content: ' ';
+//     display: block;
+//     height: var(--size);
+//     width: var(--size);
+//     position: absolute;
+//     top: calc(var(--size) * 0.125);
+//     left: 0;
+//     background: var(--background);  
+//   }
+
+//   .checkbox-wrapper-29 .checkbox__label:after {
+//     content: ' ';
+//     display: block;
+//     height: var(--size);
+//     width: var(--size);
+//     border: calc(var(--size) * .14) solid #000;
+//     transition: 200ms;
+//     position: absolute;
+//     top: calc(var(--size) * 0.125);
+//     left: 0;
+//     background: var(--background);  
+//   }
+
+//   .checkbox-wrapper-29 .checkbox__label:after {
+//     transition: 100ms ease-in-out;
+//   }
+
+//   .checkbox-wrapper-29 .checkbox__input:checked ~ .checkbox__label:after {
+//     border-top-style: none; 
+//     border-right-style: none;
+//     -ms-transform: rotate(-45deg); /* IE9 */
+//     transform: rotate(-45deg);
+//     height: calc(var(--size) * .5);
+//     border-color: green;
+//   }
+
+//   .checkbox-wrapper-29 .checkbox {
+//     position: relative;
+//     display: flex;
+//     cursor: pointer;
+//     /* Mobile Safari: */
+//     -webkit-tap-highlight-color: rgba(0,0,0,0);   
+//   }
+
+//   .checkbox-wrapper-29 .checkbox__label:after:hover,
+//   .checkbox-wrapper-29 .checkbox__label:after:active {
+//      border-color: green; 
+//   }
+
+//   .checkbox-wrapper-29 .checkbox__label {
+//     margin-right: calc(var(--size) * 0.45);
+//   }
+// </style>

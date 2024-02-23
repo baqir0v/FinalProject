@@ -7,11 +7,14 @@ import "./index.scss"
 import { DarkmodeContext } from '../../Context/darkmodeContext'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+import ErrorPage from '../Error'
+import { UserContext } from '../../Context/userContext'
 
 const Video = () => {
     const [details, setDetails] = useState([])
     const { id } = useParams()
     const { darkmode } = useContext(DarkmodeContext);
+    const { user, userData } = useContext(UserContext);
     const navigate = useNavigate();
 
     const fetchData = async () => {
@@ -28,34 +31,40 @@ const Video = () => {
         fetchData()
     }, [])
     return (
-        <div id='video' className={darkmode ? "darkvideo" : "lightvideo"}>
-            {details ?
+        <>
+            {user ?
                 <>
-                    <Navbar />
-                    <div className='video'>
-                        <div className="movie">
-                            <h1>{ details.name }</h1>
-                            {details.video ? (
-                                <ReactPlayer
-                                    className="player"
-                                    width={"750px"}
-                                    height={"450px"}
-                                    url={details.video}
-                                    controls={true}
-                                    playIcon={true}
-                                />
-                            ) : (
-                                <div className='videoskeleton'>
-                                    <span class="loader"></span>
+                    <div id='video' className={darkmode ? "darkvideo" : "lightvideo"}>
+                        {details ?
+                            <>
+                                <Navbar />
+                                <div className='video'>
+                                    <div className="movie">
+                                        <h1>{details.name}</h1>
+                                        {details.video ? (
+                                            <ReactPlayer
+                                                className="player"
+                                                width={"750px"}
+                                                height={"450px"}
+                                                url={details.video}
+                                                controls={true}
+                                                playIcon={true}
+                                            />
+                                        ) : (
+                                            <div className='videoskeleton'>
+                                                <span class="loader"></span>
+                                            </div>
+                                        )}
+                                    </div>
+                                    <button class="button-29" role="button" onClick={() => navigate(-1)}>Go back</button>
                                 </div>
-                            )}
-                        </div>
-                        <button class="button-29" role="button" onClick={() => navigate(-1)}>Go back</button>
+                                <Footer />
+                            </>
+                            : ""}
                     </div>
-                    <Footer />
                 </>
-                : ""}
-        </div>
+                : <ErrorPage/>}
+        </>
     )
 }
 

@@ -6,12 +6,14 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './index.scss';
 import { DarkmodeContext } from '../../Context/darkmodeContext';
+import ErrorPage from '../Error';
 
 const Profile = () => {
   const { user, userData, setUser, updateUserImage } = useContext(UserContext);
   const [data, setData] = useState([])
   const { darkmode } = useContext(DarkmodeContext);
   const [image, setImage] = useState(null);
+  
 
 
   const fetchData = async () => {
@@ -66,36 +68,42 @@ const Profile = () => {
   };
 
   return (
-    <div id='profilepage' className={darkmode ? 'darkprofile' : 'lightprofile'}>
-      <Navbar />
-      {data.map((item) => (
-        item.nickname === userData.nickname && (
-          <div key={item.id} className='profile'>
-            <div className="userdatas">
-              <div className="profiledata">
-                <img src={item.image} alt='' />
-                <Link to='/login'>
-                  <button className="button-29" onClick={handleLogOut}>Log Out</button>
-                </Link>
-              </div>
-              <div className='userdata'>
-                <h1>{item.nickname}</h1>
-                <h3>{item.email}</h3>
-                <div className="inpfile">
-                  <label style={{ cursor: "pointer" }} for="fileInput" className="custom-file-upload">
-                    Upload Profile Picture
-                  </label>
-                  <input type="file" id="fileInput" name="fileInput" onChange={handleImageChange} />
-                </div>
+    <>
+      {user ?
+        <>
+          <div id='profilepage' className={darkmode ? 'darkprofile' : 'lightprofile'}>
+            <Navbar />
+            {data.map((item) => (
+              item.nickname === userData.nickname && (
+                <div key={item._id} className='profile'>
+                  <div className="userdatas">
+                    <div className="profiledata">
+                      <img src={item.image} alt='' />
+                      <Link to='/login'>
+                        <button className="button-29" onClick={handleLogOut}>Log Out</button>
+                      </Link>
+                    </div>
+                    <div className='userdata'>
+                      <h1>{item.nickname}</h1>
+                      <h3>{item.email}</h3>
+                      <div className="inpfile">
+                        <label style={{ cursor: "pointer" }} htmlFor="fileInput" className="custom-file-upload">
+                          Upload Profile Picture
+                        </label>
+                        <input type="file" id="fileInput" name="fileInput" onChange={handleImageChange} />
+                      </div>
 
-                <button onClick={handleImageUpload}>Update Image</button>
-              </div>
-            </div>
+                      <button onClick={handleImageUpload}>Update Image</button>
+                    </div>
+                  </div>
+                </div>
+              )
+            ))}
+            <Footer />
           </div>
-        )
-      ))}
-      <Footer />
-    </div>
+        </>
+        : <ErrorPage/>}
+    </>
   );
 };
 

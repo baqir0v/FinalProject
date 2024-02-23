@@ -73,7 +73,7 @@ export const LogIn = () => {
 
                     <button type="submit">Submit</button>
                     
-                    <h3>Not a member yet? <Link to={"/"}>Sign Up</Link></h3>
+                    {/* <h3>Not a member yet? <Link to={"/"}>Sign Up</Link></h3> */}
                 </Form>
             </Formik>
         </div>

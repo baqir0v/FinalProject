@@ -54,7 +54,8 @@ const AdminPage = () => {
   }, [])
   return (
     <>
-      {userData.isAdmin === true ?
+      {userData.isAdmin === true
+       ?
         <>
           <Navbar />
           <div id='adminpage' className={darkmode ? "darkadmin" : "lightadmin"}>

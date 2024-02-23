@@ -30,7 +30,7 @@ function StripePage() {
       if (response.status === 200) {
         alert("Purchase has been completed")
       }
-      navigate("/home")
+      navigate("/login")
     } catch (error) {
       console.log(error);
       alert("Failure while purchase")

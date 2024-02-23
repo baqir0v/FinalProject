@@ -7,14 +7,26 @@ import { UserContext } from '../../Context/userContext';
 import { jwtDecode } from "jwt-decode"
 import { DarkmodeContext } from '../../Context/darkmodeContext';
 import { Link, useNavigate } from 'react-router-dom';
+import { styled } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
 export const LogIn = () => {
     const { user, setUser, token } = useContext(UserContext)
     const { darkmode } = useContext(DarkmodeContext)
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
 
-    // token? const user = jwtDecode(token) : ""
-    // const user = token ? jwtDecode(token) : null
+    const VisuallyHiddenInput = styled('input')({
+        clip: 'rect(0 0 0 0)',
+        clipPath: 'inset(50%)',
+        height: 1,
+        overflow: 'hidden',
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        whiteSpace: 'nowrap',
+        width: 1,
+      });
 
     const handleLogin = async (values) => {
         try {
@@ -25,7 +37,7 @@ export const LogIn = () => {
             if (resp.data) {
                 localStorage.setItem('token', resp.data)
                 localStorage.setItem("nickname", decoded.nickname)
-                // navigate("/payment")
+                navigate("/home")
                 window.location.reload(); 
             }
         } catch (error) {

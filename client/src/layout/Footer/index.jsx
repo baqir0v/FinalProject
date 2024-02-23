@@ -38,9 +38,10 @@ const Footer = () => {
           <div className="left">
             <ul>
               <h4>Pages</h4>
-              <li><Link to={"/"}>Home</Link></li>
-              <li><Link to={"/signup"}>Sign Up</Link></li>
-              <li><Link to={"/login"}>Login</Link></li>
+              <li><Link activeclassname='active' to={"/home"}>Home</Link></li>
+              <li><Link to={"/about"}>About</Link></li>
+              <li><Link to={"/movies"}>Movies</Link></li>
+              <li><Link to={"/kids"}>Kids</Link></li>
               <li><Link to={"/contact"}>Contact</Link></li>
             </ul>
           </div>
@@ -51,7 +52,7 @@ const Footer = () => {
                 {data && data
                   .sort((a, b) => a.categoryname.localeCompare(b.categoryname))
                   .map((item) => (
-                    <li key={item._id}><Link to={`/categories/${item._id}`}>{item.categoryname}</Link></li>
+                    <Link key={item._id} to={`/categories/${item._id}`}><li className='cats' key={item._id}>{item.categoryname} <p>{item.movies.length}</p></li></Link>
                   ))}
               </ul>
             </ul>

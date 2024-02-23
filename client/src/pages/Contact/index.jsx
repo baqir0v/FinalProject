@@ -11,12 +11,15 @@ import { DarkmodeContext } from '../../Context/darkmodeContext';
 import Navbar from '../../layout/Navbar';
 import Footer from '../../layout/Footer';
 import emailjs from '@emailjs/browser';
+import { UserContext } from '../../Context/userContext';
+import ErrorPage from '../Error';
 
 const ContactPage = () => {
     const { darkmode } = useContext(DarkmodeContext)
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [message, setMessage] = useState('')
+    const { user, userData } = useContext(UserContext);
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -47,52 +50,56 @@ const ContactPage = () => {
 
     return (
         <>
-            <Navbar />
-            <div id='contact' className={darkmode ? "contactdark" : "contactlight"}>
-                <div className="contactbox">
-                    <div className="contactleft">
-                        <form action="" onSubmit={handleSubmit}>
-                            <h3>Get In Touch</h3>
-                            <input type="text" placeholder='Your Name' value={name} onChange={(e) => setName(e.target.value)}/>
-                            <input type="text" placeholder='Your Email' value={email} onChange={(e) => setEmail(e.target.value)}/>
-                            <textarea placeholder='Your Message' cols="30" rows="10" type="message" value={message} onChange={(e) => setMessage(e.target.value)}></textarea>
-                            <button>Submit</button>
-                        </form>
-                    </div>
-                    <div className="contactright">
-                        <div className="top">
-                            <h3>Contact Us</h3>
-                            <p>514 S. Magnolia St. Orlando FL 32806, United States</p>
-                            <p>Phone: (251) 546-9442</p>
-                            <p>Fax: (251) 546-9443</p>
+            {user ?
+                <>
+                    <Navbar />
+                    <div id='contact' className={darkmode ? "contactdark" : "contactlight"}>
+                        <div className="contactbox">
+                            <div className="contactleft">
+                                <form action="" onSubmit={handleSubmit}>
+                                    <h3>Get In Touch</h3>
+                                    <input type="text" placeholder='Your Name' value={name} onChange={(e) => setName(e.target.value)} />
+                                    <input type="text" placeholder='Your Email' value={email} onChange={(e) => setEmail(e.target.value)} />
+                                    <textarea placeholder='Your Message' cols="30" rows="10" type="message" value={message} onChange={(e) => setMessage(e.target.value)}></textarea>
+                                    <button>Submit</button>
+                                </form>
+                            </div>
+                            <div className="contactright">
+                                <div className="top">
+                                    <h3>Contact Us</h3>
+                                    <p>514 S. Magnolia St. Orlando FL 32806, United States</p>
+                                    <p>Phone: (251) 546-9442</p>
+                                    <p>Fax: (251) 546-9443</p>
+                                </div>
+                                <div className="bottom">
+                                    <a href='https://www.facebook.com' className="blue">
+                                        <FaFacebookF />
+                                    </a>
+                                    <a href='https://twitter.com' className="cyan">
+                                        <FaTwitter />
+                                    </a>
+                                    <a href='https://www.google.com' className="orange">
+                                        <FaGoogle />
+                                    </a>
+                                    <a href='https://www.instagram.com' className="grey">
+                                        <FaInstagram />
+                                    </a>
+                                    <a href='https://www.vk.com' className="grey">
+                                        <SlSocialVkontakte />
+                                    </a>
+                                    <a href='https://www.vimeo.com' className="vimeo">
+                                        <FaVimeo />
+                                    </a>
+                                    <a href='https://www.youtube.com' className="red">
+                                        <FaYoutube />
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                        <div className="bottom">
-                            <a href='https://www.facebook.com' className="blue">
-                                <FaFacebookF />
-                            </a>
-                            <a href='https://twitter.com' className="cyan">
-                                <FaTwitter />
-                            </a>
-                            <a href='https://www.google.com' className="orange">
-                                <FaGoogle />
-                            </a>
-                            <a href='https://www.instagram.com' className="grey">
-                                <FaInstagram />
-                            </a>
-                            <a href='https://www.vk.com' className="grey">
-                                <SlSocialVkontakte />
-                            </a>
-                            <a href='https://www.vimeo.com' className="vimeo">
-                                <FaVimeo />
-                            </a>
-                            <a href='https://www.youtube.com' className="red">
-                                <FaYoutube />
-                            </a>
-                        </div>
                     </div>
-                </div>
-            </div>
-            <Footer />
+                    <Footer />
+                </>
+                : <ErrorPage/>}
         </>
     )
 }
