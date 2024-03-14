@@ -9,6 +9,7 @@ import { FaArrowUp, FaArrowDown, FaFilter } from 'react-icons/fa';
 import { Slider } from 'antd';
 import { UserContext } from '../../Context/userContext';
 import ErrorPage from '../Error';
+import { Helmet } from "react-helmet-async"
 
 const MoviesPage = () => {
     const [data, setData] = useState([]);
@@ -103,6 +104,11 @@ const MoviesPage = () => {
 
     return (
         <>
+            <Helmet>
+                <title>
+                    Movies
+                </title>
+            </Helmet>
             {user ? (
                 <div id='moviespage' className={darkmode ? 'darkmoviespage' : 'lightmoviespage'}>
                     <Navbar />
@@ -145,7 +151,7 @@ const MoviesPage = () => {
                                             <label htmlFor={`rating-${rating}`}>
                                                 <StarRating rating={rating} />
                                             </label>
-                                            <input
+                                            <input style={{opacity:"0"}}
                                                 type='checkbox'
                                                 name={`rating-${rating}`}
                                                 id={`rating-${rating}`}
@@ -168,16 +174,18 @@ const MoviesPage = () => {
                             <div className='bycategory'>
                                 {catData.map((category) => (
                                     <span className='checkbox-wrapper-29' key={category._id}>
-                                        {category.categoryname}
                                         <label className='checkbox' htmlFor={`category-${category.categoryname}`}>
                                             <input
                                                 className='checkbox__input'
                                                 type='checkbox'
+                                                style={{opacity:"0 !important"}}
                                                 name={`category-${category.categoryname}`}
                                                 id={`category-${category.categoryname}`}
                                                 checked={selectedCategories.includes(category.categoryname)}
                                                 onChange={() => handleCategoryFilter(category.categoryname)}
                                             />
+                                        {category.categoryname}
+
                                             <span className='checkbox__label'></span>
                                         </label>
                                     </span>
@@ -252,7 +260,7 @@ const MoviesPage = () => {
                     <Footer />
                 </div>
             ) : (
-                <ErrorPage/>
+                <ErrorPage />
             )}
         </>
     );

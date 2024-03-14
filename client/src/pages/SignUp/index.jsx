@@ -5,12 +5,31 @@ import * as Yup from 'yup';
 import axios from "axios"
 import { DarkmodeContext } from '../../Context/darkmodeContext';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from "react-toastify"
+import { Helmet } from "react-helmet-async"
 
 export const SignUp = () => {
   const { darkmode } = useContext(DarkmodeContext)
   const navigate = useNavigate()
   return (
     <div id="signup" className={darkmode ? "darksign" : "lightsign"}>
+      <Helmet>
+        <title>
+          Sign Up
+        </title>
+      </Helmet>
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <Formik
         initialValues={{ nickname: '', password: '', email: '', image: '', category: [] }}
         validationSchema={Yup.object({
@@ -34,11 +53,12 @@ export const SignUp = () => {
                 formData.append(key, values[key]);
               });
 
-
+              toast.success('User created successfully');
               const resp = await axios.post("http://localhost:5500/api/users/register", formData);
               console.log(resp.data);
               navigate("/payment")
             } catch (error) {
+              toast.error('Error creating new user');
               console.log(error);
             }
           };
@@ -46,6 +66,7 @@ export const SignUp = () => {
           resetForm()
         }}
       >
+
         <Form>
 
           <label htmlFor="nickname">NickName</label>
@@ -78,7 +99,7 @@ export const SignUp = () => {
           <ErrorMessage name="image" />
 
           <label htmlFor="password">Password</label>
-          <Field name="password" type="text" />
+          <Field name="password" type="password" />
           <ErrorMessage name="password" />
 
           <button type="submit">Submit</button>

@@ -10,6 +10,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import {Helmet} from "react-helmet-async"
 
 export const LogIn = () => {
     const { user, setUser, token } = useContext(UserContext)
@@ -26,7 +27,7 @@ export const LogIn = () => {
         left: 0,
         whiteSpace: 'nowrap',
         width: 1,
-      });
+    });
 
     const handleLogin = async (values) => {
         try {
@@ -38,7 +39,7 @@ export const LogIn = () => {
                 localStorage.setItem('token', resp.data)
                 localStorage.setItem("nickname", decoded.nickname)
                 navigate("/home")
-                window.location.reload(); 
+                window.location.reload();
             }
         } catch (error) {
             console.log(error);
@@ -53,6 +54,11 @@ export const LogIn = () => {
 
     return (
         <div id='login' className={darkmode ? "darklogin" : "lightlogin"}>
+            <Helmet>
+                <title>
+                    Log In
+                </title>
+            </Helmet>
             <Formik
                 initialValues={{ nickname: '', password: '', email: '' }}
                 validationSchema={Yup.object({
@@ -84,7 +90,7 @@ export const LogIn = () => {
                     <ErrorMessage name="password" />
 
                     <button type="submit">Submit</button>
-                    
+
                     <h3>Not a member yet? <Link to={"/"}>Sign Up</Link></h3>
                 </Form>
             </Formik>

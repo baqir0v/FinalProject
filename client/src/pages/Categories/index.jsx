@@ -6,7 +6,7 @@ import { Link, useParams } from 'react-router-dom';
 import './index.scss';
 import { UserContext } from '../../Context/userContext';
 import ErrorPage from '../Error';
-
+import { Helmet } from "react-helmet-async"
 
 const CategoriesPage = () => {
     const [data, setData] = useState([]);
@@ -30,6 +30,11 @@ const CategoriesPage = () => {
 
     return (
         <>
+            <Helmet>
+                <title>
+                    Categories
+                </title>
+            </Helmet>
             {user ? (
                 <div id='categories' className={darkmode ? 'darkmoviespage' : 'lightmoviespage'}>
                     <Navbar />
@@ -52,7 +57,7 @@ const CategoriesPage = () => {
                     <Footer />
                 </div>
             ) : (
-                <ErrorPage/>
+                <ErrorPage />
             )}
         </>
     );

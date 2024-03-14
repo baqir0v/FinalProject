@@ -8,7 +8,7 @@ import { toast, ToastContainer } from "react-toastify"
 import Nav from '../../layout/Nav'
 import { UserContext } from '../../Context/userContext'
 import Errorpage from '../Error'
-
+import { Helmet } from "react-helmet-async"
 
 const MoviesPage = () => {
   const [data, setData] = useState([])
@@ -38,6 +38,11 @@ const MoviesPage = () => {
 
   return (
     <>
+      <Helmet>
+        <title>
+          Movies
+        </title>
+      </Helmet>
       {userData.isAdmin === true ? (
         <>
           <Navbar />
@@ -67,9 +72,9 @@ const MoviesPage = () => {
                     </div>
                   </div>
                   <div className="sort">
-                    <button onClick={()=>setSort({property:"name",asc:true})}>A-z</button>
-                    <button onClick={()=>setSort({property:"name",asc:false})}>Z-a</button>
-                    <button onClick={()=>setSort(null)}>Default</button>
+                    <button onClick={() => setSort({ property: "name", asc: true })}>A-z</button>
+                    <button onClick={() => setSort({ property: "name", asc: false })}>Z-a</button>
+                    <button onClick={() => setSort(null)}>Default</button>
                   </div>
                 </div>
                 <div className="datas">

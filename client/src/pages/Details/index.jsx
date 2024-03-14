@@ -16,6 +16,7 @@ import { FaStar } from 'react-icons/fa';
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import ErrorPage from '../Error';
+import {Helmet} from "react-helmet-async"
 
 const Details = () => {
     const [details, setDetails] = useState([]);
@@ -107,6 +108,11 @@ const Details = () => {
 
     return (
         <>
+            <Helmet>
+                <title>
+                    Details
+                </title>
+            </Helmet>
             {user ?
                 <div id='detailpage' className={darkmode ? "darkdetail" : "lightdetail"}>
                     <ToastContainer
@@ -219,7 +225,7 @@ const Details = () => {
                         : ""}
                     <Footer />
                 </div>
-                : <ErrorPage/>
+                : <ErrorPage />
             }
         </>
     );

@@ -6,6 +6,7 @@ import { DarkmodeContext } from '../../Context/darkmodeContext';
 import Navbar from '../../layout/Navbar';
 import Nav from '../../layout/Nav';
 import Errorpage from '../Error';
+import {Helmet} from "react-helmet-async"
 
 const Profile = () => {
   const { user, userData, setUser } = useContext(UserContext);
@@ -20,6 +21,11 @@ const Profile = () => {
   return (
     userData.isAdmin === true ? (
       <div id='profilepage' className={darkmode ? "darkprofile" : 'lightprofile'}>
+        <Helmet>
+          <title>
+            Profile
+          </title>
+        </Helmet>
         <Navbar />
         <div className='profile'>
           <Nav />

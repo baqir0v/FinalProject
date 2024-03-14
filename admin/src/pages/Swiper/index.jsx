@@ -10,6 +10,7 @@ import Navbar from '../../layout/Navbar';
 import Nav from '../../layout/Nav';
 import Errorpage from '../Error';
 import { UserContext } from '../../Context/userContext';
+import { Helmet } from "react-helmet-async"
 
 const Swiper = () => {
     const { darkmode } = useContext(DarkmodeContext);
@@ -40,6 +41,11 @@ const Swiper = () => {
 
     return (
         <>
+            <Helmet>
+                <title>
+                    Swiper
+                </title>
+            </Helmet>
             {userData.isAdmin === true ?
                 <>
                     <Navbar />
@@ -57,6 +63,7 @@ const Swiper = () => {
                             })}
                             onSubmit={(values, { resetForm }) => {
                                 handleAdd(values)
+                                resetForm()
                             }}
                         >
                             <Form encType="multipart/form-data">

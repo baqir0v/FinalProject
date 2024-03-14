@@ -1,4 +1,8 @@
 #kids {
+    input[type=checkbox]{
+        background-color: transparent;
+        opacity: 0;
+    }
     .allmovies {
         display: flex;
         flex-direction: column;
@@ -589,7 +593,7 @@
 }
 
 @media screen and (max-width: 1000px) {
-    #moviespage {
+    #kids {
         .movies {
             img {
                 height: 170px !important;
@@ -600,13 +604,14 @@
 
 @media screen and (max-width: 800px) {
     .movies {
-        grid-template-columns: 1fr 1fr !important;
+        grid-template-columns: 1fr 1fr ;
     }
 }
 
 @media screen and (max-width: 600px) {
-    #moviespage {
+    #kids {
         .movies {
+            grid-template-columns: 1fr ;
             ul {
                 font-size: 10px;
             }

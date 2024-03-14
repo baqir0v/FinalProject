@@ -7,6 +7,7 @@ import axios from 'axios';
 import Nav from '../../layout/Nav';
 import Errorpage from '../Error';
 import { UserContext } from '../../Context/userContext';
+import { Helmet } from "react-helmet-async"
 
 const SwipePage = () => {
     const { darkmode } = useContext(DarkmodeContext);
@@ -40,6 +41,11 @@ const SwipePage = () => {
 
     return (
         <>
+            <Helmet>
+                <title>
+                    SwipePage
+                </title>
+            </Helmet>
             {userData.isAdmin === true ?
                 <>
                     <Navbar />

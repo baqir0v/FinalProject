@@ -36,3 +36,18 @@
 .lightslider{
     background-color: #fcfcfc;
 }
+
+@media screen and (max-width: 1200px) {
+    #slider{
+        height: 40vh;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #slider{
+        height: 23vh;
+        h2{
+            font-size: 10px;
+        }
+    }
+}

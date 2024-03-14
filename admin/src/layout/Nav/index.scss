@@ -1,12 +1,26 @@
-#adminnav{
+#adminnav {
     display: flex;
     flex-direction: column;
     gap: 10px;
     font-size: 20px;
-    a{
+
+    a {
         display: flex;
         gap: 5px;
-        color:#888888 ;
+        color: #888888;
 
+    }
+}
+
+
+.darknavbar {
+    .active {
+        color: white !important;
+    }
+}
+
+.lightnavbar{
+    .active {
+        color: black !important;
     }
 }

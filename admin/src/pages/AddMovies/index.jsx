@@ -11,6 +11,7 @@ import { useEffect } from 'react';
 import Errorpage from '../Error';
 import { UserContext } from '../../Context/userContext'
 import Nav from '../../layout/Nav';
+import { Helmet } from "react-helmet-async"
 
 export const AddMovies = () => {
     const { darkmode } = useContext(DarkmodeContext);
@@ -70,6 +71,11 @@ export const AddMovies = () => {
 
     return (
         <>
+            <Helmet>
+                <title>
+                    Add
+                </title>
+            </Helmet>
             {userData.isAdmin === true ?
                 <>
                     <Navbar />
@@ -104,7 +110,7 @@ export const AddMovies = () => {
                             onSubmit={(values, { resetForm }) => {
                                 console.log(values);
                                 handleAddMovie(values);
-                                // resetForm()
+                                resetForm()
                             }}
                         >
                             {({ values }) => (
@@ -174,7 +180,7 @@ export const AddMovies = () => {
                                     <label htmlFor="video">Video</label>
                                     <div className="inpfile">
                                         <label style={{ cursor: "pointer" }} htmlFor="fileInput" className="custom-file-upload">
-                                            Upload Movie 
+                                            Upload Movie
                                         </label>
                                         <Field name="video">
                                             {({ field, form }) => (

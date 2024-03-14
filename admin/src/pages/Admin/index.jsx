@@ -9,7 +9,7 @@ import { DarkmodeContext } from '../../Context/darkmodeContext'
 import { UserContext } from '../../Context/userContext'
 import Errorpage from '../Error'
 import Nav from '../../layout/Nav'
-
+import {Helmet} from "react-helmet-async"
 
 const AdminPage = () => {
   const [data, setData] = useState([])
@@ -54,8 +54,13 @@ const AdminPage = () => {
   }, [])
   return (
     <>
+      <Helmet>
+        <title>
+          Admin
+        </title>
+      </Helmet>
       {userData.isAdmin === true
-       ?
+        ?
         <>
           <Navbar />
           <div id='adminpage' className={darkmode ? "darkadmin" : "lightadmin"}>
@@ -84,16 +89,16 @@ const AdminPage = () => {
                     </div>
                   </div>
                   <div className="sort">
-                    <button  onClick={()=>setSort({property:"nickname",asc:true})}>A-z</button>
-                    <button  onClick={()=>setSort({property:"nickname",asc:false})}>Z-a</button>
-                    <button  onClick={()=>setSort(null)}>Default</button>
+                    <button onClick={() => setSort({ property: "nickname", asc: true })}>A-z</button>
+                    <button onClick={() => setSort({ property: "nickname", asc: false })}>Z-a</button>
+                    <button onClick={() => setSort(null)}>Default</button>
                   </div>
                 </div>
                 <div className="datas">
                   <h3>Image</h3>
                   <h3>Nickname</h3>
                   <h3>Email</h3>
-                  <h3>Admin</h3>
+                  <h3>Role</h3>
                   <h3>Change Role</h3>
                   <h3>Delete</h3>
                 </div>
@@ -113,8 +118,8 @@ const AdminPage = () => {
                     <div className='datas' key={item._id}>
                       <p><img src={item.image} alt="" /></p>
                       <p>{item.nickname}</p>
-                      <p>{item.email}</p>
-                      <p>{item.isAdmin === true ? "True" : "False"}</p>
+                      <p className='email'>{item.email}</p>
+                      <p>{item.isAdmin === true ? "Admin" : "User"}</p>
                       <p><button className="button-66" role="button" onClick={() => handleChangeAdmin(item)}>Change</button></p>
                       <p><button className="button-67" role="button" onClick={() => handleDelete(item._id)}>Delete</button></p>
                     </div>

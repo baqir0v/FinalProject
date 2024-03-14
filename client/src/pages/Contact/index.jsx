@@ -13,6 +13,7 @@ import Footer from '../../layout/Footer';
 import emailjs from '@emailjs/browser';
 import { UserContext } from '../../Context/userContext';
 import ErrorPage from '../Error';
+import { Helmet } from "react-helmet-async"
 
 const ContactPage = () => {
     const { darkmode } = useContext(DarkmodeContext)
@@ -50,6 +51,11 @@ const ContactPage = () => {
 
     return (
         <>
+            <Helmet>
+                <title>
+                    Contact
+                </title>
+            </Helmet>
             {user ?
                 <>
                     <Navbar />
@@ -99,7 +105,7 @@ const ContactPage = () => {
                     </div>
                     <Footer />
                 </>
-                : <ErrorPage/>}
+                : <ErrorPage />}
         </>
     )
 }

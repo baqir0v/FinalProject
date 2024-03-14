@@ -11,6 +11,7 @@ import { FaFilter } from "react-icons/fa";
 import { Slider } from "antd"
 import { UserContext } from '../../Context/userContext';
 import ErrorPage from '../Error';
+import { Helmet } from "react-helmet-async"
 
 const Kids = () => {
     const [data, setData] = useState([]);
@@ -91,6 +92,11 @@ const Kids = () => {
 
     return (
         <>
+            <Helmet>
+                <title>
+                    Kids
+                </title>
+            </Helmet>
             {user ?
                 <>
                     <div id='kids' className={darkmode ? 'darkmoviespage' : 'lightmoviespage'}>
@@ -155,8 +161,8 @@ const Kids = () => {
                                 <div className='bycategory'>
                                     {catData.map((category) => (
                                         <span className='checkbox-wrapper-29' key={category._id}>
-                                            {category.categoryname}
                                             <label className='checkbox' htmlFor={`category-${category.categoryname}`}>
+                                            {category.categoryname}
                                                 <input
                                                     className='checkbox__input'
                                                     type='checkbox'
@@ -220,7 +226,7 @@ const Kids = () => {
                         <Footer />
                     </div>
                 </>
-                : <ErrorPage/>}
+                : <ErrorPage />}
         </>
     );
 };

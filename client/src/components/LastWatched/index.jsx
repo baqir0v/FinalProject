@@ -60,7 +60,7 @@ const LastWatched = () => {
       {
         userInfo.isWatched.length > 0 && (
           <section id='lastwatched' className={darkmode ? "darkmovies" : "lightmovies"}>
-            <h1>Last Watched</h1>
+            <h1>Recently Viewed </h1>
             <Swiper
               breakpoints={breakpoints}
               spaceBetween={30}

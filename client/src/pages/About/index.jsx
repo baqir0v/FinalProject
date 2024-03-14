@@ -3,15 +3,21 @@ import Navbar from '../../layout/Navbar'
 import Footer from '../../layout/Footer'
 import './index.scss'
 import { DarkmodeContext } from '../../Context/darkmodeContext'
+import {Helmet} from "react-helmet-async"
 
 const AboutPage = () => {
     const { darkmode } = useContext(DarkmodeContext)
 
     return (
         <div id='aboutpage' className={darkmode ? "darkabout" : "lightabout"}>
+            <Helmet>
+                <title>
+                    About
+                </title>
+            </Helmet>
             <Navbar />
             <div className="abouts">
-            <h1 style={{textAlign:"center"}}>About</h1>
+                <h1 style={{ textAlign: "center" }}>About</h1>
                 <div className="about">
                     <div className="aboutcard">
                         <img src="https://themehut.co/wp/movflx/wp-content/uploads/2022/08/blog_thumb02.jpg" alt="" />
@@ -24,7 +30,7 @@ const AboutPage = () => {
                         </p>
                     </div>
                 </div>
-                <div className="about">
+                <div className="about2 about">
                     <div className="aboutcard aboutcard2">
                         <img src="https://themehut.co/wp/movflx/wp-content/uploads/2022/08/blog_thumb01.jpg" alt="" />
                         <span>August 8, 2022</span>
@@ -48,7 +54,7 @@ const AboutPage = () => {
                         </p>
                     </div>
                 </div>
-                <div className="about">
+                <div className="about2 about">
                     <div className="aboutcard aboutcard2">
                         <img src="https://themehut.co/wp/movflx/wp-content/uploads/2022/08/blog_thumb05.jpg" alt="" />
                         <span>August 8, 2022</span>

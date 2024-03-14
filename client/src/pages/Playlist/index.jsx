@@ -6,6 +6,7 @@ import Footer from '../../layout/Footer';
 import { DarkmodeContext } from '../../Context/darkmodeContext';
 import { Link } from 'react-router-dom';
 import ErrorPage from '../Error';
+import { Helmet } from "react-helmet-async"
 
 const Playlist = () => {
     const [data, setData] = useState([]);
@@ -25,12 +26,39 @@ const Playlist = () => {
         }
     };
 
+    const handleWishlist = async () => {
+        try {
+            console.log(userData);
+            if (userData && userData.userId && details._id) {
+                const res = await axios.put(`http://localhost:5500/api/users/addWishlist/${userData.userId}`, { movieId });
+                const userWishlist = res.data.inWishList;
+
+                setIsInWishlist((prev) => !prev);
+                if (userWishlist.includes(details._id)) {
+                    toast.success('Added To List');
+                } else {
+                    toast.error('Deleted From List');
+                }
+                console.log(res.data.inWishList);
+            } else {
+                console.log("User data or movie details are missing");
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     useEffect(() => {
         fetchData();
     }, []);
 
     return (
         <>
+            <Helmet>
+                <title>
+                    Playlist
+                </title>
+            </Helmet>
             {user ? (
                 <>
                     <div id='list' className={darkmode ? 'darklist' : 'lightlist'}>

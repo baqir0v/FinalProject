@@ -7,13 +7,14 @@ import axios from 'axios';
 import './index.scss';
 import { DarkmodeContext } from '../../Context/darkmodeContext';
 import ErrorPage from '../Error';
+import {Helmet} from "react-helmet-async"
 
 const Profile = () => {
   const { user, userData, setUser, updateUserImage } = useContext(UserContext);
   const [data, setData] = useState([])
   const { darkmode } = useContext(DarkmodeContext);
   const [image, setImage] = useState(null);
-  
+
 
 
   const fetchData = async () => {
@@ -69,6 +70,11 @@ const Profile = () => {
 
   return (
     <>
+      <Helmet>
+        <title>
+          Profile
+        </title>
+      </Helmet>
       {user ?
         <>
           <div id='profilepage' className={darkmode ? 'darkprofile' : 'lightprofile'}>
@@ -102,7 +108,7 @@ const Profile = () => {
             <Footer />
           </div>
         </>
-        : <ErrorPage/>}
+        : <ErrorPage />}
     </>
   );
 };

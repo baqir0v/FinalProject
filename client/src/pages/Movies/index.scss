@@ -1,5 +1,9 @@
 #moviespage {
     min-height: 100vh;
+    input[type=checkbox]{
+        opacity: 0;
+        background-color: red !important;
+    }
     .allmovies {
         display: flex;
         flex-direction: column;
@@ -8,7 +12,7 @@
     }
 
     .filtered {
-        width: 80%;
+        width: 80%;     
         padding: 20px 0px;
         display: flex;
         justify-content: space-between;
@@ -322,7 +326,9 @@
                 position: absolute;
                 top: calc(var(--size) * 0.125);
                 left: 0;
-                background: var(--background);
+                // background: var(--background);
+                background-color: transparent;
+                opacity: 0;
             }
 
             .checkbox-wrapper-29 .checkbox__label:after {
@@ -711,3 +717,18 @@
 //     margin-right: calc(var(--size) * 0.45);
 //   }
 // </style>
+
+#moviespage .filtered .bycategory .checkbox-wrapper-29 .checkbox__label:after {
+    transition: 100ms ease-in-out;
+    background:none;
+}
+
+#moviespage .filtered .bycategory .checkbox-wrapper-29 .checkbox__input:checked ~ .checkbox__label:after {
+    border-top-style: none;
+    border-right-style: none;
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    height: calc(var(--size) * 0.5);
+    border-color: transparent !important;
+    background-color: transparent;
+}

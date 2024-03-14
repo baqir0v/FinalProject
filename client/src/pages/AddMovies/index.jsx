@@ -6,6 +6,7 @@ import { DarkmodeContext } from '../../Context/darkmodeContext';
 import "./index.scss";
 import Navbar from '../../layout/Navbar';
 import Footer from '../../layout/Footer';
+import { Helmet } from "react-helmet-async"
 
 export const AddMovies = () => {
     const { darkmode } = useContext(DarkmodeContext);
@@ -51,6 +52,11 @@ export const AddMovies = () => {
 
     return (
         <>
+            <Helmet>
+                <title>
+                    Add
+                </title>
+            </Helmet>
             <Navbar />
             <div id='addmovie' className={darkmode ? "darkaddmovie" : "lightaddmovie"}>
                 <Formik

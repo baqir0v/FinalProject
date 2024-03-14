@@ -21,6 +21,7 @@ import TopRated from '../../components/TopRated';
 import Slider from '../../components/Slider';
 import { UserContext } from '../../Context/userContext';
 import ErrorPage from '../Error';
+import {Helmet} from "react-helmet-async"
 
 const Home = () => {
     const [data, setData] = useState([]);
@@ -74,6 +75,11 @@ const Home = () => {
 
     return (
         <>
+            <Helmet>
+                <title>
+                    Home
+                </title>
+            </Helmet>
             {user ?
                 <>
                     <div id='home' className={darkmode ? "darkhome" : "lighthome"}>
@@ -94,7 +100,7 @@ const Home = () => {
                         <Footer />
                     </div>
                 </>
-                : <ErrorPage/>}
+                : <ErrorPage />}
         </>
     );
 };

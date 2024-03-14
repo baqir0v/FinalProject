@@ -67,29 +67,37 @@ const userController = {
         }
     },
 
- loginUser: async (req, res) => {
-    try {
-        const { email, password } = req.body;
-        const user = await UserModel.findOne({ email });
-
-        if (!user) {
-            return res.status(404).json({ error: "User not found" });
+    loginUser: async (req, res) => {
+        try {
+            const { email, nickname, password } = req.body;
+    
+            // Find a user by both email and nickname
+            const user = await UserModel.findOne({ email, nickname });
+    
+            if (!user) {
+                return res.status(404).json({ error: "User not found" });
+            }
+    
+            const isPasswordValid = await bcrypt.compare(password, user.password);
+            if (!isPasswordValid) {
+                return res.status(404).json({ error: "Invalid password" });
+            }
+    
+            const token = jwt.sign(
+                { userId: user._id, email: user.email, nickname: user.nickname, isAdmin: user.isAdmin, image: user.image },
+                "secretKey",
+                {
+                    expiresIn: "1h",
+                }
+            );
+    
+            res.status(200).json(token);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
         }
-
-        const isPasswordValid = await bcrypt.compare(password, user.password);
-        if (!isPasswordValid) {
-            return res.status(404).json({ error: "Invalid password" });
-        }
-
-        const token = jwt.sign({ userId: user._id, email: user.email, nickname: user.nickname, isAdmin: user.isAdmin, image: user.image }, "secretKey", {
-            expiresIn: "1h",
-        });
-
-        res.status(200).json(token);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-},
+    },
+    
+    
     deleteUser: async (req, res) => {
         try {
             const deleteUserByID = await UserModel.findByIdAndDelete(req.params.id)

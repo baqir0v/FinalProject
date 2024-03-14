@@ -9,6 +9,7 @@ import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import ErrorPage from '../Error'
 import { UserContext } from '../../Context/userContext'
+import { Helmet } from "react-helmet-async"
 
 const Video = () => {
     const [details, setDetails] = useState([])
@@ -32,6 +33,11 @@ const Video = () => {
     }, [])
     return (
         <>
+            <Helmet>
+                <title>
+                    Movie
+                </title>
+            </Helmet>
             {user ?
                 <>
                     <div id='video' className={darkmode ? "darkvideo" : "lightvideo"}>
@@ -63,7 +69,7 @@ const Video = () => {
                             : ""}
                     </div>
                 </>
-                : <ErrorPage/>}
+                : <ErrorPage />}
         </>
     )
 }

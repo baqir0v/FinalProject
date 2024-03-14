@@ -9,7 +9,7 @@ import { Link, NavLink } from 'react-router-dom'
 import { Toaster, useToaster } from 'react-hot-toast';
 import { toast, ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
-
+import {Helmet} from "react-helmet-async"
 
 const AdminPage = () => {
   const [data, setData] = useState([])
@@ -52,6 +52,11 @@ const AdminPage = () => {
   }, [])
   return (
     <>
+      <Helmet>
+        <title>
+          Admin
+        </title>
+      </Helmet>
       <Navbar />
       <div id='adminpage' className={darkmode ? "darkadmin" : "lightadmin"}>
         <div className="adminleft">
